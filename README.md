@@ -42,8 +42,8 @@ Since we ([elgentos](https://elgentos.nl)) have decided to focus solely on build
 
 However, we have moved all selectors to fixtures, making it easy to provide selector fixtures for Luma. We will happily accept any PR's supplying this. In theory it should also be possible to swap these selectors for [Venia](https://venia.magento.com/) selectors.
 
-## Open source-only right now
-We don't do Commerce builds so we haven't spent time creating tests for Commerce-only functionality.
+### Open source-only right now
+We don't do Commerce builds over at elgentos so we haven't spent time creating tests for Commerce-only functionality.
 
 ### No 100% test coverage
 We do not particularly strive for 100% test coverage. We have identified the most common and most revenue-dependent scenarios. For example, we do test viewing products, filtering categories, adding products to the cart, etcetera but we do (currently) not test the [Email a Friend](https://docs.magento.com/user-guide/marketing/email-a-friend.html) or [Compare Products](https://docs.magento.com/user-guide/marketing/product-compare.html) feature since these are rarely used in an average Magento store. We are perfectly willing to merge a PR with these tests of course.
