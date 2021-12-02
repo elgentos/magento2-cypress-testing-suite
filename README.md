@@ -169,6 +169,7 @@ Also add these lines to your `.gitignore` to avoid cluttering your Git repo;
 node_modules
 cypress/screenshots
 cypress/videos
+cypress.env.json
 ```
 
 ## Setup
