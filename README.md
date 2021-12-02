@@ -172,7 +172,7 @@ cypress/videos
 ```
 
 ## Setup
-Some tests are dependent on making changes in the database. This is done through the Magento 2 REST API. You will need to create an admin token for these tests.
+Some tests are dependent on making changes in the database. This is done through the Magento 2 REST API. You will need to create an admin token for these tests. This is easily done using [magerun2](https://github.com/netz98/n98-magerun2).
 
 Get a list of all the admin users: `magerun2 admin:user:list`
 
