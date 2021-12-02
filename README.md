@@ -23,7 +23,7 @@ This testing suite as announced in [Peter Jaap](https://twitter.com/PeterJaap) h
 
 ## Prerequisites
 - Magento 2.3.x / 2.4.x
-- Hyvä
+- [Hyvä](https://hyva.io)
 - `npm`
 - An admin bearer token (see [Setup](#setup))
 
