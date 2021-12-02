@@ -10,7 +10,7 @@ This testing suite as announced in [Peter Jaap](https://twitter.com/PeterJaap) h
 - Click the Star and/or the Watch button in the top right to stay uptodate.
 
 ![image](https://user-images.githubusercontent.com/431360/144490227-0913fe5e-2ded-46ec-a5a2-3880c4b9b30a.png)
-<p align="center"><em>A successful Cypress run</em></p>
+<p align="center"><em>A successful Cypress run which tests the store at https://hyva-demo.elgentos.io</em></p>
 
 ## Table of Contents
 
@@ -27,7 +27,12 @@ This testing suite as announced in [Peter Jaap](https://twitter.com/PeterJaap) h
 - `npm`
 - An admin bearer token (see [Setup](#setup))
 
-## Limitations
+## Assumptions & limitations
+
+### Assumptions
+- Magento 2 runs in Single Store Mode
+- Default language is English
+- Viewport is 1280x1024 (no specific tests for mobile viewports)
 
 ### Not plug & play
 This test suite is _not_ plug & play for your store. A number of tests rely on Magento's default sample data. These tests will fail when you don't have the sample data. It is up to you to change the fixtures/selectors/tests to make them pass for your store.
@@ -40,8 +45,13 @@ However, we have moved all selectors to fixtures, making it easy to provide sele
 ### No 100% test coverage
 We do not particularly strive for 100% test coverage. We have identified the most common and most revenue-dependent scenarios. For example, we do test viewing products, filtering categories, adding products to the cart, etcetera but we do (currently) not test the [Email a Friend](https://docs.magento.com/user-guide/marketing/email-a-friend.html) or [Compare Products](https://docs.magento.com/user-guide/marketing/product-compare.html) feature since these are rarely used in an average Magento store. We are perfectly willing to merge a PR with these tests of course.
 
+### No extensibility / inheritance of tests
+You need to copy the whole suite into your project. We are open to suggestions on how to solve this, see [Discussions](https://github.com/elgentos/magento2-cypress-testing-suite/discussions).
+
 ## Progress
 We are at 62%; 48 out of 78 tests are done.
+
+Wording & naming is subject to change.
 
 | Spec file                | Group                           | Test                                                                                                                                    |
 | ------------------------ | ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
@@ -69,7 +79,7 @@ We are at 62%; 48 out of 78 tests are done.
 | `category.spec.js`         | Category page tests                   | :heavy_check_mark: it can navigate to the category page and filter products on the color red                                          |
 |                          |                                 | :heavy_check_mark: it can sort the products on price from lowest to highest                                                           |
 |                          |                                 | :heavy_check_mark: it can change the number of products to be displayed                                                               |
-|                          |                                 | :black_square_button:: it checks if the breamcrumb is displayed correctly                                                             |
+|                          |                                 | :black_square_button: it checks if the breadcrumb is displayed correctly                                                             |
 |                          |                                 | :black_square_button: it checks if the pagination is working                                                                          |
 |                          |                                 | :black_square_button: it can switch from list to grid view                                                                            |
 | `homepage.spec.js`         | Home page tests                 | :heavy_check_mark: it can navigate to the homepage                                                                                    |
@@ -191,4 +201,8 @@ npx cypress run
 
 ## Contributing
 
-We are very open to contributions! We would love to have Luma- or Venia-specific selector fixture files, new tests, code improvements, a fallback mechanism, etcetera etcetera. We will be updating this readme soon with contribution guidelines.
+We are very open to contributions! We would love to have Luma- or Venia-specific selector fixture files, new tests, code improvements, a fallback mechanism, etcetera etcetera. We will be updating this readme soon with extensive contribution guidelines, but here is a short summary:
+- Avoid creating global `cy` functions ([Custom Commands](https://docs.cypress.io/api/cypress-api/custom-commands)), instead put functions in utils/helpers and import them
+- Avoid creating [aliases](https://docs.cypress.io/guides/core-concepts/variables-and-aliases#Aliases) that are only used once
+- Use `cy.get()` as much as possible, only use `cy.contains()` in specific cases - try to avoid it
+- Do not write assertions in page objects, move those to the spec files. Red flag; `should()` in a page object
