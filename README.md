@@ -32,7 +32,7 @@ This testing suite as announced in [Peter Jaap](https://twitter.com/PeterJaap) h
 ### Assumptions
 - Magento 2 runs in Single Store Mode
 - Default language is English
-- Viewport is 1280x1024 (no specific tests for mobile viewports)
+- Viewport is 1200x800 (no specific tests for mobile viewports)
 
 ### Not plug & play
 This test suite is _not_ plug & play for your store. A number of tests rely on Magento's default sample data. These tests will fail when you don't have the sample data. It is up to you to change the fixtures/selectors/tests to make them pass for your store.
