@@ -136,10 +136,11 @@ The easiest way to install the tests is to clone this repository and move the `c
 ```
 git clone git@github.com:elgentos/magento2-cypress-testing-suite.git 
 mv magento2-cypress-testing-suite/cypress .
+mv magento2-cypress-testing-suite/cypress.json.dist cypress.json
 rm -rf magento2-cypress-testing-suite
 ```
 
-Then create a `cypress.json` file in the root of your project;
+Then edit the `cypress.json` file in the root of your project to update your baseUrl and possibly some other defaults we've set:
 
 ```json
 {
