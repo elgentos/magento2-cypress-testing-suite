@@ -1,7 +1,7 @@
 # elgentos/magento2-cypress-testing-suite
 A community-driven Cypress testing suite for Magento 2
 
-This testing suite as announced in [Peter Jaap](https://twitter.com/PeterJaap) his talk about [Cypress testing in Magento 2 at Reacticon 4](https://youtu.be/2zDliMebOqs?t=4435). Watch the talk for more information about Cypress testing.
+This testing suite was announced in [Peter Jaap](https://twitter.com/PeterJaap) his talk about [Cypress testing in Magento 2 at Reacticon 4](https://youtu.be/2zDliMebOqs?t=4435). Watch the talk for more information about Cypress testing.
 
 **Note:** we haven't open-sourced the actual tests yet. We are busy making our internal codebase consistent to set a good example for contributions to come. If you are interested in using this test suite or contributing, you can:
 
