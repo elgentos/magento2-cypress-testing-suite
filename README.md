@@ -51,7 +51,7 @@ You need to copy the whole suite into your project. We are open to suggestions o
 ## Progress
 We are at 62%; 48 out of 78 tests are done.
 
-Wording & naming is subject to change.
+Wording & naming are subject to change.
 
 | Spec file                | Group                           | Test                                                                                                                                    |
 | ------------------------ | ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
