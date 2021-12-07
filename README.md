@@ -5,7 +5,7 @@ This testing suite was announced in [Peter Jaap](https://twitter.com/PeterJaap) 
 
 **Note:** we haven't open-sourced the actual tests yet. We are busy making our internal codebase consistent to set a good example for contributions to come. If you are interested in using this test suite or contributing, you can:
 
-- Fill out this [Google form](https://docs.google.com/forms/d/1R6hIuP4GVXySGq_SvYPb3XreXE51Lh4i24OQDPdnCg8/edit?usp=sharing) to stay uptodate.
+- Fill out this [Google form](https://forms.gle/VkoCofGUm1Mhw3W76) to stay uptodate.
 
 - Click the Star and/or the Watch button in the top right to stay uptodate.
 
