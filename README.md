@@ -204,6 +204,10 @@ npx cypress run
 # npx cypress open # if you want to use the GUI
 ```
 
+### Running against local environment
+
+Set up your local URL in `cypress/plugins/index.js`. Then add run Cypress with `NODE_ENV; npx cypress run`.
+
 ## Contributing
 
 We are very open to contributions! We would love to have Luma- or Venia-specific selector fixture files, new tests, code improvements, a fallback mechanism, etcetera etcetera. We will be updating this readme soon with extensive contribution guidelines, but here is a short summary:
