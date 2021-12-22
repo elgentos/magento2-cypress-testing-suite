@@ -1,0 +1,17 @@
+{
+  "simpleProductName": "Didi Sport Watch",
+  "configurableProductName": "Breathe-Easy Tank",
+  "outOfStockProductSku": "24-MG02",
+  "outOfStockProductName": "Dash Digital Watch",
+  "currency": "$",
+  "priceRegexp": "\\$\\d+\\.\\d{2}",
+  "category": "Women",
+  "subCategory": "Tops",
+  "outOfStockProductUrl": "/dash-digital-watch.html",
+  "categoryUrl": "/women/tops-women.html",
+  "simpleProductUrl": "/didi-sport-watch.html",
+  "simpleProduct": ",/didi-sport-watch.html",
+  "wishlistUrl": ",/wishlist",
+  "checkoutUrl": ",/checkout",
+  "configurableProductUrl": "/breathe-easy-tank.html"
+}
