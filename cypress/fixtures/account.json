@@ -1,0 +1,27 @@
+{
+  "customer": {
+    "customer": {
+      "email": "test@cypress-testing.com",
+      "firstname": "Test",
+      "lastname": "Test"
+    },
+    "password": "Test!234"
+  },
+  "customerLogin": {
+    "username": "test@cypress-testing.com",
+    "password": "Test!234"
+  },
+  "customerInfo": {
+    "streetAddress": "Teststraat 1",
+    "zip": "9712AB",
+    "phone": "1234567890",
+    "city": "Groningen",
+    "country": "Netherlands",
+    "state": "Groningen"
+  },
+  "tempCustomerInfo": {
+    "firstname": "John",
+    "lastname": "Doe",
+    "password": "Tset!234"
+  }
+}
