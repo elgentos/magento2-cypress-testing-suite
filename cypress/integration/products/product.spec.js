@@ -1,4 +1,4 @@
-import products from "../../fixtures/products"
+import product from "../../fixtures/product"
 import account from "../../fixtures/account"
 import selectors from "../../fixtures/selectors/hyva/product"
 import {Account} from "../../page-objects/account"
@@ -12,12 +12,12 @@ import {Magento2RestApi} from '../../support/magento2-rest-api'
  */
 describe('Simple Product test suite', () => {
     beforeEach(() => {
-        cy.visit(Product.routes.simpleProduct)
+        cy.visit(product.simpleProductUrl)
     })
 
     it('Can see a title and image for the product', () => {
         cy.get(selectors.productTitle)
-            .should('contain.text', products.simpleProductName)
+            .should('contain.text', product.simpleProductName)
             .should('be.visible')
         cy.get(selectors.productImage)
             .should('have.attr', 'src')
@@ -26,10 +26,10 @@ describe('Simple Product test suite', () => {
 
     it('Can see a price for the product', () => {
         cy.get(selectors.productPrice)
-            .should('contain', products.currency)
+            .should('contain', product.currency)
             .then(($price) => {
                 // Still unsure about this but can't think of a cypress way to test this
-                const bool = (new RegExp(products.priceRegexp)).test($price[0].innerText)
+                const bool = (new RegExp(product.priceRegexp)).test($price[0].innerText)
                 expect(bool).to.be.true
             })
     })
@@ -37,7 +37,7 @@ describe('Simple Product test suite', () => {
     it('Can add a product to the cart from the product page', () => {
         cy.get(selectors.addToCartButton).click()
         cy.get(selectors.successMessage)
-            .contains(`You added ${products.simpleProductName} to your shopping cart.`)
+            .contains(`You added ${product.simpleProductName} to your shopping cart.`)
         // Requires a wait for the product count to update
         cy.wait(1000)
         cy.get(selectors.cartIconProductCount)
@@ -49,7 +49,6 @@ describe('Simple Product test suite', () => {
         cy.get(selectors.breadCrumbItems)
             .should('have.length.gte', 2)
     })
-
 
     it('Can\'t add a product to a wishlist when the user in not logged in', () => {
         cy.get(selectors.addToWishlistButton).click()
@@ -107,7 +106,7 @@ describe('Simple Product test suite', () => {
     })
 
     it('Can\'t add an out of stock product to the cart', () => {
-        Magento2RestApi.updateProductQty(products.outOfStockProductSku, 0)
+        Magento2RestApi.updateProductQty(product.outOfStockProductSku, 0)
         cy.visit(products.outOfStockProductUrl)
         cy.get(selectors.productStockMessage)
             .should('exist')

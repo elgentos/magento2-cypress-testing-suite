@@ -1,10 +1,17 @@
 {
-  "products": {
-    "categoryUrl": "/women/tops-women.html",
-    "category": "Women",
-    "subCategory": "Tops",
-    "simpleProductUrl": "/didi-sport-watch.html",
-    "simpleProductName": "Didi Sport Watch",
-    "simpleSearchTerm": "didi"
-  }
+  "category": "Women",
+  "subCategory": "Tops",
+  "selectByPrice": "Price",
+  "simpleProductName": "Didi Sport Watch",
+  "simpleProductUrl": "/didi-sport-watch.html",
+  "configurableProductUrl": "/breathe-easy-tank.html",
+  "categoryUrl": "/women/tops-women.html",
+  "configurableProductName": "Breathe-Easy Tank",
+  "outOfStockProductSku": "24-MG02",
+  "outOfStockProductUrl": "dash-digital-watch.html",
+  "outOfStockProductName": "Dash Digital Watch",
+  "productAttributeSelector": ".swatch-attribute-options",
+  "currency": "$",
+  "priceRegexp": "\\$\\d+\\.\\d{2}",
+  "simpleSearchTerm": "didi"
 }
