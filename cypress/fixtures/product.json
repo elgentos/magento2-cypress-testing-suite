@@ -15,6 +15,6 @@
   "currency": "$",
   "couponProductUrl": "/affirm-water-bottle.html",
   "couponCode": "H20",
-  "priceRegexp": "\\$\\d+\\.\\d{2}"
+  "priceRegexp": "\\$\\d+\\.\\d{2}",
   "simpleSearchTerm": "didi"
 }
