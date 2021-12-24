@@ -87,6 +87,8 @@ Wording & naming are subject to change.
 |                          |                                 | :heavy_check_mark: it checks if the pagination is working                                                                          |
 |                          |                                 | :heavy_check_mark: it can switch from list to grid view                                                                            |
 | `homepage.spec.js`         | Home page tests                 | :heavy_check_mark: it can navigate to the homepage                                                                                    |
+|                          |                                 | :heavy_check_mark: it can perform search from homepage                                                             |
+|                          |                                 | :heavy_check_mark: it can open a category                                                             | 
 |                          |                                 | :black_square_button: it can show the header correctly and all links work                                                             |
 |                          |                                 | :black_square_button: it can show the footer correctly and all links work                                                             |
 |                          |                                 | :black_square_button: it can show the main section of the homepage correctly and all links work                                       |
