@@ -1,38 +1,15 @@
+import selectors from '../fixtures/selectors/hyva/account'
+import account from '../fixtures/account'
+
 export class Account {
-    /** Routes **/
-    static routes = {
-        accountIndexRoute: '/customer/account/index/',
-        accountEditRoute: '/customer/account/edit/',
-        accountCreateRoute: '/customer/account/create/',
-        accountOrderHistory: '/sales/order/history',
-        accountAddAddress: '/customer/address/new'
-    };
-
-    /** Selectors **/
-    static elements = {
-        changePasswordFormSelector: '#form-validate',
-        addAddressFormSelector: '#form-validate',
-        accountFirstnameInputSelector: '#firstname',
-        accountLastnameInputSelector: '#lastname',
-        currentPasswordInputSelector: '#current-password',
-        newPasswordInputSelector: '#password',
-        newPasswordConfirmationInputSelector: '#password-confirmation',
-        accountEmailInputSelector: '#email_address',
-        loginEmailInputSelector: '#email',
-        loginPasswordInputSelector: '#pass',
-        myAccountHeaderSelector: '[data-ui-id="page-title-wrapper"]',
-        defaultBillingAddress: '#primary_billing',
-        defaultShippingAddress: '#primary_shipping',
-    };
-
     static login(user, pw) {
-        cy.visit(this.routes.accountIndexRoute);
-        cy.get(this.elements.loginEmailInputSelector).type(user)
-        cy.get(this.elements.loginPasswordInputSelector).type(`${pw}{enter}`)
+        cy.visit(account.routes.accountIndex);
+        cy.get(selectors.loginEmailInputSelector).type(user)
+        cy.get(selectors.loginPasswordInputSelector).type(`${pw}{enter}`)
     }
 
     static isLoggedIn() {
-        cy.contains(this.elements.myAccountHeaderSelector, 'My Account')
+        cy.contains(selectors.myAccountHeaderSelector, 'My Account')
     }
 
     static goToProfile() {
@@ -40,35 +17,35 @@ export class Account {
     }
 
     static checkAllProfileSpecs() {
-        cy.get(this.elements.accountFirstnameInputSelector).should('be.visible')
-        cy.get(this.elements.accountLastnameInputSelector).should('be.visible')
+        cy.get(selectors.accountFirstnameInputSelector).should('be.visible')
+        cy.get(selectors.accountLastnameInputSelector).should('be.visible')
         cy.contains('Change Email').should('be.visible').and('not.be.checked')
         cy.contains('Change Password').should('be.visible').and('not.be.checked')
     }
 
     static changePassword(pwd, newPwd) {
-        cy.get(this.elements.changePasswordFormSelector).within(($from) => {
+        cy.get(selectors.changePasswordFormSelector).within(($from) => {
             cy.contains('Change Password').click()
-            cy.get(this.elements.currentPasswordInputSelector).type(pwd)
-            cy.get(this.elements.newPasswordInputSelector).type(newPwd)
-            cy.get(this.elements.newPasswordConfirmationInputSelector).type(newPwd + '{enter}')
+            cy.get(selectors.currentPasswordInputSelector).type(pwd)
+            cy.get(selectors.newPasswordInputSelector).type(newPwd)
+            cy.get(selectors.newPasswordConfirmationInputSelector).type(`${newPwd}{enter}`)
         })
     }
 
     static changeProfileValues(fn, ln) {
         cy.get('#form-validate').within(($form) => {
-            cy.get(this.elements.accountFirstnameInputSelector).clear().type(fn)
-            cy.get(this.elements.accountLastnameInputSelector).clear().type(`${ln}{enter}`)
+            cy.get(selectors.accountFirstnameInputSelector).clear().type(fn)
+            cy.get(selectors.accountLastnameInputSelector).clear().type(`${ln}{enter}`)
         })
         cy.window().then((w) => w.initial = true)
     }
 
     static createNewCustomer(firstName, lastName, email, passwd) {
-        cy.get(this.elements.accountFirstnameInputSelector).type(firstName)
-        cy.get(this.elements.accountLastnameInputSelector).type(lastName)
-        cy.get(this.elements.accountEmailInputSelector).type(email)
-        cy.get(this.elements.newPasswordInputSelector).type(passwd)
-        cy.get(this.elements.newPasswordConfirmationInputSelector).type(`${passwd}{enter}`)
+        cy.get(selectors.accountFirstnameInputSelector).type(firstName)
+        cy.get(selectors.accountLastnameInputSelector).type(lastName)
+        cy.get(selectors.accountEmailInputSelector).type(email)
+        cy.get(selectors.newPasswordInputSelector).type(passwd)
+        cy.get(selectors.newPasswordConfirmationInputSelector).type(`${passwd}{enter}`)
     }
 
     static logout() {
@@ -78,8 +55,8 @@ export class Account {
 
     /** Create an address that is used with other tests */
     static createAddress(customerInfo) {
-        cy.visit(this.routes.accountAddAddress)
-        cy.get(this.elements.addAddressFormSelector).then(($form) => {
+        cy.visit(account.routes.accountAddAddress)
+        cy.get(selectors.addAddressFormSelector).then(($form) => {
             if ($form.find('#primary_billing').length) {
                 cy.get('#primary_billing').check()
                 cy.get('#primary_shipping').check()

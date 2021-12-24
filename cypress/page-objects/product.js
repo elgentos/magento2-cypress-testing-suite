@@ -5,7 +5,7 @@ export class Product {
         category: '/women/tops-women.html',
         wishlist: '/wishlist',
         checkout: '/checkout',
-        configurableProduct: "/breathe-easy-tank.html",
+        cart: '/checkout/cart',
     }
 
     static navigate() {

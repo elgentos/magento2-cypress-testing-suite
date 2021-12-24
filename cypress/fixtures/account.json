@@ -23,5 +23,14 @@
     "firstname": "John",
     "lastname": "Doe",
     "password": "Tset!234"
+  },
+  "routes": {
+    "accountIndex": "/customer/account/index/",
+    "accountEdit": "/customer/account/edit/",
+    "accountCreate": "/customer/account/create/",
+    "accountOrderHistory": "/sales/order/history",
+    "accountAddAddress": "/customer/address/new",
+    "accountAddresses": "/customer/address",
+    "manageNewsletter": "/newsletter/manage/"
   }
 }
