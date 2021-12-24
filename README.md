@@ -83,14 +83,16 @@ Wording & naming are subject to change.
 | `category.spec.js`         | Category page tests                   | :heavy_check_mark: it can navigate to the category page and filter products on the color red                                          |
 |                          |                                 | :heavy_check_mark: it can sort the products on price from lowest to highest                                                           |
 |                          |                                 | :heavy_check_mark: it can change the number of products to be displayed                                                               |
-|                          |                                 | :black_square_button: it checks if the breadcrumb is displayed correctly                                                             |
-|                          |                                 | :black_square_button: it checks if the pagination is working                                                                          |
-|                          |                                 | :black_square_button: it can switch from list to grid view                                                                            |
+|                          |                                 | :heavy_check_mark: it checks if the breadcrumb is displayed correctly                                                             |
+|                          |                                 | :heavy_check_mark: it checks if the pagination is working                                                                          |
+|                          |                                 | :heavy_check_mark: it can switch from list to grid view                                                                            |
 | `homepage.spec.js`         | Home page tests                 | :heavy_check_mark: it can navigate to the homepage                                                                                    |
+|                          |                                 | :heavy_check_mark: it can perform search from homepage                                                             |
+|                          |                                 | :heavy_check_mark: it can open a category                                                             | 
 |                          |                                 | :black_square_button: it can show the header correctly and all links work                                                             |
 |                          |                                 | :black_square_button: it can show the footer correctly and all links work                                                             |
 |                          |                                 | :black_square_button: it can show the main section of the homepage correctly and all links work                                       |
-|                          |                                 | :black_square_button: it you can subscribe to a newsletter                                                                            |
+|                          |                                 | :heavy_check_mark: it you can subscribe to a newsletter                                                                            |
 |                          |                                 | :black_square_button: it add products shown on the homepage to the cart when a add to cart button is present                          |
 |                          |                                 | :black_square_button: it shows the cookie banner when cookies are not accepted yet                                                    |
 |                          |                                 | :black_square_button: it shows everything correctly on mobile view                                                                    |
