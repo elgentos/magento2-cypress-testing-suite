@@ -1,10 +1,10 @@
 import {Account} from '../../page-objects/account'
-import {Product} from '../../page-objects/product'
 import {Magento2RestApi} from '../../support/magento2-rest-api'
 import account from '../../fixtures/account'
+import checkout from '../../fixtures/checkout'
 import product from '../../fixtures/product'
-import selectors from '../../fixtures/selectors/hyva/account'
 import checkoutSelectors from '../../fixtures/selectors/hyva/checkout'
+import selectors from '../../fixtures/selectors/hyva/account'
 
 describe('Account test creation', () => {
     it('Can create an account', () => {
@@ -133,9 +133,9 @@ describe('Account activities', () => {
 
     it('Can add an address automatically from saved address\'', () => {
         // There needs to be an item in the cart for this to work, and there needs to be a saved address
-        cy.visit(Product.routes.simpleProduct)
+        cy.visit(product.simpleProductUrl)
         cy.contains('Add to Cart').click()
-        cy.visit(Product.routes.checkout)
+        cy.visit(checkout.checkoutUrl)
         cy.wait(1000) // this shouldn't be needed but for some reason it doesn't work without
         cy.get('[id^="additional.shipping_address_selected_other_option_"]').should('have.length.above', 1)
     })
@@ -159,19 +159,19 @@ describe('Account activities', () => {
     })
 
     it('Can add a product the a wishlist', () => {
-        cy.visit(Product.routes.simpleProduct)
+        cy.visit(product.simpleProductUrl)
         // cy.get('[aria-label="store logo"]').click()
         cy.get(selectors.addToWishlistButton).eq(0).click()
         cy.get(selectors.wishlistTitle).should('contain.text', 'My Wish List').should('exist')
-        cy.visit(Product.routes.wishlist).then(() => {
+        cy.visit(product.wishlistUrl).then(() => {
             cy.get('.toolbar-number').should('exist')
-            cy.contains(product.products.simpleProductName).should('exist')
+            cy.contains(product.simpleProductName).should('exist')
         })
     })
 
     it('Can edit the wishlist and remove item', () => {
         // Add comment/check qtty/send list/remove item
-        cy.visit(Product.routes.wishlist)
+        cy.visit(product.wishlistUrl)
         cy.get(selectors.wishlistItemCommentField).first().type('foobar')
         cy.get(selectors.wishlistUpdateButton).click()
         cy.get(selectors.wishlistItemCommentField).should("contain.text", 'foobar')
@@ -183,7 +183,7 @@ describe('Account activities', () => {
         cy.get(selectors.wishlistShareTitle).should('contain.text', 'Wish List Sharing').should('exist')
         cy.get(selectors.wishlistShareBackLink).click()
         cy.get(selectors.wishlistRemoveItemButton).first().click().then(() => {
-            cy.get(selectors.successMessage).should('contain.text', `${product.products.simpleProductName} has been removed from your Wish List.`).should('exist')
+            cy.get(selectors.successMessage).should('contain.text', `${product.simpleProductName} has been removed from your Wish List.`).should('exist')
         })
     })
 
@@ -196,7 +196,7 @@ describe('Account activities', () => {
 
 describe('Guest user test', () => {
     it('Can login from cart', () => {
-        cy.visit(Product.routes.simpleProduct)
+        cy.visit(product.simpleProductUrl)
         cy.get(checkoutSelectors.addToCartButton).click()
         cy.get(selectors.successMessageCartLink).contains('shopping cart').click()
         cy.visit(account.routes.accountIndex);
@@ -209,13 +209,13 @@ describe('Guest user test', () => {
             // Could pass when I should fail?
             expect($input[0].valueAsNumber).to.be.at.least(1)
         })
-        cy.contains(product.products.simpleProductName).should('exist')
+        cy.contains(product.simpleProductName).should('exist')
     })
 
     it('Can login from checkout', () => {
-        cy.visit(Product.routes.simpleProduct)
+        cy.visit(product.simpleProductUrl)
         cy.get(checkoutSelectors.addToCartButton).should('contain.text', 'Add to Cart').click()
-        cy.visit(Product.routes.checkout)
+        cy.visit(checkout.checkoutUrl)
         cy.get(checkoutSelectors.checkoutLoginToggle).click()
         cy.get(checkoutSelectors.checkoutEmailLabel).click().type(account.customer.customer.email)
         // cy.get(checkoutSelectors.checkoutEmailField).type(account.customer.customer.email)
