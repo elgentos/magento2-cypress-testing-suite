@@ -59,7 +59,7 @@
   "checkoutTotalPrice": "#react-checkout .mt-3 > .flex > :nth-child(2)",
   "orderConfirmationOrderNumber": "strong",
   "accountViewOrder": "[title=\"View Order\"]",
-  "orderHistoryOrderNumber": ".text-2xl"
+  "orderHistoryOrderNumber": ".text-2xl",
   "miniCartIcon": "#menu-cart-icon",
   "cartDrawerEditLink": "#cart-drawer a",
   "productQuantityField": "[id^=\"qty-\"]"
