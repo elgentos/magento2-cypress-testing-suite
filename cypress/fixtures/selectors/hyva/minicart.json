@@ -7,11 +7,11 @@
   "firstProductAmount": ":nth-child(2) > .w-3\\/4 > :nth-child(1) > .text-xl > [x-html=\"item.qty\"]",
   "secondProductAmount": ":nth-child(3) > .w-3\\/4 > :nth-child(1) > .text-xl > [x-html=\"item.qty\"]",
   "miniCartSubtotal": "[x-html=\"cart.subtotal\"] > .price",
-  "removeProductButton": ".pt-4 > button.inline-flex > .w-5",
+  "removeProductButton": ".pt-4 > button.inline-flex",
   "miniCartProductName": "[x-html=\"item.product_name\"]",
   "miniCartEditProductButton": ".pt-4 > .mr-2",
   "PDPProductName": ".order-2 > .text-xl",
-  "miniCartViewCartLink": ".underline",
+  "miniCartViewCartLink": "#cart-drawer .underline",
   "pageTitle": "h1.page-title",
-  "miniCartCheckoutButton": ":nth-child(3) > :nth-child(2) > .inline-flex"
+  "miniCartCheckoutButton": "#cart-drawer :nth-child(3) > :nth-child(2) > .inline-flex"
 }

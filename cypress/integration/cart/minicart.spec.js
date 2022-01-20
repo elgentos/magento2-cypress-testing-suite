@@ -1,5 +1,5 @@
-import minicart from "../../fixtures/minicart"
-import selectors from "../../fixtures/selectors/hyva/minicart"
+import minicart from "../../fixtures/minicart.json"
+import selectors from "../../fixtures/selectors/hyva/minicart.json"
 
 describe('Mini cart tests', () => {
     beforeEach(() => {
