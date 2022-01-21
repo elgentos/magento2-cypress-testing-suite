@@ -1,0 +1,18 @@
+{
+    "category": "Women",
+    "categoryUrl": "/women/tops-women.html",
+    "configurableProductName": "Breathe-Easy Tank",
+    "configurableProductUrl": "/breathe-easy-tank.html",
+    "couponCode": "H20",
+    "couponProductUrl": "/affirm-water-bottle.html",
+    "currency": "$",
+    "outOfStockProductName": "Dash Digital Watch",
+    "outOfStockProductSku": "24-MG02",
+    "outOfStockProductUrl": "dash-digital-watch.html",
+    "priceRegexp": "\\$\\d+\\.\\d{2}",
+    "selectByPrice": "Price",
+    "simpleProductName": "Didi Sport Watch",
+    "simpleProductUrl": "/didi-sport-watch.html",
+    "simpleSearchTerm": "didi",
+    "subCategory": "Tops"
+}
