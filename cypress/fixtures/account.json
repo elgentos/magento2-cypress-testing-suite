@@ -7,30 +7,31 @@
     },
     "password": "Test!234"
   },
-  "customerLogin": {
-    "username": "test@cypress-testing.com",
-    "password": "Test!234"
-  },
   "customerInfo": {
-    "streetAddress": "Teststraat 1",
-    "zip": "9712AB",
-    "phone": "1234567890",
     "city": "Groningen",
     "country": "Netherlands",
-    "state": "Groningen"
+    "phone": "1234567890",
+    "state": "Groningen",
+    "streetAddress": "Teststraat 1",
+    "zip": "9712AB"
+  },
+  "customerLogin": {
+    "password": "Test!234",
+    "username": "test@cypress-testing.com"
+  },
+  "routes": {
+    "accountAddAddress": "/customer/address/new",
+    "accountAddresses": "/customer/address",
+    "accountCreate": "/customer/account/create/",
+    "accountEdit": "/customer/account/edit/",
+    "accountIndex": "/customer/account/index/",
+    "accountOrderHistory": "/sales/order/history",
+    "manageNewsletter": "/newsletter/manage/",
+    "wishlist": "/wishlist"
   },
   "tempCustomerInfo": {
     "firstname": "John",
     "lastname": "Doe",
     "password": "Tset!234"
-  },
-  "routes": {
-    "accountIndex": "/customer/account/index/",
-    "accountEdit": "/customer/account/edit/",
-    "accountCreate": "/customer/account/create/",
-    "accountOrderHistory": "/sales/order/history",
-    "accountAddAddress": "/customer/address/new",
-    "accountAddresses": "/customer/address",
-    "manageNewsletter": "/newsletter/manage/"
   }
 }
