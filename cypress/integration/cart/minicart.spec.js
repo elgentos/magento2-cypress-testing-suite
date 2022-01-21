@@ -49,14 +49,12 @@ describe('Test without added product',() => {
                 expect(productPrice).to.equal(productPrice2MiniCart)
                 cy.get(selectors.firstProductAmount).invoke('data', 'item-qty').then(($qty) => {
                     const qty = $qty
-                    console.log(qty, 'qty')
                     cy.get(selectors.miniCartSubtotal).then(($total) => {
                         const total = parseInt($total[0].textContent.trim())
                         cy.get(selectors.miniCartFirstProductPrice).then(($productPriceMiniCart) => {
                             const productPriceMiniCart = $productPriceMiniCart[0].textContent.trim().slice(0, -1)
                             console.log(productPriceMiniCart, '$productPriceMiniCart')
                             const subTotal = (parseFloat(productPriceMiniCart) * parseFloat(qty))
-                            console.log(subTotal, 'subTotal')
                             expect(subTotal).to.equal(+total)
                         })
                     })
