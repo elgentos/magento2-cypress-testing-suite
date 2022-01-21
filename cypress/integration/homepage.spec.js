@@ -1,7 +1,7 @@
-import homepage from "../fixtures/homepage"
-import selectors from "../fixtures/selectors/hyva/homepage"
-import product from "../fixtures/product"
-import account from "../fixtures/account"
+import homepage from "../fixtures/homepage.json"
+import selectors from "../fixtures/selectors/hyva/homepage.json"
+import product from "../fixtures/product.json"
+import account from "../fixtures/account.json"
 
 describe('Home page tests', () => {
     beforeEach(() => {
@@ -19,9 +19,9 @@ describe('Home page tests', () => {
         cy.get(selectors.searchIcon).click()
         cy.get(selectors.searchBar)
             .should('be.visible')
-            .type(`${product.products.simpleProductName}{enter}`)
+            .type(`${product.simpleProductName}{enter}`)
         cy.get(selectors.mainHeading)
-            .should('contain.text', product.products.simpleProductName)
+            .should('contain.text', product.simpleProductName)
     })
 
     it('Can open category',  () => {
