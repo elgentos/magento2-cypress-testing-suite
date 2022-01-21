@@ -5,3 +5,4 @@
 ._.DS_Store
 node_modules
 .gitignore
+/.gitignore
