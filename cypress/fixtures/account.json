@@ -13,11 +13,10 @@
   },
   "customerInfo": {
     "streetAddress": "Teststraat 1",
-    "zip": "9712AB",
+    "zip": "1832",
     "phone": "1234567890",
     "city": "Groningen",
-    "country": "Netherlands",
-    "state": "Groningen"
+    "country": "Deutschland"
   },
   "tempCustomerInfo": {
     "firstname": "John",

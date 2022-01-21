@@ -1,4 +1,4 @@
-import selectors from '../fixtures/selectors/hyva/account'
+import selectors from '../fixtures/selectors/luma/account'
 import account from '../fixtures/account'
 
 export class Account {
@@ -13,19 +13,18 @@ export class Account {
     }
 
     static goToProfile() {
-        cy.contains('Account Information').click()
+        cy.get(':nth-child(8) > a').click()
     }
 
     static checkAllProfileSpecs() {
         cy.get(selectors.accountFirstnameInputSelector).should('be.visible')
         cy.get(selectors.accountLastnameInputSelector).should('be.visible')
-        cy.contains('Change Email').should('be.visible').and('not.be.checked')
-        cy.contains('Change Password').should('be.visible').and('not.be.checked')
+        cy.contains('E-Mail ändern').should('be.visible').and('not.be.checked')
+        cy.contains('Passwort ändern').should('be.visible').and('not.be.checked')
     }
 
     static changePassword(pwd, newPwd) {
         cy.get(selectors.changePasswordFormSelector).within(($from) => {
-            cy.contains('Change Password').click()
             cy.get(selectors.currentPasswordInputSelector).type(pwd)
             cy.get(selectors.newPasswordInputSelector).type(newPwd)
             cy.get(selectors.newPasswordConfirmationInputSelector).type(`${newPwd}{enter}`)
@@ -49,8 +48,10 @@ export class Account {
     }
 
     static logout() {
-        cy.get('[aria-label="My Account"]').click()
-        cy.get('[aria-labelledby="customer-menu"]').contains('Sign Out').click()
+        cy.get('.items > :nth-child(1) > a').click()
+        cy.wait(4000)
+        cy.get(':nth-child(2) > .customer-welcome > .customer-name > .action').click()
+        cy.contains('Abmelden').click()
     }
 
     /** Create an address that is used with other tests */
@@ -66,8 +67,7 @@ export class Account {
             cy.get('#telephone').type(customerInfo.phone)
             cy.get('#zip').type(customerInfo.zip)
             cy.get('#country').select(customerInfo.country)
-            cy.get('#region').type(customerInfo.state)
-            cy.contains('Save Address').click()
+            cy.contains('Adresse speichern').click()
         })
     }
 

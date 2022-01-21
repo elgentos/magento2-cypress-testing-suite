@@ -1,0 +1,8 @@
+{
+  "pageHeader": ".base",
+  "toolbarNumber": "#toolbar-amount .toolbar-number",
+  "noResultsMessage": ".message > div",
+  "headerSearchIcon": "#search",
+  "headerSearchField": "#search",
+  "searchSuggestions": ".qs-option-name"
+}

@@ -1,3 +1,5 @@
+import 'cypress-localstorage-commands'
+
 Cypress.Commands.add('login', (email, pw) => {
     it('Test login', () => {
         cy.visit('/customer/account/login/')

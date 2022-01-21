@@ -1,5 +1,5 @@
 import homepage from "../fixtures/homepage"
-import selectors from "../fixtures/selectors/hyva/homepage"
+import selectors from "../fixtures/selectors/luma/homepage"
 import product from "../fixtures/product"
 import account from "../fixtures/account"
 
@@ -9,19 +9,18 @@ describe('Home page tests', () => {
     })
 
     it('Can visit the homepage and it contains products', () => {
-        cy.get(selectors.mainHeading)
+        cy.get(selectors.mainTitle)
             .should('contain.text', homepage.titleText)
         cy.get(selectors.productCard)
-            .should('have.length.gte', 4)
+            .should('have.length.gte', 7)
     })
 
     it('Can perform search from homepage', () => {
-        cy.get(selectors.searchIcon).click()
-        cy.get(selectors.searchBar)
+        cy.get(selectors.searchIcon)
             .should('be.visible')
-            .type(`${product.products.simpleProductName}{enter}`)
+            .type(`${product.simpleProductName}{enter}`)
         cy.get(selectors.mainHeading)
-            .should('contain.text', product.products.simpleProductName)
+            .should('contain.text', product.simpleProductName)
     })
 
     it('Can open category',  () => {
@@ -33,15 +32,8 @@ describe('Home page tests', () => {
     })
 
     it('Can subscribe to newsletter', () => {
-        cy.get(selectors.subscribeToNewsletterField).type(account.customer.customer.email)
+        cy.get(selectors.subscribeToNewsletterField).type(Date.now() + account.customer.customer.email)
         cy.get(selectors.newsletterSubscribeButton).click()
-        cy.wait(0)
-        cy.get('#messages').then(($messageSection) => {
-            if(!$messageSection.find(selectors.failedMessage).text().trim()){
-                cy.get(selectors.successMessage).should('contain.text', homepage.subscriptionSuccess)
-            } else {
-                cy.get(selectors.failedMessage).should('contain.text', homepage.subscriptionFail)
-            }
-        })
+        cy.get(selectors.successMessage).should('contain.text', homepage.subscriptionSuccess)
     })
 })

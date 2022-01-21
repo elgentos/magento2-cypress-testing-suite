@@ -1,6 +1,6 @@
 import product from "../../fixtures/product"
 import account from "../../fixtures/account"
-import selectors from "../../fixtures/selectors/hyva/product"
+import selectors from "../../fixtures/selectors/luma/product"
 import {Account} from "../../page-objects/account"
 import {Product} from "../../page-objects/product";
 import {Magento2RestApi} from '../../support/magento2-rest-api'
@@ -13,6 +13,7 @@ import {Magento2RestApi} from '../../support/magento2-rest-api'
 describe('Simple Product test suite', () => {
     beforeEach(() => {
         cy.visit(product.simpleProductUrl)
+        cy.wait(2000)
     })
 
     it('Can see a title and image for the product', () => {
@@ -37,9 +38,10 @@ describe('Simple Product test suite', () => {
     it('Can add a product to the cart from the product page', () => {
         cy.get(selectors.addToCartButton).click()
         cy.get(selectors.successMessage)
-            .contains(`You added ${product.simpleProductName} to your shopping cart.`)
+            .contains(`Sie haben ${product.simpleProductName} zu Ihrem Warenkorb hinzugefügt.`)
         // Requires a wait for the product count to update
         cy.wait(1000)
+        cy.get('.showcart').click()
         cy.get(selectors.cartIconProductCount)
             .invoke('text').then(parseFloat)
             .should('be.gte', 1)
@@ -51,68 +53,67 @@ describe('Simple Product test suite', () => {
     })
 
     it('Can\'t add a product to a wishlist when the user in not logged in', () => {
-        cy.get(selectors.addToWishlistButton).click()
+        cy.get(selectors.addToWishlistButtonGuest).click()
+        cy.wait(2000)
         cy.get(selectors.errorMessage)
             .should('exist')
-            .should("contain.text", 'You must login or register to add items to your wishlist.')
+            .should("contain.text", 'Sie müssen sich einloggen oder registrieren, um Produkte zu Ihrer Wunschliste hinzuzufügen.')
     })
 
     it('Can add a product to the wishlist when customer is logged in', () => {
         const customerMail = Date.now() + account.customer.customer.email
-        cy.visit(Account.routes.accountCreateRoute)
+        cy.visit(account.routes.accountCreate)
         Account.createNewCustomer(account.customer.customer.firstname, account.customer.customer.lastname, customerMail, account.customer.password)
         cy.visit(Product.routes.simpleProduct)
+        cy.wait(3000)
         cy.get(selectors.addToWishlistButton).click().then(() => {
+            cy.wait(3000)
             cy.get(selectors.successMessage)
-                .should('include.text', `${products.simpleProductName} has been added to your Wish List.`)
+                .should('include.text', `${product.simpleProductName} wurde zu Ihrer Wunschliste hinzugefügt. Klicken Sie hier um weiter einzukaufen.`)
                 .should('be.visible')
         })
     })
 
     it('Can see product review score and the individual reviews', () => {
         cy.get(selectors.productRatingStar)
-            .should('have.length', 5)
-        cy.get(selectors.customerReviewTitle)
+            .should('have.length', 1)
+        cy.get(selectors.customerReviewView)
             .should('exist')
-            .should('include.text','Customer Reviews')
+            .should('be.visible')
         cy.get(selectors.productCustomerReviews)
-            .should('have.length.gte', 1)
+            .should('exist')
+            .should('be.visible')
     })
 
     it('Can add reviews to a product', () => {
-        cy.get(selectors.productCustomerReviewWriteTitle)
+        cy.get(selectors.productCustomerReviews)
             .should('exist')
-            .should('contain.text', 'Write Your Own Review')
+            .should('contain.text', 'Fügen Sie Ihre Bewertung hinzu')
+            .click()
+        cy.wait(1000)
         cy.get(selectors.reviewReviewerNameField).type('Someone')
-            .should('have.value', 'Someone')
+            // .should('have.value', 'Someone')
+        cy.wait(1000)
         cy.get(selectors.reviewSummeryField).type('Something')
-            .should('have.value', 'Something')
+            // .should('have.value', 'Something')
+        cy.wait(1000)
         cy.get(selectors.reviewReviewField).type('Longer something')
-            .should('have.value', 'Longer something')
-        cy.get(selectors.reviewFiveStarScore).click()
+            // .should('have.value', 'Longer something')
+        cy.wait(1000)
+        cy.get(selectors.reviewFiveStarScore).click({force: true})
         cy.get(selectors.reviewFifthStarInput)
             .should('be.checked')
         cy.get(selectors.reviewSubmitButton).click()
         cy.get(selectors.reviewSubmittedSuccessMessage)
             .should('exist')
-            .should('contain.text','You submitted your review for moderation.')
+            .should('contain.text','Ihre Bewertung wurde zur Moderation übermittelt.')
     })
 
     it('Can see that a product is in stock', () => {
         // The productUrl should point to a product that is in stock
         cy.get(selectors.productStockMessage)
             .should('exist')
-            .should('contain.text', 'In stock')
-    })
-
-    it('Can\'t add an out of stock product to the cart', () => {
-        Magento2RestApi.updateProductQty(product.outOfStockProductSku, 0)
-        cy.visit(products.outOfStockProductUrl)
-        cy.get(selectors.productStockMessage)
-            .should('exist')
-            .should('contain.text', 'Out of stock')
-        cy.get(selectors.addToCartButton)
-            .should('not.exist')
+            .should('contain.text', 'Auf Lager')
     })
 
     it('Can increment the product quantity on the pdp', () => {
@@ -124,14 +125,15 @@ describe('Simple Product test suite', () => {
 
 describe('Configurable products test suite', () => {
     beforeEach(() => {
-        cy.visit(Product.routes.configurableProduct)
+        cy.visit(product.configurableProductUrl)
+        cy.wait(1000)
     })
 
     it('can find products in the related products list', () => {
         // Configurable product has related products
         cy.get(selectors.relatedProductsTitle)
             .should('exist')
-            .should('contain.text', 'Related Products')
+            .should('contain.text', 'Verwandte Produkte')
         cy.get(selectors.relatedProductsCard)
             .should('have.length.gte', 3)
     })
@@ -148,12 +150,12 @@ describe('Configurable products test suite', () => {
         cy.get(selectors.productAttributeSelector)
             .eq(0).find('div').first().click()
         cy.get(selectors.productAttributeSelector)
-            .eq(0).find('input').first()
-            .should('be.checked')
+            .eq(0).find('div').first()
+            .should('have.class', 'selected')
         cy.get(selectors.productAttributeSelector)
             .eq(1).find('div').first().click()
         cy.get(selectors.productAttributeSelector)
-            .eq(1).find('input').first()
-            .should('be.checked')
+            .eq(1).find('div').first()
+            .should('have.class', 'selected')
     })
 })

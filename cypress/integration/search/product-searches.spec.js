@@ -1,6 +1,6 @@
 import { Search } from "../../page-objects/search"
 import search from "../../fixtures/search"
-import selectors from "../../fixtures/selectors/hyva/search"
+import selectors from "../../fixtures/selectors/luma/search"
 
 describe('Perform searches', () => {
     beforeEach(() => {
@@ -10,24 +10,24 @@ describe('Perform searches', () => {
     it('Can perform search with multiple hits', () => {
         Search.search(search.productCategory)
         cy.get(selectors.pageHeader)
-            .should('have.text', `Search results for: '${search.productCategory}'`)
+            .should('have.text', `Suchergebnisse für "${search.productCategory}"`)
     })
 
     it('Can find a single product', () => {
         Search.search(search.singleProduct)
-        cy.get(selectors.successMessage)
+        cy.get(selectors.toolbarNumber)
             .should('be.visible')
-            .should('contain.text', `${search.sinpleProductName} is the only product matching your '${search.singleProduct}' search.`)
+            .should('contain.text', '1')
     })
 
     it('Can perform search with no search results', () => {
         Search.search(search.noResults)
         cy.get(selectors.pageHeader)
             .should('be.visible')
-            .should("contain.text", `Search results for: '${search.noResults}'`)
+            .should("contain.text", `Suchergebnisse für "${search.noResults}"`)
         cy.get(selectors.noResultsMessage)
             .should('be.visible')
-            .should('contain.text', 'Your search returned no results.')
+            .should('contain.text', 'Ihre Suche ergab keine Treffer.')
     })
 
     it('Can see suggestions when entering search terms', () => {

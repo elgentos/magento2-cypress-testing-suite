@@ -1,7 +1,8 @@
 {
   "category": "Women",
   "subCategory": "Tops",
-  "selectByPrice": "Price",
+  "couponCode": "H20",
+  "selectByPrice": "Preis",
   "simpleProductName": "Didi Sport Watch",
   "simpleProductUrl": "/didi-sport-watch.html",
   "configurableProductUrl": "/breathe-easy-tank.html",
@@ -12,6 +13,7 @@
   "outOfStockProductName": "Dash Digital Watch",
   "productAttributeSelector": ".swatch-attribute-options",
   "currency": "$",
-  "priceRegexp": "\\$\\d+\\.\\d{2}",
-  "simpleSearchTerm": "didi"
+  "priceRegexp": "$",
+  "simpleSearchTerm": "didi",
+  "couponProductUrl": "/affirm-water-bottle.html"
 }

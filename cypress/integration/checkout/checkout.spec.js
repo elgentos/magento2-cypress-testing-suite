@@ -1,37 +1,34 @@
 import account from '../../fixtures/account'
 import product from '../../fixtures/product'
 import checkout from '../../fixtures/checkout'
-import selectors from '../../fixtures/selectors/hyva/checkout'
+import selectors from '../../fixtures/selectors/luma/checkout'
 import {Checkout} from "../../page-objects/checkout";
 import {Account} from "../../page-objects/account";
+import cart from "../../fixtures/selectors/luma/cart.json";
 
 /* These tests apply to the Luna checkout */
 describe('Checkout tests', () => {
-    before(() => {
+    it('Can see the correct product price and shipping costs', () => {
         cy.visit(product.simpleProductUrl)
         cy.get(selectors.addToCartButton).click()
-    })
-
-    it.only('Can see the correct product price and shipping costs', () => {
         cy.get(selectors.productPrice).then(($PDPprice) => {
-            expect(/\$\d+\.\d{2}/.test($PDPprice[0].innerText.trim())).to.be.true
+            expect($PDPprice).to.be.contain(selectors.currency)
             const PDPPrice = $PDPprice[0].innerText.trim()
+            cy.wait(3000)
             cy.visit(checkout.checkoutUrl)
+            cy.wait(5000)
             Checkout.enterShippingAddress(checkout.shippingAddress)
-            cy.get('.justify-around > .btn').click()
-            cy.get('.flex > .mt-2 > .inline-block').click()
-            cy.get(selectors.checkoutSubtotalPrice).then(($checkoutPrice) => {
-                // The price has some form of "$12.32"
+            cy.wait(3000)
+            cy.get('.button.action.continue.primary').click()
+            cy.wait(4000)
+            cy.get(selectors.checkoutPrice).then(($checkoutPrice) => {
                 const checkoutPrice = $checkoutPrice[0].innerText.trim()
                 expect($checkoutPrice[0].innerText.trim()).to.equal(PDPPrice)
-                expect(/\$\d+\.\d{2}/.test($checkoutPrice[0].innerText.trim())).to.be.true
                 cy.get(selectors.checkoutShippingPrice).then(($shippingPrice) => {
                     const shippingPrice = $shippingPrice[0].innerText.trim()
-                    expect(/\$\d+\.\d{2}/.test(shippingPrice)).to.be.true
-                    cy.get('.mt-3 > .flex > :nth-child(2)').then(($totalPrice) => {
-                        const totalPrice = $totalPrice[0].innerText.trim()
-                        expect(/\$\d+\.\d{2}/.test(totalPrice)).to.be.true
-                        expect(+checkoutPrice.slice(1) + (+shippingPrice.slice(1))).to.equal(+totalPrice.slice(1))
+                    cy.get(selectors.totalPrice).then(($totalPrice) => {
+                        const totalPrice = $totalPrice[0].innerText.trim().slice(0, -1)
+                        expect((parseFloat(checkoutPrice.slice(0, -1))) + (parseFloat(shippingPrice.slice(0, -1)))).to.equal(parseFloat(totalPrice))
                     })
                 })
             })
@@ -40,46 +37,46 @@ describe('Checkout tests', () => {
 
     it('Can see coupon discount in checkout', () => {
         Checkout.addProductToCart(product.couponProductUrl)
+        cy.wait(3000)
         Checkout.addCoupon(product.couponCode)
-        cy.get(selectors.cartSummeryDiscount).should('be.visible')
-        cy.visit(checkout.checkoutUrl)
-        cy.get(selectors.checkoutSubtotalPrice).then(($totalsPrice) => {
-            const price = +$totalsPrice[0].innerText.match(/\d+\.\d\d/g)[0]
+        cy.wait(5000)
+        cy.get(selectors.cartDiscount).then(($cartDiscount) =>  {
+            const cartDiscount = parseFloat($cartDiscount[0].innerText.trim().slice(0, -1))
+            cy.visit(checkout.checkoutUrl)
+            cy.wait(7000)
+            Checkout.enterShippingAddress(checkout.shippingAddress)
+            cy.wait(3000)
+            cy.get('.button.action.continue.primary').click()
+            cy.wait(4000)
             cy.get(selectors.checkoutDiscountPrice).then(($discount) => {
-                const discount = +$discount[0].innerText.match(/\d+\.\d\d/g)[0]
-                cy.get(selectors.checkoutTotalPrice).then(($total) => {
-                    const total = +$total[0].innerText.match(/\d+\.\d\d/g)[0]
-                    expect(+total.toFixed(1)).to.equal(+(price - discount).toFixed(1))
-                })
+                const discount = parseFloat($discount[0].innerText.trim().slice(0, -1))
+                expect(discount).to.equal(cartDiscount)
             })
         })
     })
 
     it('can find and order in the customer order history after having placed an order', () => {
+        cy.visit(product.simpleProductUrl)
+        cy.get(selectors.addToCartButton).click()
+        cy.wait(3000)
         Account.login(account.customer.customer.email, account.customer.password)
         cy.visit(checkout.checkoutUrl)
-        cy.get(selectors.checkoutContainer).then(($checkout) => {
-            // if customer has a default shipping address no new shipping address needs to be entered
-            if (!$checkout[0].querySelectorAll(selectors.addressSelected).length) {
-                cy.get(selectors.addressSelected).should('not.exist')
-                Checkout.enterShippingAddress(checkout.shippingAddress)
-                cy.get(selectors.saveAddressBtn).click()
-            }
-            cy.get(selectors.addressSelected).should('exist')
-            cy.get(selectors.shippingMethodField).click()
-            cy.get(selectors.moneyOrderPaymentMethodSelector).click()
-            cy.get(selectors.placeOrderBtn).click()
-            cy.get(selectors.shippingAddressButtons).should('not.contain.text', 'Save')
-            cy.get(selectors.orderConfirmationOrderNumber).then(($orderNr) => {
-                cy.visit(checkout.orderHistoryUrl)
-                cy.get(selectors.accountViewOrder).first().click()
-                cy.get(selectors.orderHistoryOrderNumber).then(($orderHistoryOrderNr) => {
-                    cy.log($orderNr)
-                    const orderNrRegex = /\d{9}/
-                    const orderNr = $orderNr[0].innerText.match(orderNrRegex)[0]
-                    const orderHistoryNr = $orderHistoryOrderNr[0].innerText.match(orderNrRegex)[0]
-                    expect(orderNr).to.be.equal(orderHistoryNr)
-                })
+        cy.wait(5000)
+        cy.get(selectors.addressSelected).should('exist')
+        cy.get(selectors.checkoutBtn).click()
+        cy.wait(4000)
+        cy.get(selectors.moneyOrderPaymentMethodSelector).should('be.checked')
+        cy.get(selectors.placeOrderBtn).click()
+        cy.wait(5000)
+        cy.get(selectors.orderConfirmationOrderNumber).then(($orderNr) => {
+            const orderNr = $orderNr[0].innerText.trim()
+            cy.log(orderNr)
+            cy.visit(checkout.orderHistoryUrl)
+            cy.wait(3000)
+            cy.get(selectors.orderHistoryOrderNumber).then(($orderHistoryOrderNr) => {
+                const orderNrHistory = $orderHistoryOrderNr[0].innerText.trim()
+                cy.log(orderNrHistory)
+                expect(orderNr).to.be.equal(orderNrHistory)
             })
         })
     })
