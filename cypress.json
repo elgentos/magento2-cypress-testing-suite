@@ -1,5 +1,5 @@
 {
-  "baseUrl": "https://your-store.com",
+  "baseUrl": "https://magento2-demo-modeherz.phoenix-media.cloud/",
   "watchForFileChanges": false,
   "viewportWidth": 1920,
   "viewportHeight": 1080,

@@ -32,8 +32,16 @@ describe('Home page tests', () => {
     })
 
     it('Can subscribe to newsletter', () => {
-        cy.get(selectors.subscribeToNewsletterField).type(Date.now() + account.customer.customer.email)
+        cy.get(selectors.subscribeToNewsletterField).type(account.customer.customer.email)
         cy.get(selectors.newsletterSubscribeButton).click()
-        cy.get(selectors.successMessage).should('contain.text', homepage.subscriptionSuccess)
+        // cy.get(selectors.successMessage).should('contain.text', homepage.subscriptionSuccess)
+        cy.wait(2000)
+        cy.get('.page.messages').then(($messageSection) => {
+            if(!$messageSection.find(selectors.failedMessage).text().trim()){
+                cy.get(selectors.successMessage).should('contain.text', homepage.subscriptionSuccess)
+            } else {
+                cy.get(selectors.failedMessage).should('contain.text', homepage.subscriptionFail)
+            }
+        })
     })
 })
