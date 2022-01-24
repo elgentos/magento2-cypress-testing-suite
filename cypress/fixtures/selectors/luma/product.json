@@ -11,7 +11,7 @@
   "relatedProductsCard": ".products-related .item.product.product-item",
   "breadCrumbItems": ".breadcrumbs ul li",
   "addToWishlistButtonGuest": "a[data-action=\"add-to-wishlist\"]",
-  "addToWishlistButton": "button[data-action=\"add-to-wishlist\"]",
+  "addToWishlistButton": "a[data-action=\"add-to-wishlist\"]",
   "errorMessage": ".message-error",
   "productRatingStar": ".rating-summary",
   "customerReviewView": ".reviews-actions .action.view",

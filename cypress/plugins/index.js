@@ -17,10 +17,16 @@
  */
 // eslint-disable-next-line no-unused-vars
 module.exports = (on, config) => {
-    // Run "NODE_ENV=develop; npx cypress run" to run tests locally
-    if (process.env.NODE_ENV === 'develop') {
-        config.baseUrl = 'http://cypress.magento2.localhost'
-        config.defaultCommandTimeout = 10000 // Sometimes our local envs are slow due to dev mode. Raising the timeout decreases flakyness
-    }
+
+    // if version not defined, use master
+    const version = config.env.version || 'hyva'
+
+    // load env from json
+    config.env = require(`../config/${version}.json`);
+
+    // change config data
+    config.baseUrl = config.env.baseUrl
+
     return config
 }
+

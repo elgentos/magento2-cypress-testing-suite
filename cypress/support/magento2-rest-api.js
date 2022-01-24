@@ -11,7 +11,7 @@ export class Magento2RestApi {
             if (response.body.hasOwnProperty('message')) {
                 cy.log(response.body.message)
                 // expect(response.body.message).to.equal('Property "StreetAddress" does not have accessor method "getStreetAddress" in class "Magento\\Customer\\Api\\Data\\CustomerInterface".');
-                expect(response.body.message).to.equal('Ein Kunde mit der gleichen E-Mail-Adresse existiert bereits in einer zugeordneten Website.');
+                expect(response.body.message).to.equal('A customer with the same email address already exists in an associated website.');
             } else if (response.body.hasOwnProperty('email')) {
                 cy.log(response.body.message)
                 expect(response.body.email).to.equal(customer.customer.email);

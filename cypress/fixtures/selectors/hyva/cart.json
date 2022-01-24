@@ -1,24 +1,24 @@
 {
   "url": {
-    "cartUrl": "checkout/cart/",
+    "cartUrl": "checkout/cart",
     "product1Url": "/didi-sport-watch.html",
     "product2Url": "/affirm-water-bottle.html"
   },
   "product": {
     "addToCartButton": "#product-addtocart-button",
-    "messageToast": "div.message-success",
+    "messageToast": "div.message",
     "productPrice": ".price"
   },
-  "cartSummaryTable": ".totals .title",
-  "qtyInputField": ".input-text.qty",
-  "deleteProductButton": ".cart.item .action.action-delete",
-  "emptyCartTextField": ".cart-empty",
+  "cartSummaryTable": ".pt-0",
+  "qtyInputField": "[id^=\"qty-\"]",
+  "deleteProductButton": ".text-sm > .hidden",
+  "emptyCartTextField": ".container > .relative > :nth-child(6) > :nth-child(1)",
   "couponCode": "H20",
-  "couponDropdownSelector": "#block-discount > .title",
+  "couponDropdownSelector": ".cursor-pointer > .underline",
   "couponInputField": "#coupon_code",
-  "addCouponButton": "#block-discount .action.apply.primary",
-  "messageToast": ".message-error",
-  "product1Price": ".price",
+  "addCouponButton": "#discount-coupon-form > .fieldset > .flex > .btn",
+  "messageToast": ".message",
+  "product1Price": ":nth-child(3) > .sm\\:order-2 > .flex > :nth-child(2) > .block",
   "product1Subtotal": ":nth-child(3) > .md\\:justify-end > .sm\\:items-center > .flex > .block > span",
   "product2Subtotal": ":nth-child(4) > .md\\:justify-end > .sm\\:items-center > .flex > .block > span",
   "grandTotal": ".py-2 > .w-5\\/12"
