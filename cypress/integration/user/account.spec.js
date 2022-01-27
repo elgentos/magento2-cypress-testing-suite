@@ -1,4 +1,4 @@
-import { Account } from "../../page-objects/account.json";
+import { Account } from "../../page-objects/account.js";
 import { Magento2RestApi } from "../../support/magento2-rest-api.js";
 import account from "../../fixtures/account.json";
 import checkout from "../../fixtures/checkout.json";
