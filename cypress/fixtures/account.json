@@ -28,6 +28,7 @@
         "accountOrderHistory": "/sales/order/history",
         "accountUrl": "/customer/account",
         "manageNewsletter": "/newsletter/manage"
+        "wishlist": "/wishlist"
     },
     "tempCustomerInfo": {
         "firstname": "John",

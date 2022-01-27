@@ -1,5 +1,5 @@
 {
-    "addToCartButton": "button[title=\"Add to Cart\"]",
+    "addToCartButton": "#product-addtocart-button",
     "addToWishlistButton": "[aria-label=\"Add to Wish List\"]",
     "breadCrumbItems": ".breadcrumbs ul li",
     "cartIconProductCount": "span[x-text=\"cart.summary_count\"]",
@@ -11,6 +11,7 @@
     "productCustomerReviewWriteTitle": "#customer-reviews:nth-of-type(2) > div > div.text-xl",
     "productImage": "#gallery img",
     "productPrice": ".price",
+    "productPriceDPD": "[id^=\"product-price\"]",
     "productQty": "input[id^=\"qty\"]",
     "productRatingStar": ".rating-summary svg",
     "productStockMessage": "[title=\"Availability\"]",

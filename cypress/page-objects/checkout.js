@@ -2,13 +2,6 @@ import selectors from "../fixtures/selectors/hyva/checkout.json";
 import checkout from "../fixtures/checkout.json";
 
 export class Checkout {
-    /** Selectors **/
-    static elements = {
-        openApplyDiscount: "div > div > div.text-left > span > span",
-        couponField: "#coupon_code",
-        applyDiscountButton: "#discount-coupon-form button",
-    };
-
     static enterShippingAddress(shippingAddress) {
         cy.get(selectors.companyLabel).type(shippingAddress.companyname);
         cy.get(selectors.firstNameLabel).type(shippingAddress.firstname);
@@ -29,15 +22,15 @@ export class Checkout {
         cy.get(selectors.telephoneLabel).type(shippingAddress.tel);
     }
 
-    static addProductToCart(productUrl) {
+    static addSimpleProductToCart(productUrl) {
         cy.visit(productUrl);
         cy.get(selectors.addToCartButton).click();
     }
 
     static addCoupon(couponCode) {
         cy.visit(checkout.cartUrl);
-        cy.get(this.elements.openApplyDiscount).click();
-        cy.get(this.elements.couponField).type(couponCode);
-        cy.get(this.elements.applyDiscountButton).click();
+        cy.get(selectors.openApplyDiscount).click();
+        cy.get(selectors.couponField).type(couponCode);
+        cy.get(selectors.applyDiscountButton).click();
     }
 }

@@ -1,4 +1,5 @@
 import selectors from "../fixtures/selectors/hyva/account.json";
+import productSelectors from "../fixtures/selectors/hyva/product.json";
 import account from "../fixtures/account.json";
 
 export class Account {
@@ -83,6 +84,6 @@ export class Account {
 
     static addItemToWishlist(itemUrl = "") {
         cy.visit(itemUrl);
-        cy.get('button[aria-label="Add to Wish List"]').click();
+        cy.get(productSelectors.addToWishlistButton).click();
     }
 }
