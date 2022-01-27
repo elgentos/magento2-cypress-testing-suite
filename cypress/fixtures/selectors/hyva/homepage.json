@@ -1,0 +1,12 @@
+{
+  "productCard": "#maincontent div > div div.card.card-interactive",
+  "searchIcon": "#menu-search-icon",
+  "searchBar": "#search",
+  "mainHeading": "h1.title-font",
+  "subscribeToNewsletterField": "#newsletter-subscribe",
+  "newsletterSubscribeButton": "#newsletter-validate-detail button",
+  "successMessage": ".message.success span",
+  "failedMessage": ".message.error span",
+  "headerNavCategory": "div.lg\\:block > nav > div:nth-child(2) > span > a[title=\"Women\"]",
+  "headerNavSubCategory": "div.lg\\:block > nav > div:nth-child(2) > div > a:nth-child(1)"
+}
