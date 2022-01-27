@@ -22,11 +22,12 @@
     "routes": {
         "accountAddAddress": "/customer/address/new",
         "accountAddresses": "/customer/address",
-        "accountCreate": "/customer/account/create/",
-        "accountEdit": "/customer/account/edit/",
-        "accountIndex": "/customer/account/index/",
+        "accountCreate": "/customer/account/create",
+        "accountEdit": "/customer/account/edit",
+        "accountIndex": "/customer/account/index",
         "accountOrderHistory": "/sales/order/history",
-        "manageNewsletter": "/newsletter/manage/"
+        "accountUrl": "/customer/account",
+        "manageNewsletter": "/newsletter/manage"
     },
     "tempCustomerInfo": {
         "firstname": "John",

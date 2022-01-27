@@ -46,6 +46,7 @@ describe("Account activities", () => {
 
     after(() => {
         // Remove the added address
+        cy.visit(account.routes.accountUrl);
         cy.get("#maincontent").then(($mainContent) => {
             if (
                 $mainContent[0].querySelector("h1") &&
@@ -182,7 +183,8 @@ describe("Account activities", () => {
     });
 
     it("Can add an address automatically from saved address'", () => {
-        // There needs to be an item in the cart for this to work, and there needs to be a saved address
+        // There needs to be a saved address for this test to work, 
+        // TODO: add an "Account.addAddress()" method to the Account page-object
         cy.visit(product.simpleProductUrl);
         cy.contains("Add to Cart").click();
         cy.visit(checkout.checkoutUrl);
@@ -298,16 +300,14 @@ describe("Guest user test", () => {
         cy.get(checkoutSelectors.addToCartButton)
             .should("contain.text", "Add to Cart")
             .click();
-        cy.visit(checkout.checkoutUrl);
+        cy.visit(checkout.checkoutUrl, { timeout: 5000 });
         cy.get(checkoutSelectors.checkoutLoginToggle).click();
         cy.get(checkoutSelectors.checkoutEmailLabel)
             .click()
             .type(account.customer.customer.email);
-        // cy.get(checkoutSelectors.checkoutEmailField).type(account.customer.customer.email)
         cy.get(checkoutSelectors.checkoutPasswordLabel)
             .click()
             .type(account.customer.password);
-        // cy.get(checkoutSelectors.checkoutPasswordField).type(account.customer.password)
         cy.get(checkoutSelectors.checkoutLoginButton).click();
         cy.get(checkoutSelectors.checkoutLoggedInEmail).should(
             "contain.text",
