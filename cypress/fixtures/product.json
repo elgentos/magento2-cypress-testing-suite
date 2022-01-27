@@ -10,9 +10,11 @@
     "outOfStockProductSku": "24-MG02",
     "outOfStockProductUrl": "dash-digital-watch.html",
     "priceRegexp": "\\$\\d+\\.\\d{2}",
+    "productAttributeSelector": ".swatch-attribute-options",
     "selectByPrice": "Price",
     "simpleProductName": "Didi Sport Watch",
     "simpleProductUrl": "/didi-sport-watch.html",
     "simpleSearchTerm": "didi",
-    "subCategory": "Tops"
+    "subCategory": "Tops",
+    "wishlistUrl": "/wishlist"
 }

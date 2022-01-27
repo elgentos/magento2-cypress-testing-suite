@@ -82,7 +82,7 @@ export class Account {
         });
     }
 
-    static addItemToWishlist(itemUrl) {
+    static addItemToWishlist(itemUrl = "") {
         cy.visit(itemUrl);
         cy.get(productSelectors.addToWishlistButton).click();
     }
