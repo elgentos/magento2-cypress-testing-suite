@@ -1,5 +1,5 @@
-import cart from "../fixtures/selectors/hyva/cart.json"
-import {Cart} from '../page-objects/cart'
+import cart from '../../fixtures/selectors/hyva/cart.json'
+import {Cart} from '../../page-objects/cart'
 
 describe('Isolated test for adding a product to the cart', () => {
     it.only('can add a product to the cart', () => {

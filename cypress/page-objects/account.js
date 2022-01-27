@@ -1,6 +1,6 @@
-import selectors from "../fixtures/selectors/hyva/account";
-import productSelectors from "../fixtures/selectors/hyva/product";
-import account from "../fixtures/account";
+import selectors from "../fixtures/selectors/hyva/account.json";
+import productSelectors from "../fixtures/selectors/hyva/product.json";
+import account from "../fixtures/account.json";
 
 export class Account {
     static login(user, pw) {
@@ -52,7 +52,9 @@ export class Account {
         cy.get(selectors.accountLastnameInputSelector).type(lastName);
         cy.get(selectors.accountEmailInputSelector).type(email);
         cy.get(selectors.newPasswordInputSelector).type(passwd);
-        cy.get(selectors.newPasswordConfirmationInputSelector).type(`${passwd}{enter}`);
+        cy.get(selectors.newPasswordConfirmationInputSelector).type(
+            `${passwd}{enter}`
+        );
     }
 
     static logout() {
