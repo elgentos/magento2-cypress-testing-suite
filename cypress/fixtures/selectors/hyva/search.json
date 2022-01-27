@@ -4,5 +4,7 @@
   "noResultsMessage": ".message.notice",
   "headerSearchIcon": "#menu-search-icon",
   "headerSearchField": "#search",
-  "searchSuggestions": "[x-text=\"searchResult.title\"]"
+  "searchSuggestions": "[x-text=\"searchResult.title\"]",
+  "menuSearchIcon": "#menu-search-icon",
+  "searchField": "#search"
 }
