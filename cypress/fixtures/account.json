@@ -27,7 +27,7 @@
         "accountIndex": "/customer/account/index",
         "accountOrderHistory": "/sales/order/history",
         "accountUrl": "/customer/account",
-        "manageNewsletter": "/newsletter/manage"
+        "manageNewsletter": "/newsletter/manage",
         "wishlist": "/wishlist"
     },
     "tempCustomerInfo": {

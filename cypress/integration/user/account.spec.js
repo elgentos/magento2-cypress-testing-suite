@@ -183,7 +183,7 @@ describe("Account activities", () => {
     });
 
     it("Can add an address automatically from saved address'", () => {
-        // There needs to be a saved address for this test to work, 
+        // There needs to be a saved address for this test to work,
         // TODO: add an "Account.addAddress()" method to the Account page-object
         cy.visit(product.simpleProductUrl);
         cy.contains("Add to Cart").click();
@@ -211,12 +211,12 @@ describe("Account activities", () => {
     it("Can change the newsletter subscription", () => {
         cy.visit(account.routes.manageNewsletter);
         cy.contains("General Subscription").click();
-        cy.get("#subscription").should("be.checked");
+        cy.get(selectors.subscriptionSaveButton).click();
+        cy.get(selectors.successMessage).should("include.text", "We have ");
     });
 
     it("Can add a product the a wishlist", () => {
         cy.visit(product.simpleProductUrl);
-        // cy.get('[aria-label="store logo"]').click()
         cy.get(selectors.addToWishlistButton).eq(0).click();
         cy.get(selectors.wishlistTitle)
             .should("contain.text", "My Wish List")
