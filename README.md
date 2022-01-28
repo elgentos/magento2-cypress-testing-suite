@@ -103,7 +103,7 @@ Wording & naming are subject to change.
 |                          |                                 | :black_square_button: it can properly choose and use all listed shipping methods |
 |                          |                                 | :black_square_button: it a conformation mail is send to the customer after placing the order |
 |                          |                                 | :black_square_button: it an invoice is created and sent to the customer after placing the order |
-|                          |                                 | :black_square_button: it after placing the order it is properly processed in the backend' |
+|                          |                                 | :heavy_check_mark: it after placing the order it is properly processed in the backend' |
 |                          | Checkout tests (logged in)      | :black_square_button: it can automatically fill in the name and address of the customer |
 |                          |                                 | :heavy_check_mark: it can find and order in the customer order history after having placed an order |
 | `cart.spec.js`           | Cart tests                      | :heavy_check_mark: it can add a product to the cart |
