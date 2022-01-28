@@ -76,8 +76,9 @@ Wording & naming are subject to change.
 |                          |                                 | :heavy_check_mark: it can edit the wishlist on the wishlist page                                                                      |
 |                          |                                 | :black_square_button: it can reset the password when it is forgotten                                                                  |
 |                          | Do not login before these tests | :heavy_check_mark: it can login from cart without making changes to the cart                                                          |
-| `product-searches.spec.js` | Perform searches                | :heavy_check_mark: it can display a page with searchresults for multiple products with a searchterm that applies to multiple products |
-|                          |                                 | :heavy_check_mark: it navigates to a product when the searchterm matches 1 specific product                                           |
+|                          |                                 | :heavy_check_mark: it can login from checkout                                                          |
+| `product-searches.spec.js` | Perform searches | :heavy_check_mark: it can perform search with multiple hits |
+| | | :heavy_check_mark: it can find a single product |
 |                          |                                 | :heavy_check_mark: it shows a page for no search results when the searchterm cannot give any results                                  |
 |                          |                                 | :heavy_check_mark: it can show suggestions when entering search terms                                                                 |
 | `category.spec.js`         | Category page tests                   | :heavy_check_mark: it can navigate to the category page and filter products on the color red                                          |
@@ -92,7 +93,7 @@ Wording & naming are subject to change.
 |                          |                                 | :black_square_button: it can show the header correctly and all links work                                                             |
 |                          |                                 | :black_square_button: it can show the footer correctly and all links work                                                             |
 |                          |                                 | :black_square_button: it can show the main section of the homepage correctly and all links work                                       |
-|                          |                                 | :heavy_check_mark: it you can subscribe to a newsletter                                                                            |
+|                          |                                 | :heavy_check_mark: it can subscribe to the newsletter                                                                            |
 |                          |                                 | :black_square_button: it add products shown on the homepage to the cart when a add to cart button is present                          |
 |                          |                                 | :black_square_button: it shows the cookie banner when cookies are not accepted yet                                                    |
 |                          |                                 | :black_square_button: it shows everything correctly on mobile view                                                                    |
