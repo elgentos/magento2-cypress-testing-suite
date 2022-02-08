@@ -1,6 +1,7 @@
 import { Search } from "../../../page-objects/luma/search"
 import searchLuma from "../../../fixtures/luma/search"
 import selectorsLuma from "../../../fixtures/selectors/luma/search"
+import {isMobile} from "../../../support/utils";
 
 
 describe('Perform searches', () => {
@@ -32,6 +33,9 @@ describe('Perform searches', () => {
     })
 
     it('Can see suggestions when entering search terms', () => {
+        if(isMobile()) {
+            cy.get(selectorsLuma.headerSearchIconMobile).click()
+        }
         cy.get(selectorsLuma.headerSearchIcon).click()
         cy.get(selectorsLuma.headerSearchField)
             .should('be.visible')

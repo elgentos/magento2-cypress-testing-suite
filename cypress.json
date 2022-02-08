@@ -1,7 +1,10 @@
 {
-  "baseUrl": "https://example.com/",
+  "baseUrl": "http://magento2demo.firebearstudio.com/",
   "watchForFileChanges": false,
   "viewportWidth": 1920,
   "viewportHeight": 1080,
-  "nodeVersion": "bundled"
+  "nodeVersion": "bundled",
+  "env": {
+    "mobileViewportWidthBreakpoint": 768
+  }
 }

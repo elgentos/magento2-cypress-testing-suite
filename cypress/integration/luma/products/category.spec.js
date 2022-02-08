@@ -2,6 +2,7 @@ import {Product} from "../../../page-objects/product";
 
 import product from '../../../fixtures/luma/product'
 import selectors from '../../../fixtures/selectors/luma/category'
+import {isMobile} from "../../../support/utils";
 
 describe('Category page tests', () => {
     beforeEach(() => {
@@ -10,6 +11,9 @@ describe('Category page tests', () => {
     })
 
     it('Can visit the category page and filters on color red', () => {
+        if(isMobile()) {
+            cy.contains('Shop By').click()
+        }
         cy.contains('.filter-options-title', 'Color').click()
         cy.get(selectors.selectColorRed).click({force: true})
         cy.url().should('contain', '?color=')
@@ -42,11 +46,13 @@ describe('Category page tests', () => {
         cy.get(selectors.breadcrumbsItem).eq(2).should('contain.text', `${product.subCategory}`)
     })
 
-    it('Can switch between list and crid view', () => {
-        cy.get(selectors.categoryProductGridWrapper).should('be.visible')
-        cy.get(selectors.viewToggle).click()
-        cy.get(selectors.categoryProductListWrapper).should('be.visible')
-    })
+    if(!isMobile()) {
+        it('Can switch between list and crid view', () => {
+            cy.get(selectors.categoryProductGridWrapper).should('be.visible')
+            cy.get(selectors.viewToggle).click()
+            cy.get(selectors.categoryProductListWrapper).should('be.visible')
+        })
+    }
 
     it('Can move to the next page using the pages navigation', () => {
         cy.get('.pages').then(($mainColumn) => {

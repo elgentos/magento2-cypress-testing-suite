@@ -1,6 +1,7 @@
 {
   "productCard": ".product-items.widget-product-grid .product-item",
   "searchIcon": "#search",
+  "searchIconMobile": "#search_mini_form > .field > .label",
   "mainTitle": ".info",
   "mainHeading": ".base",
   "subscribeToNewsletterField": "#newsletter",

@@ -5,7 +5,7 @@ import account from '../../../fixtures/account'
 import product from '../../../fixtures/luma/product'
 import selectorsLuma from '../../../fixtures/selectors/luma/account'
 import checkoutSelectors from '../../../fixtures/selectors/luma/checkout'
-
+import {isMobile} from "../../../support/utils";
 
 describe('Account test creation', () => {
     it('Can create an account', () => {
@@ -34,6 +34,9 @@ describe('Account activities', () => {
         Account.login(account.customer.customer.email, account.customer.password)
         Account.createAddress(account.customerInfo)
         // We need to logout or the beforeEach will fail
+        if(isMobile()) {
+            cy.wait(2000)
+        }
         Account.logout()
         cy.wait(2500)
     })

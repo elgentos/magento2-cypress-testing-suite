@@ -3,6 +3,7 @@
   "toolbarNumber": "#toolbar-amount .toolbar-number",
   "noResultsMessage": ".message > div",
   "headerSearchIcon": "#search",
+  "headerSearchIconMobile": "#search_mini_form > .field > .label",
   "headerSearchField": "#search",
   "searchSuggestions": ".qs-option-name"
 }

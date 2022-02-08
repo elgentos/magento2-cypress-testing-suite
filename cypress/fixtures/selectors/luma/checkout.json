@@ -45,6 +45,7 @@
   "productQuantityField": ".input-text.qty",
   "currency": "$",
   "checkoutPrice": ".totals.sub .price",
+  "checkoutPriceMobile": ".estimated-price",
   "checkoutShippingPrice": ".totals.shipping .price",
   "totalPrice": ".grand.totals .price",
   "checkoutDiscountPrice": ".totals.discount .price",

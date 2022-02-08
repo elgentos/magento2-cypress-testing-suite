@@ -2,6 +2,7 @@ import homepage from "../../fixtures/luma/homepage"
 import selectors from "../../fixtures/selectors/luma/homepage"
 import product from "../../fixtures/luma/product"
 import account from "../../fixtures/account"
+import {isMobile} from "../../support/utils";
 
 describe('Home page tests', () => {
     beforeEach(() => {
@@ -15,8 +16,10 @@ describe('Home page tests', () => {
             .should('have.length.gte', 1)
     })
 
-
     it('Can perform search from homepage', () => {
+        if(isMobile()) {
+            cy.get(selectors.searchIconMobile).click()
+        }
         cy.get(selectors.searchIcon)
             .should('be.visible')
             .type(`${product.simpleProductName}{enter}`)

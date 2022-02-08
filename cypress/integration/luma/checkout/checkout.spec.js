@@ -4,6 +4,7 @@ import account from '../../../fixtures/account'
 import product from '../../../fixtures/luma/product'
 import checkout from '../../../fixtures/checkout'
 import selectors from '../../../fixtures/selectors/luma/checkout'
+import {isMobile} from "../../../support/utils";
 
 describe('Checkout tests', () => {
     it('Can see the correct product price and shipping costs', () => {
@@ -19,6 +20,9 @@ describe('Checkout tests', () => {
             cy.wait(3000)
             cy.get('.button.action.continue.primary').click()
             cy.wait(7000)
+            if(isMobile()) {
+                cy.get('.action.showcart').click()
+            }
             cy.get(selectors.checkoutPrice).then(($checkoutPrice) => {
                 const checkoutPrice = $checkoutPrice[0].innerText.trim()
                 expect($checkoutPrice[0].innerText.trim()).to.equal(PDPPrice)
@@ -46,6 +50,9 @@ describe('Checkout tests', () => {
             cy.wait(3000)
             cy.get('.button.action.continue.primary').click()
             cy.wait(10000)
+            if(isMobile()) {
+                cy.get('.action.showcart').click()
+            }
             cy.get(selectors.checkoutDiscountPrice).then(($discount) => {
                 const discount = parseFloat($discount[0].innerText.trim().slice(2))
                 expect(discount).to.equal(cartDiscount)
@@ -63,8 +70,10 @@ describe('Checkout tests', () => {
         cy.get(selectors.addressSelected).should('exist')
         cy.get(selectors.checkoutBtn).click()
         cy.wait(4000)
+        cy.get(selectors.moneyOrderPaymentMethodSelector).check({force: true})
         cy.get(selectors.moneyOrderPaymentMethodSelector).should('be.checked')
-        cy.get(selectors.placeOrderBtn).click()
+        cy.wait(3000)
+        cy.contains('Place Order').should('be.visible').click({force: true})
         cy.wait(7000)
         cy.get(selectors.orderConfirmationOrderNumber).then(($orderNr) => {
             const orderNr = $orderNr[0].innerText.trim()
