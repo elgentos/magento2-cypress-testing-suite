@@ -1,0 +1,17 @@
+{
+  "addToCartButton": "#product-addtocart-button",
+  "miniCartButton": ".showcart",
+  "productPrice": ".price",
+  "miniCartSecondProductPrice": ":nth-child(3) > .w-3\\/4 > :nth-child(3) > [x-html=\"item.product_price\"]",
+  "miniCartFirstProductPrice": ".minicart-price .price",
+  "firstProductAmount": ".item-qty.cart-item-qty",
+  "secondProductAmount": ":nth-child(3) > .w-3\\/4 > :nth-child(1) > .text-xl > [x-html=\"item.qty\"]",
+  "miniCartSubtotal": ".subtotal .price",
+  "removeProductButton": "#mini-cart .action.delete",
+  "miniCartProductName": "#mini-cart .product-item-name",
+  "miniCartEditProductButton": "#mini-cart .action.edit",
+  "PDPProductName": ".product-info-main .base",
+  "miniCartViewCartLink": ".action.viewcart",
+  "pageTitle": ".base",
+  "miniCartCheckoutButton": "#top-cart-btn-checkout"
+}

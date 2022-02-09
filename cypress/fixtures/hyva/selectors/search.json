@@ -1,0 +1,8 @@
+{
+  "pageHeader": "h1.page-title span.base",
+  "successMessage": "#messages .message.success",
+  "noResultsMessage": ".message.notice",
+  "headerSearchIcon": "#menu-search-icon",
+  "headerSearchField": "#search",
+  "searchSuggestions": "[x-text=\"searchResult.title\"]"
+}
