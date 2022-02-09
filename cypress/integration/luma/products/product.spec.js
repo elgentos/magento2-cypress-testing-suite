@@ -1,5 +1,4 @@
 import {Account} from "../../../page-objects/luma/account"
-import {Product} from "../../../page-objects/product";
 
 import product from "../../../fixtures/luma/product"
 import account from "../../../fixtures/account"
@@ -64,7 +63,7 @@ describe('Simple Product test suite', () => {
         const customerMail = Date.now() + account.customer.customer.email
         cy.visit(account.routes.accountCreate)
         Account.createNewCustomer(account.customer.customer.firstname, account.customer.customer.lastname, customerMail, account.customer.password)
-        cy.visit(Product.routes.simpleProduct)
+        cy.visit(product.simpleProductUrl)
         cy.wait(3000)
         cy.get(selectors.addToWishlistButton).click().then(() => {
             cy.wait(3000)
