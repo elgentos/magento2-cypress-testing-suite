@@ -19,9 +19,9 @@ describe('Home page tests', () => {
         cy.get(selectors.searchIcon).click()
         cy.get(selectors.searchBar)
             .should('be.visible')
-            .type(`${product.products.simpleProductName}{enter}`)
+            .type(`${product.simpleProductName}{enter}`)
         cy.get(selectors.mainHeading)
-            .should('contain.text', product.products.simpleProductName)
+            .should('contain.text', product.simpleProductName)
     })
 
     it('Can open category',  () => {
