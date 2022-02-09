@@ -1,4 +1,4 @@
-import selectors from '../../fixtures/selectors/luma/account'
+import selectors from '../../fixtures/luma/selectors/account'
 import account from '../../fixtures/account'
 import {isMobile} from "../../support/utils";
 
