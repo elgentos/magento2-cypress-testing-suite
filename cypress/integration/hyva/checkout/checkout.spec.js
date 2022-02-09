@@ -1,9 +1,9 @@
-import account from '../../../fixtures/account'
-import product from '../../../fixtures/hyva/product'
-import checkout from '../../../fixtures/checkout'
-import selectors from '../../../fixtures/hyva/selectors/checkout'
-import {Checkout} from "../../../page-objects/hyva/checkout";
-import {Account} from "../../../page-objects/hyva/account";
+import account from "../../../fixtures/account.json";
+import product from "../../../fixtures/hyva/product.json";
+import checkout from "../../../fixtures/checkout.json";
+import selectors from "../../../fixtures/hyva/selectors/checkout.json";
+import { Checkout } from "../../../page-objects/hyva/checkout";
+import { Account } from "../../../page-objects/hyva/account";
 
 /* These tests apply to the Luna checkout */
 describe("Checkout tests", () => {
@@ -65,48 +65,57 @@ describe("Checkout tests", () => {
         });
     });
 
-    it(['hot'], "Can find and order in the customer order history after having placed an order", () => {
-        Checkout.addSimpleProductToCart(product.simpleProductUrl);
-        Account.login(
-            account.customer.customer.email,
-            account.customer.password
-        );
-        cy.visit(checkout.checkoutUrl, { timeout: 5000 });
-        cy.get(selectors.checkoutContainer).then(($checkout) => {
-            // cy.wait(4000);
-            // if customer has a default shipping address no new shipping address needs to be entered
-            if (
-                !$checkout[0].querySelectorAll(selectors.addressSelected).length
-            ) {
-                cy.get(selectors.addressSelected).should("not.exist");
-                Checkout.enterShippingAddress(checkout.shippingAddress);
-                cy.get(selectors.saveAddressBtn).click();
-            }
-            cy.get(selectors.addressSelected).should("exist");
-            cy.get(selectors.shippingMethodField).click();
-            cy.get(selectors.moneyOrderPaymentMethodSelector).click();
-            cy.get(selectors.placeOrderBtn).click();
-            cy.get(selectors.shippingAddressButtons).should(
-                "not.contain.text",
-                "Save"
+    it(
+        ["hot"],
+        "Can find and order in the customer order history after having placed an order",
+        () => {
+            Checkout.addSimpleProductToCart(product.simpleProductUrl);
+            Account.login(
+                account.customer.customer.email,
+                account.customer.password
             );
-            cy.get(selectors.orderConfirmationOrderNumber).then(($orderNr) => {
-                cy.visit(checkout.orderHistoryUrl);
-                cy.get(selectors.accountViewOrder).first().click();
-                cy.get(selectors.orderHistoryOrderNumber).then(
-                    ($orderHistoryOrderNr) => {
-                        cy.log($orderNr);
-                        const orderNrRegex = /\d{9}/;
-                        const orderNr =
-                            $orderNr[0].innerText.match(orderNrRegex)[0];
-                        const orderHistoryNr =
-                            $orderHistoryOrderNr[0].innerText.match(
-                                orderNrRegex
-                            )[0];
-                        expect(orderNr).to.be.equal(orderHistoryNr);
+            cy.visit(checkout.checkoutUrl, { timeout: 5000 });
+            cy.get(selectors.checkoutContainer).then(($checkout) => {
+                // cy.wait(4000);
+                // if customer has a default shipping address no new shipping address needs to be entered
+                if (
+                    !$checkout[0].querySelectorAll(selectors.addressSelected)
+                        .length
+                ) {
+                    cy.get(selectors.addressSelected).should("not.exist");
+                    Checkout.enterShippingAddress(checkout.shippingAddress);
+                    cy.get(selectors.saveAddressBtn).click();
+                }
+                cy.get(selectors.addressSelected).should("exist");
+                cy.get(selectors.shippingMethodField).click();
+                cy.get(selectors.moneyOrderPaymentMethodSelector).click();
+                cy.get(selectors.placeOrderBtn).click();
+                cy.get(selectors.shippingAddressButtons).should(
+                    "not.contain.text",
+                    "Save"
+                );
+                cy.get(selectors.orderConfirmationOrderNumber).then(
+                    ($orderNr) => {
+                        cy.visit(checkout.orderHistoryUrl);
+                        cy.get(selectors.accountViewOrder).first().click();
+                        cy.get(selectors.orderHistoryOrderNumber).then(
+                            ($orderHistoryOrderNr) => {
+                                cy.log($orderNr);
+                                const orderNrRegex = /\d{9}/;
+                                const orderNr =
+                                    $orderNr[0].innerText.match(
+                                        orderNrRegex
+                                    )[0];
+                                const orderHistoryNr =
+                                    $orderHistoryOrderNr[0].innerText.match(
+                                        orderNrRegex
+                                    )[0];
+                                expect(orderNr).to.be.equal(orderHistoryNr);
+                            }
+                        );
                     }
                 );
             });
-        });
-    });
+        }
+    );
 });
