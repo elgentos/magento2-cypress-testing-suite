@@ -133,7 +133,7 @@ Wording & naming are subject to change.
 ## Installation
 First, install Cypress in the root of your Magento 2 project;
 
-```
+```bash
 npm init
 npm install cypress --save-dev
 npm install cypress-file-upload --save-dev
@@ -141,7 +141,7 @@ npm install cypress-file-upload --save-dev
 
 The easiest way to install the tests is to clone this repository and move the `cypress` folder into your project. As of right now, we do not provide a fallback mechanism for customizations to the tests, see [Limitations](https://github.com/elgentos/magento2-cypress-testing-suite/blob/main/README.md#no-extensibility--inheritance-of-tests).
 
-```
+```bash
 git clone git@github.com:elgentos/magento2-cypress-testing-suite.git 
 mv magento2-cypress-testing-suite/cypress .
 mv magento2-cypress-testing-suite/cypress.json .
@@ -192,12 +192,26 @@ You then can add the token to `cypress.env.json` as an environment variable:
 
 Or you can set it in your CI/CD variables by prefixing the environment variable name with `CYPRESS_`: `CYPRESS_MAGENTO2_ADMIN_TOKEN: <token_goes_here>`.
 
+### Tags
+
+If you would like to use [tags](https://github.com/annaet/cypress-tags), you need to install the 3rd party tag support package. Following the [setup](https://github.com/annaet/cypress-tags#setup) for that package, you need to add it to the `plugins/index.js` and `support/index.d.ts`.
+
+```bash
+npm install cypress-tags typescript --save-dev
+```
+
 ## Running
 
-```
+```bash
 npm ci
 npx cypress run
 # npx cypress open # if you want to use the GUI
+```
+
+Individual specs can be run using the following [command](https://docs.cypress.io/guides/guides/command-line#Commands)
+
+```bash
+npx cypress run --spec ./cypress/integration/path/to/some.spec.js
 ```
 
 ### Running against local environment
