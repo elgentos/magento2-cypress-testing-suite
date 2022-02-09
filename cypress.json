@@ -1,5 +1,5 @@
 {
-  "baseUrl": "http://frontstudy.loc/",
+  "baseUrl": "https://example.com/",
   "watchForFileChanges": false,
   "viewportWidth": 1920,
   "viewportHeight": 1080,
