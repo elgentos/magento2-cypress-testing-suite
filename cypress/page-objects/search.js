@@ -1,4 +1,4 @@
-import selectors from "../fixtures/selectors/hyva/search.json";
+import selectors from "../fixtures/hyva/selectors/search.json";
 
 export class Search {
     static search(key) {

@@ -1,0 +1,13 @@
+{
+  "productCard": ".product-items.widget-product-grid .product-item",
+  "searchIcon": "#search",
+  "searchIconMobile": "#search_mini_form > .field > .label",
+  "mainTitle": ".info",
+  "mainHeading": ".base",
+  "subscribeToNewsletterField": "#newsletter",
+  "newsletterSubscribeButton": "#newsletter-validate-detail > .actions > .action",
+  "successMessage": ".message-success",
+  "failedMessage": ".message-error",
+  "headerNavCategory": "div.lg\\:block > nav > div:nth-child(2) > span > a[title=\"Women\"]",
+  "headerNavSubCategory": ".navigation > ul > li:nth-child(2) > ul > li:nth-child(1) > a:nth-child(1)"
+}
