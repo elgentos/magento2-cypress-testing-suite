@@ -5,6 +5,7 @@ import {isMobile} from "../../support/utils";
 export class Account {
     static login(user, pw) {
         cy.visit(account.routes.accountIndex);
+        cy.wait(2000)
         cy.get(selectors.loginEmailInputSelector).type(user)
         cy.get(selectors.loginPasswordInputSelector).type(`${pw}{enter}`)
     }
@@ -49,7 +50,7 @@ export class Account {
         cy.get(selectors.accountEmailInputSelector).type(email)
         cy.get(selectors.newPasswordInputSelector).type(passwd)
         cy.get(selectors.newPasswordConfirmationInputSelector).type(passwd)
-        cy.wait(2000)
+        cy.wait(3000)
         cy.get('.form-create-account button').click()
     }
 
@@ -58,8 +59,6 @@ export class Account {
             cy.get('.nav-toggle').click()
             cy.get('[aria-controls="store.links"]').click()
         } else {
-            cy.get('.items > :nth-child(1) > a').click()
-            cy.wait(4000)
             cy.get(':nth-child(2) > .customer-welcome > .customer-name > .action').click()
         }
         cy.contains('Sign Out').click({force: true})
