@@ -6,7 +6,7 @@ import product from "../../fixtures/product.json";
 import checkoutSelectors from "../../fixtures/selectors/hyva/checkout.json";
 import selectors from "../../fixtures/selectors/hyva/account.json";
 
-describe("Account test creation", () => {
+describe(["hot"], "Account test creation", () => {
     it("Can create an account", () => {
         cy.visit(account.routes.accountCreate);
         Account.createNewCustomer(
@@ -21,7 +21,7 @@ describe("Account test creation", () => {
     });
 });
 
-describe("Account activities", () => {
+describe(["hot"], "Account activities", () => {
     before(() => {
         // This no longer seems to work...
         Magento2RestApi.createCustomerAccount(account.customer);
