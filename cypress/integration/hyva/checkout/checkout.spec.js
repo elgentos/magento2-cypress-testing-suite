@@ -65,7 +65,7 @@ describe("Checkout tests", () => {
         });
     });
 
-    it(['hot'], "Can find and order in the customer order history after having placed an order", () => {
+    it("Can find and order in the customer order history after having placed an order", () => {
         Checkout.addSimpleProductToCart(product.simpleProductUrl);
         Account.login(
             account.customer.customer.email,

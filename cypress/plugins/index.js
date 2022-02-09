@@ -16,17 +16,11 @@
  * @type {Cypress.PluginConfig}
  */
 // eslint-disable-next-line no-unused-vars
-
-// For tag support
-const tagify = require("cypress-tags");
-
 module.exports = (on, config) => {
-    on("file:preprocessor", tagify(config));
-
     // Run "NODE_ENV=develop; npx cypress run" to run tests locally
-    if (process.env.NODE_ENV === "develop") {
-        config.baseUrl = "http://cypress.magento2.localhost";
-        config.defaultCommandTimeout = 10000; // Sometimes our local envs are slow due to dev mode. Raising the timeout decreases flakyness
+    if (process.env.NODE_ENV === 'develop') {
+        config.baseUrl = 'http://cypress.magento2.localhost'
+        config.defaultCommandTimeout = 10000 // Sometimes our local envs are slow due to dev mode. Raising the timeout decreases flakyness
     }
-    return config;
-};
+    return config
+}

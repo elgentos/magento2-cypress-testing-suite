@@ -57,7 +57,7 @@ describe("Simple Product test suite", () => {
             );
     });
 
-    it(["hot"], "Can add a product to the wishlist when customer is logged in", () => {
+    it("Can add a product to the wishlist when customer is logged in", () => {
         const customerMail = Date.now() + account.customer.customer.email;
         cy.visit(account.routes.accountCreate);
         Account.createNewCustomer(
@@ -119,7 +119,7 @@ describe("Simple Product test suite", () => {
     });
 
     /* This test requires that the existence of an admin token in the cypress.env.json  */
-    // it.only(["hot"], "Can't add an out of stock product to the cart", () => {
+    // it.only("Can't add an out of stock product to the cart", () => {
     //     Magento2RestApi.updateProductQty(product.outOfStockProductSku, 0);
     //     cy.visit(product.outOfStockProductUrl);
     //     cy.get(selectors.productStockMessage)
