@@ -3,12 +3,6 @@ A community-driven Cypress testing suite for Magento 2
 
 This testing suite was announced in [Peter Jaap](https://twitter.com/PeterJaap) his talk about [Cypress testing in Magento 2 at Reacticon 4](https://youtu.be/2zDliMebOqs?t=4435). Watch the talk for more information about Cypress testing.
 
-**Note:** we haven't open-sourced the actual tests yet. We are busy making our internal codebase consistent to set a good example for contributions to come. If you are interested in using this test suite or contributing, you can:
-
-- Fill out this [Google form](https://forms.gle/VkoCofGUm1Mhw3W76) to stay uptodate.
-
-- Click the Star and/or the Watch button in the top right to stay uptodate.
-
 ![image](https://user-images.githubusercontent.com/431360/144490227-0913fe5e-2ded-46ec-a5a2-3880c4b9b30a.png)
 <p align="center"><em>A successful Cypress run which tests the store at https://hyva-demo.elgentos.io</em></p>
 
