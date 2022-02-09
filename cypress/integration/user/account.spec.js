@@ -270,7 +270,7 @@ describe(["hot"], "Account activities", () => {
     });
 });
 
-describe("Guest user test", () => {
+describe(["hot"], "Guest user test", () => {
     it("Can login from cart", () => {
         cy.visit(product.simpleProductUrl);
         cy.get(checkoutSelectors.addToCartButton).click();

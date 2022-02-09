@@ -1,0 +1,4 @@
+/node_modules
+/cypress/videos
+package-lock.json
+package.json
