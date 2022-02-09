@@ -3,7 +3,6 @@
   "watchForFileChanges": false,
   "viewportWidth": 1920,
   "viewportHeight": 1080,
-  "nodeVersion": "bundled",
   "env": {
     "mobileViewportWidthBreakpoint": 768
   }

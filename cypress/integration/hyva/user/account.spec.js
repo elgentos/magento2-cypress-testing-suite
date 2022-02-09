@@ -7,7 +7,7 @@ import selectors from '../../../fixtures/hyva/selectors/account'
 import checkoutSelectors from '../../../fixtures/hyva/selectors/checkout'
 
 
-describe("Account test creation", () => {
+describe(["hot"], "Account test creation", () => {
     it("Can create an account", () => {
         cy.visit(account.routes.accountCreate);
         Account.createNewCustomer(
@@ -22,7 +22,7 @@ describe("Account test creation", () => {
     });
 });
 
-describe("Account activities", () => {
+describe(["hot"], "Account activities", () => {
     before(() => {
         // This no longer seems to work...
         Magento2RestApi.createCustomerAccount(account.customer);
@@ -271,7 +271,7 @@ describe("Account activities", () => {
     });
 });
 
-describe("Guest user test", () => {
+describe(["hot"], "Guest user test", () => {
     it("Can login from cart", () => {
         cy.visit(product.simpleProductUrl);
         cy.get(checkoutSelectors.addToCartButton).click();
