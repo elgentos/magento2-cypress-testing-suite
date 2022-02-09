@@ -206,7 +206,7 @@ Set up your local URL in `cypress/plugins/index.js`. Then add run Cypress with `
 
 ## Contributing
 
-We are very open to contributions! We would love to have mobile viewport support for Hyvä, additional tests, code improvements, a fallback mechanism, etcetera etcetera. See the Issues tab for issues to pick up. 
+We are very open to contributions! We would love to have mobile viewport support for Hyvä, tests for Commerce functionality, additional tests, code improvements, a fallback mechanism, etcetera etcetera. See the Issues tab for issues to pick up. 
 
 We will be updating this readme soon with extensive contribution guidelines, but here is a short summary:
 - Avoid creating global `cy` functions ([Custom Commands](https://docs.cypress.io/api/cypress-api/custom-commands)), instead put functions in utils/helpers and import them
