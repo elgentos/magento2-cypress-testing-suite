@@ -3,7 +3,7 @@ import {Account} from "../../../page-objects/luma/account";
 import account from '../../../fixtures/account'
 import product from '../../../fixtures/luma/product'
 import checkout from '../../../fixtures/checkout'
-import selectors from '../../../fixtures/selectors/luma/checkout'
+import selectors from '../../../fixtures/luma/selectors/checkout'
 import {isMobile} from "../../../support/utils";
 
 describe('Checkout tests', () => {

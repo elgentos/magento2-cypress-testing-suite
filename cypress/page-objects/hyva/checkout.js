@@ -1,4 +1,4 @@
-import selectors from "../../fixtures/selectors/hyva/checkout"
+import selectors from "../../fixtures/hyva/selectors/checkout"
 import checkout from "../../fixtures/checkout"
 
 export class Checkout {

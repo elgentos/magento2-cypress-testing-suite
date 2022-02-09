@@ -1,6 +1,6 @@
 import product from "../../../fixtures/hyva/product"
 import account from "../../../fixtures/account"
-import selectors from "../../../fixtures/selectors/hyva/product"
+import selectors from "../../../fixtures/hyva/selectors/product"
 import {Account} from "../../../page-objects/hyva/account"
 import {Product} from "../../../page-objects/product";
 import {Magento2RestApi} from '../../../support/magento2-rest-api'

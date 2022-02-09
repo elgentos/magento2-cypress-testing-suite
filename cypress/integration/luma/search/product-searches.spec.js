@@ -1,6 +1,6 @@
 import { Search } from "../../../page-objects/luma/search"
 import searchLuma from "../../../fixtures/luma/search"
-import selectorsLuma from "../../../fixtures/selectors/luma/search"
+import selectorsLuma from "../../../fixtures/luma/selectors/search"
 import {isMobile} from "../../../support/utils";
 
 

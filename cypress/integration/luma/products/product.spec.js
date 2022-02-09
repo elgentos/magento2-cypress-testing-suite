@@ -3,7 +3,7 @@ import {Product} from "../../../page-objects/product";
 
 import product from "../../../fixtures/luma/product"
 import account from "../../../fixtures/account"
-import selectors from "../../../fixtures/selectors/luma/product"
+import selectors from "../../../fixtures/luma/selectors/product"
 
 describe('Simple Product test suite', () => {
     beforeEach(() => {

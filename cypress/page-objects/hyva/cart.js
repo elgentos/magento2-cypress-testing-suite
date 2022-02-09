@@ -1,4 +1,4 @@
-import cart from "../../fixtures/selectors/hyva/cart"
+import cart from "../../fixtures/hyva/selectors/cart"
 
 export class Cart {
     static addProductToCart(url) {

@@ -1,4 +1,4 @@
-import selectors from '../../fixtures/selectors/hyva/account'
+import selectors from '../../fixtures/hyva/selectors/account'
 import account from '../../fixtures/account'
 
 export class Account {

@@ -1,6 +1,6 @@
 import { Search } from "../../../page-objects/hyva/search"
 import search from "../../../fixtures/hyva/search"
-import selectors from "../../../fixtures/selectors/hyva/search"
+import selectors from "../../../fixtures/hyva/selectors/search"
 
 describe('Perform searches', () => {
     beforeEach(() => {

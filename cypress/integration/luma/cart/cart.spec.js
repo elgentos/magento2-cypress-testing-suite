@@ -1,5 +1,5 @@
 import {Cart} from '../../../page-objects/luma/cart'
-import cartLuma from "../../../fixtures/selectors/luma/cart"
+import cartLuma from "../../../fixtures/luma/selectors/cart"
 
 describe('Isolated test for adding a product to the cart', () => {
     it('can add a product to the cart', () => {

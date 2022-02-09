@@ -1,7 +1,7 @@
 import account from '../../../fixtures/account'
 import product from '../../../fixtures/hyva/product'
 import checkout from '../../../fixtures/checkout'
-import selectors from '../../../fixtures/selectors/hyva/checkout'
+import selectors from '../../../fixtures/hyva/selectors/checkout'
 import {Checkout} from "../../../page-objects/hyva/checkout";
 import {Account} from "../../../page-objects/hyva/account";
 

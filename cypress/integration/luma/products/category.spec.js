@@ -1,7 +1,7 @@
 import {Product} from "../../../page-objects/product";
 
 import product from '../../../fixtures/luma/product'
-import selectors from '../../../fixtures/selectors/luma/category'
+import selectors from '../../../fixtures/luma/selectors/category'
 import {isMobile} from "../../../support/utils";
 
 describe('Category page tests', () => {

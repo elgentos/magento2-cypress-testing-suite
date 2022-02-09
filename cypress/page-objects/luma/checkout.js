@@ -1,4 +1,4 @@
-import selectors from "../../fixtures/selectors/luma/checkout"
+import selectors from "../../fixtures/luma/selectors/checkout"
 import checkout from "../../fixtures/checkout"
 
 export class Checkout {

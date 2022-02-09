@@ -1,5 +1,5 @@
 import homepage from "../../fixtures/hyva/homepage"
-import selectors from "../../fixtures/selectors/hyva/homepage"
+import selectors from "../../fixtures/hyva/selectors/homepage"
 import product from "../../fixtures/hyva/product"
 import account from "../../fixtures/account"
 

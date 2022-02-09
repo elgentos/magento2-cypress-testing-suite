@@ -3,8 +3,8 @@ import {Product} from '../../../page-objects/product'
 import {Magento2RestApi} from '../../../support/magento2-rest-api'
 import account from '../../../fixtures/account'
 import product from '../../../fixtures/hyva/product'
-import selectors from '../../../fixtures/selectors/hyva/account'
-import checkoutSelectors from '../../../fixtures/selectors/hyva/checkout'
+import selectors from '../../../fixtures/hyva/selectors/account'
+import checkoutSelectors from '../../../fixtures/hyva/selectors/checkout'
 
 describe('Account test creation', () => {
     it('Can create an account', () => {

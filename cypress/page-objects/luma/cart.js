@@ -1,4 +1,4 @@
-import cart from "../../fixtures/selectors/luma/cart"
+import cart from "../../fixtures/luma/selectors/cart"
 
 export class Cart {
     static addProductToCart(url) {

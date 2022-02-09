@@ -1,6 +1,6 @@
 import {Product} from "../../../page-objects/product";
 import product from '../../../fixtures/hyva/product'
-import selectors from '../../../fixtures/selectors/hyva/category'
+import selectors from '../../../fixtures/hyva/selectors/category'
 
 describe('Category page tests', () => {
     beforeEach(() => {

@@ -3,8 +3,8 @@ import {Product} from '../../../page-objects/product'
 import {Magento2RestApi} from '../../../support/magento2-rest-api'
 import account from '../../../fixtures/account'
 import product from '../../../fixtures/luma/product'
-import selectorsLuma from '../../../fixtures/selectors/luma/account'
-import checkoutSelectors from '../../../fixtures/selectors/luma/checkout'
+import selectorsLuma from '../../../fixtures/luma/selectors/account'
+import checkoutSelectors from '../../../fixtures/luma/selectors/checkout'
 import {isMobile} from "../../../support/utils";
 
 describe('Account test creation', () => {

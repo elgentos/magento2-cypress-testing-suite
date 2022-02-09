@@ -1,5 +1,5 @@
 import minicart from "../../../fixtures/minicart"
-import selectors from "../../../fixtures/selectors/luma/minicart"
+import selectors from "../../../fixtures/luma/selectors/minicart"
 
 describe('Mini cart tests', () => {
     beforeEach(() => {

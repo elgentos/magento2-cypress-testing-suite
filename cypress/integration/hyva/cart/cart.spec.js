@@ -1,4 +1,4 @@
-import cart from "../../../fixtures/selectors/hyva/cart"
+import cart from "../../../fixtures/hyva/selectors/cart"
 import {Cart} from '../../../page-objects/hyva/cart'
 
 describe('Isolated test for adding a product to the cart', () => {
