@@ -156,7 +156,6 @@ Then edit the `cypress.json` file in the root of your project to update your bas
   "watchForFileChanges": false,
   "viewportWidth": 1920,
   "viewportHeight": 1080,
-  "nodeVersion": "bundled",
   "env": {
     "mobileViewportWidthBreakpoint": 768
   }
