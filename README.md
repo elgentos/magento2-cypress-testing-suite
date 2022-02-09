@@ -155,7 +155,7 @@ The easiest way to install the tests is to clone this repository and move the `c
 ```
 git clone git@github.com:elgentos/magento2-cypress-testing-suite.git 
 mv magento2-cypress-testing-suite/cypress .
-mv magento2-cypress-testing-suite/cypress.json.dist cypress.json
+mv magento2-cypress-testing-suite/cypress.json .
 rm -rf magento2-cypress-testing-suite
 ```
 
@@ -163,10 +163,14 @@ Then edit the `cypress.json` file in the root of your project to update your bas
 
 ```json
 {
-  "baseUrl": "https://your-store.com",
-  "viewportHeight": 800,
-  "viewportWidth": 1200,
-  "watchForFileChanges": false
+  "baseUrl": "https://example.com",
+  "watchForFileChanges": false,
+  "viewportWidth": 1920,
+  "viewportHeight": 1080,
+  "nodeVersion": "bundled",
+  "env": {
+    "mobileViewportWidthBreakpoint": 768
+  }
 }
 ```
 
