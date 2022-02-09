@@ -23,7 +23,7 @@ This testing suite was announced in [Peter Jaap](https://twitter.com/PeterJaap) 
 
 ## Prerequisites
 - Magento 2.3.x / 2.4.x
-- [Hyvä](https://hyva.io)
+- [Hyvä](https://hyva.io) or Luma-based theme
 - `npm`
 - An admin bearer token (see [Setup](#setup))
 
@@ -32,16 +32,11 @@ This testing suite was announced in [Peter Jaap](https://twitter.com/PeterJaap) 
 ### Assumptions
 - Magento 2 runs in Single Store Mode
 - Default language is English
-- Viewport is 1200x800 (no specific tests for mobile viewports)
+- Viewport is 1920x1280 (tests for mobile viewports are availabline for Luma, not yet for Hyvä)
 - [Multi Source Inventory is not used](https://github.com/magento/inventory)
 
 ### Not plug & play
 This test suite is _not_ plug & play for your store. A number of tests rely on Magento's default sample data. These tests will fail when you don't have the sample data. It is up to you to change the fixtures/selectors/tests to make them pass for your store.
-
-### Hyvä-only right now
-Since we ([elgentos](https://elgentos.nl)) have decided to focus solely on building Magento 2 stores with the [Hyvä](https://hyva.io) frontend, all tests are written for Hyvä frontends. That means the tests use Hyvä-specific selectors.
-
-However, we have moved all selectors to fixtures, making it easy to provide selector fixtures for Luma. We will happily accept any PR's supplying this. In theory it should also be possible to swap these selectors for [Venia](https://venia.magento.com/) selectors.
 
 ### Open source-only right now
 We don't do Commerce builds over at elgentos so we haven't spent time creating tests for Commerce-only functionality.
@@ -217,7 +212,9 @@ Set up your local URL in `cypress/plugins/index.js`. Then add run Cypress with `
 
 ## Contributing
 
-We are very open to contributions! We would love to have Luma- or Venia-specific selector fixture files, new tests, code improvements, a fallback mechanism, etcetera etcetera. We will be updating this readme soon with extensive contribution guidelines, but here is a short summary:
+We are very open to contributions! We would love to have mobile viewport support for Hyvä, additional tests, code improvements, a fallback mechanism, etcetera etcetera. See the Issues tab for issues to pick up. 
+
+We will be updating this readme soon with extensive contribution guidelines, but here is a short summary:
 - Avoid creating global `cy` functions ([Custom Commands](https://docs.cypress.io/api/cypress-api/custom-commands)), instead put functions in utils/helpers and import them
 - Avoid creating [aliases](https://docs.cypress.io/guides/core-concepts/variables-and-aliases#Aliases) that are only used once
 - Use `cy.get()` as much as possible, only use `cy.contains()` in specific cases - try to avoid it
