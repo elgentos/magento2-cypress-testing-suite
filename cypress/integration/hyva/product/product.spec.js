@@ -1,8 +1,8 @@
-import product from "../../fixtures/product.json";
-import account from "../../fixtures/account.json";
-import selectors from "../../fixtures/selectors/hyva/product.json";
-import { Account } from "../../page-objects/account";
-import { Magento2RestApi } from "../../support/magento2-rest-api";
+import product from "../../../fixtures/hyva/product.json";
+import account from "../../../fixtures/account.json";
+import selectors from "../../../fixtures/hyva/selectors/product.json";
+import { Account } from "../../../page-objects/hyva/account";
+import { Magento2RestApi } from "../../../support/magento2-rest-api";
 
 describe("Simple Product test suite", () => {
     beforeEach(() => {
