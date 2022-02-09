@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ff933e2-e7c9-4c9b-84cb-3e85c74e2081" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/cypress.json" beforeDir="false" afterPath="$PROJECT_DIR$/cypress.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cypress/integration/luma/products/product.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/integration/luma/products/product.spec.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cypress/integration/luma/user/account.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/integration/luma/user/account.spec.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cypress/page-objects/luma/account.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/page-objects/luma/account.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +52,7 @@
       <workItem from="1644225515178" duration="33000" />
       <workItem from="1644234901367" duration="1670000" />
       <workItem from="1644336508113" duration="272000" />
-      <workItem from="1644398475134" duration="9743000" />
+      <workItem from="1644398475134" duration="9866000" />
     </task>
     <servers />
   </component>

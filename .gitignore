@@ -1,0 +1,6 @@
+/node_modules
+/cypress/videos
+package-lock.json
+package.json
+.idea
+.DS_Store
