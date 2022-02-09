@@ -1,5 +1,5 @@
 {
-  "baseUrl": "http://magento2demo.firebearstudio.com/",
+  "baseUrl": "https://example.com",
   "watchForFileChanges": false,
   "viewportWidth": 1920,
   "viewportHeight": 1080,
