@@ -1,5 +1,5 @@
-import selectors from "../../fixtures/hyva/selectors/checkout"
-import checkout from "../../fixtures/checkout"
+import selectors from '../../fixtures/hyva/selectors/checkout.json';
+import checkout from '../../fixtures/checkout';
 
 export class Checkout {
     static enterShippingAddress(shippingAddress) {
@@ -16,7 +16,7 @@ export class Checkout {
             .siblings()
             .first()
             .select(shippingAddress.country);
-        if (shippingAddress.country === "United States") {
+        if (shippingAddress.country === 'United States') {
             cy.get(selectors.regionLabel).select(shippingAddress.region);
         }
         cy.get(selectors.telephoneLabel).type(shippingAddress.tel);
