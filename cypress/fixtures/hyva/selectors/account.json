@@ -31,7 +31,6 @@
     "newPasswordInputSelector": "#password",
     "ordersCountToolbar": ".order-products-toolbar p span",
     "saveAddressButton": "button[data-action=\"save-address\"]",
-    "signedOutHeader": "h1 span.base",
     "subscriptionCheckbox": "#subscription",
     "subscriptionSaveButton": "div.primary > .action",
     "successMessage": ".message.success span",
@@ -41,7 +40,5 @@
     "wishlistRemoveItemButton": "[title=\"Remove Item\"]",
     "wishlistShareBackLink": ".form.wishlist.share .back",
     "wishlistShareButton": "button.share",
-    "wishlistShareTitle": "h1.page-title",
-    "wishlistTitle": "h1.page-title",
     "wishlistUpdateButton": "#wishlist-view-form .update"
 }

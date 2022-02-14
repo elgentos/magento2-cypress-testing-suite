@@ -2,6 +2,7 @@ import { Account } from '../../../page-objects/hyva/account';
 import { Magento2RestApi } from '../../../support/magento2-rest-api';
 import account from '../../../fixtures/account.json';
 import product from '../../../fixtures/hyva/product.json';
+import checkout from '../../../fixtures/checkout.json';
 import selectors from '../../../fixtures/hyva/selectors/account.json';
 import checkoutSelectors from '../../../fixtures/hyva/selectors/checkout.json';
 import productSelectors from '../../../fixtures/hyva/selectors/product.json';
@@ -218,7 +219,7 @@ describe(['hot'], 'Account activities', () => {
     it('Can add a product the a wishlist', () => {
         cy.visit(product.simpleProductUrl);
         cy.get(productSelectors.addToWishlistButton).eq(0).click();
-        cy.get(selectors.wishlistTitle)
+        cy.get(homepageSelectors.mainHeading)
             .should('contain.text', 'My Wish List')
             .should('exist');
         cy.visit(product.wishlistUrl).then(() => {
@@ -243,7 +244,7 @@ describe(['hot'], 'Account activities', () => {
                 expect($qty[0].valueAsNumber).to.be.at.least(1);
             });
         cy.get(selectors.wishlistShareButton).click();
-        cy.get(selectors.wishlistShareTitle)
+        cy.get(homepageSelectors.mainHeading)
             .should('contain.text', 'Wish List Sharing')
             .should('exist');
         cy.get(selectors.wishlistShareBackLink).click();
@@ -263,7 +264,7 @@ describe(['hot'], 'Account activities', () => {
     it('Can log out', () => {
         cy.get(selectors.accountIcon).click();
         cy.get(selectors.accountMenu).contains('Sign Out').click();
-        cy.get(selectors.signedOutHeader).should(
+        cy.get(homepageSelectors.mainHeading).should(
             'contain.text',
             'You have signed out'
         );
