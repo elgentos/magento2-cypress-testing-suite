@@ -1,6 +1,7 @@
 import { Search } from "../../../page-objects/hyva/search"
-import search from "../../../fixtures/hyva/search"
-import selectors from "../../../fixtures/hyva/selectors/search"
+import search from "../../../fixtures/hyva/search.json"
+import selectors from "../../../fixtures/hyva/selectors/search.json"
+import homepageSelectors from "../../../fixtures/hyva/selectors/homepage.json"
 
 describe('Perform searches', () => {
     beforeEach(() => {
@@ -15,7 +16,7 @@ describe('Perform searches', () => {
 
     it('Can find a single product', () => {
         Search.search(search.singleProduct)
-        cy.get(selectors.successMessage)
+        cy.get(homepageSelectors.successMessage)
             .should('be.visible')
             .should('contain.text', `${search.sinpleProductName} is the only product matching your '${search.singleProduct}' search.`)
     })

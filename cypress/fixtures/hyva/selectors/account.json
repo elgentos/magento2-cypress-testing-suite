@@ -8,7 +8,6 @@
     "addAddressFormSelector": "#form-validate",
     "addNewAddressButton": ".actions-toolbar span",
     "addressEditStreetInput": "input[id^=\"street\"]",
-    "addToWishlistButton": "button[aria-label=\"Add to Wish List\"]",
     "changePasswordFormSelector": "#form-validate",
     "checkoutLoginButton": "[style=\"display: block;\"] > .justify-center > .btn",
     "currentPasswordInputSelector": "#current-password",

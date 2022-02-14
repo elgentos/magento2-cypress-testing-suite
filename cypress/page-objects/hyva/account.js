@@ -1,6 +1,6 @@
-import selectors from "../../fixtures/hyva/selectors/account";
-import productSelectors from "../../fixtures/hyva/selectors/product";
-import account from "../../fixtures/account";
+import selectors from "../../fixtures/hyva/selectors/account.json";
+import productSelectors from "../../fixtures/hyva/selectors/product.json";
+import account from "../../fixtures/account.json";
 
 export class Account {
     static login(user, pw) {
