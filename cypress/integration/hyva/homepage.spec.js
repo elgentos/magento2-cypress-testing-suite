@@ -1,48 +1,60 @@
-import homepage from "../../fixtures/hyva/homepage.json"
-import selectors from "../../fixtures/hyva/selectors/homepage.json"
-import searchSelectors from "../../fixtures/hyva/selectors/search.json"
-import product from "../../fixtures/hyva/product.json"
-import account from "../../fixtures/account.json"
+import homepage from '../../fixtures/hyva/homepage.json';
+import selectors from '../../fixtures/hyva/selectors/homepage.json';
+import searchSelectors from '../../fixtures/hyva/selectors/search.json';
+import product from '../../fixtures/hyva/product.json';
+import account from '../../fixtures/account.json';
 
 describe('Home page tests', () => {
     beforeEach(() => {
-        cy.visit(homepage.homePageUrl)
-    })
+        cy.visit(homepage.homePageUrl);
+    });
 
     it('Can visit the homepage and it contains products', () => {
-        cy.get(selectors.mainHeading)
-            .should('contain.text', homepage.titleText)
-        cy.get(selectors.productCard)
-            .should('have.length.gte', 4)
-    })
+        cy.get(selectors.mainHeading).should(
+            'contain.text',
+            homepage.titleText
+        );
+        cy.get(selectors.productCard).should('have.length.gte', 4);
+    });
 
     it('Can perform search from homepage', () => {
-        cy.get(searchSelectors.headerSearchIcon).click()
+        cy.get(searchSelectors.headerSearchIcon).click();
         cy.get(searchSelectors.headerSearchField)
             .should('be.visible')
-            .type(`${product.simpleProductName}{enter}`)
-        cy.get(selectors.mainHeading)
-            .should('contain.text', product.simpleProductName)
-    })
+            .type(`${product.simpleProductName}{enter}`);
+        cy.get(selectors.mainHeading).should(
+            'contain.text',
+            product.simpleProductName
+        );
+    });
 
-    it('Can open category',  () => {
+    it('Can open category', () => {
         // Force because hover is not (yet?) possible in cypress
-        cy.get(selectors.headerNavSubCategory)
-            .click({force:true})
-        cy.get(selectors.mainHeading)
-            .should('contain.text', homepage.subCategoryName)
-    })
+        cy.get(selectors.headerNavSubCategory).click({ force: true });
+        cy.get(selectors.mainHeading).should(
+            'contain.text',
+            homepage.subCategoryName
+        );
+    });
 
     it('Can subscribe to newsletter', () => {
-        cy.get(selectors.subscribeToNewsletterField).type(Date.now() + account.customer.customer.email)
-        cy.get(selectors.newsletterSubscribeButton).click()
-        cy.wait(0)
+        cy.get(selectors.subscribeToNewsletterField).type(
+            Date.now() + account.customer.customer.email
+        );
+        cy.get(selectors.newsletterSubscribeButton).click();
+        cy.wait(0);
         cy.get('#messages').then(($messageSection) => {
-            if(!$messageSection.find(selectors.failedMessage).text().trim()){
-                cy.get(selectors.successMessage).should('contain.text', homepage.subscriptionSuccess)
+            if (!$messageSection.find(selectors.failedMessage).text().trim()) {
+                cy.get(selectors.successMessage).should(
+                    'contain.text',
+                    homepage.subscriptionSuccess
+                );
             } else {
-                cy.get(selectors.failedMessage).should('contain.text', homepage.subscriptionFail)
+                cy.get(selectors.failedMessage).should(
+                    'contain.text',
+                    homepage.subscriptionFail
+                );
             }
-        })
-    })
-})
+        });
+    });
+});
