@@ -10,7 +10,7 @@ describe('Perform searches', () => {
 
     it('Can perform search with multiple hits', () => {
         Search.search(search.productCategory);
-        cy.get(selectors.pageHeader).should(
+        cy.get(homepageSelectors.mainHeading).should(
             'contain.text',
             `Search results for: '${search.productCategory}'`
         );

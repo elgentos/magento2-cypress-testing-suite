@@ -2,7 +2,6 @@
     "headerSearchField": "#search",
     "headerSearchIcon": "#menu-search-icon",
     "noResultsMessage": ".message.notice",
-    "pageHeader": "h1.title-font",
     "searchSuggestions": "[x-text=\"searchResult.title\"]",
     "successMessage": "#messages .message.success"
 }
