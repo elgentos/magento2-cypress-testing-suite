@@ -5,8 +5,6 @@
     "mainHeading": "h1.title-font",
     "newsletterSubscribeButton": "#newsletter-validate-detail button",
     "productCard": "#maincontent div > div div.card.card-interactive",
-    "searchBar": "#search",
-    "searchIcon": "#menu-search-icon",
     "subscribeToNewsletterField": "#newsletter-subscribe",
     "successMessage": ".message.success span"
 }

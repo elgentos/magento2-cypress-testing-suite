@@ -1,7 +1,8 @@
-import homepage from "../../fixtures/hyva/homepage"
-import selectors from "../../fixtures/hyva/selectors/homepage"
-import product from "../../fixtures/hyva/product"
-import account from "../../fixtures/account"
+import homepage from "../../fixtures/hyva/homepage.json"
+import selectors from "../../fixtures/hyva/selectors/homepage.json"
+import searchSelectors from "../../fixtures/hyva/selectors/search.json"
+import product from "../../fixtures/hyva/product.json"
+import account from "../../fixtures/account.json"
 
 describe('Home page tests', () => {
     beforeEach(() => {
@@ -16,8 +17,8 @@ describe('Home page tests', () => {
     })
 
     it('Can perform search from homepage', () => {
-        cy.get(selectors.searchIcon).click()
-        cy.get(selectors.searchBar)
+        cy.get(searchSelectors.headerSearchIcon).click()
+        cy.get(searchSelectors.headerSearchField)
             .should('be.visible')
             .type(`${product.simpleProductName}{enter}`)
         cy.get(selectors.mainHeading)
