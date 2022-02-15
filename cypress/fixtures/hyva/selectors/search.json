@@ -2,6 +2,5 @@
     "headerSearchField": "#search",
     "headerSearchIcon": "#menu-search-icon",
     "noResultsMessage": ".message.notice",
-    "searchSuggestions": "[x-text=\"searchResult.title\"]",
-    "successMessage": "#messages .message.success"
+    "searchSuggestions": "[x-text=\"searchResult.title\"]"
 }

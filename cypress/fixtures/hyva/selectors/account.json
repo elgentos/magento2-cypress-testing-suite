@@ -33,7 +33,6 @@
     "saveAddressButton": "button[data-action=\"save-address\"]",
     "subscriptionCheckbox": "#subscription",
     "subscriptionSaveButton": "div.primary > .action",
-    "successMessage": ".message.success span",
     "successMessageCartLink": ".message.success a",
     "wishlistItemCommentField": "[id^=\"product-item-comment\"]",
     "wishlistQtyField": ".form-input.qty",
