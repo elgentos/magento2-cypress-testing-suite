@@ -1,4 +1,4 @@
-import cart from "../../fixtures/hyva/selectors/cart.json";
+import cart from '../../fixtures/hyva/selectors/cart.json';
 
 export class Cart {
     static addProductToCart(url) {
