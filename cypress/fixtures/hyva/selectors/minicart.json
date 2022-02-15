@@ -9,7 +9,6 @@
     "miniCartSecondProductPrice": ":nth-child(3) > .w-3\\/4 > :nth-child(3) > [x-html=\"item.product_price\"]",
     "miniCartSubtotal": "[x-html=\"cart.subtotal\"] > .price",
     "miniCartViewCartLink": ".underline",
-    "pageTitle": "h1.page-title",
     "PDPProductName": ".order-2 > .text-xl",
     "productPrice": ".final-price",
     "removeProductButton": ".pt-4 > button.inline-flex > .w-5",
