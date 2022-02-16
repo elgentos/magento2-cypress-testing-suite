@@ -24,6 +24,5 @@
     "reviewReviewField": "#review_field",
     "reviewSubmitButton": "#review_form button",
     "reviewSubmittedSuccessMessage": "#review_form > div > div > p",
-    "reviewSummeryField": "#summary_field",
-    "successMessage": ".message.success span"
+    "reviewSummeryField": "#summary_field"
 }
