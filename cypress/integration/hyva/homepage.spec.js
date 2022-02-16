@@ -45,3 +45,18 @@ describe('Home page tests', () => {
         })
     })
 })
+
+describe('Use mailosaur to receive confirmation', () => {
+    const serverId = 'somestring';
+    const testMail = `cypress-testing@${serverId}.mailosaur.net`
+
+    it('Can receive confirmation of newsletter subscription', () => {
+        cy.visit(homepage.homePageUrl)
+        cy.get(selectors.subscribeToNewsletterField).type(testMail+'{enter}')
+        cy.mailosaurGetMessage(serverId, {
+            sentTo: testMail
+        }).then(email => {
+            expect(email.subject).to.equal('Newsletter subscription success');
+        })
+    })
+})
