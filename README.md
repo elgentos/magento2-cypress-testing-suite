@@ -41,6 +41,9 @@ We do not particularly strive for 100% test coverage. We have identified the mos
 ### No extensibility / inheritance of tests
 You need to copy the whole suite into your project. We are open to suggestions on how to solve this, see [Discussions](https://github.com/elgentos/magento2-cypress-testing-suite/discussions).
 
+### Checkout tests are for the Luma (fallback) checkout
+We haven't made tests for the Hyvä React Checkout yet. PR's are definitely welcome now that [we have a stable version](https://github.com/hyva-themes/magento2-react-checkout).
+
 ## Progress
 We are at 62%; 48 out of 78 tests are done.
 
