@@ -5,6 +5,7 @@
     "couponDropdownSelector": ".cursor-pointer > .underline",
     "couponInputField": "#coupon_code",
     "deleteProductButton": ".text-sm > .hidden",
+    "deleteProductButtonMobile": ".text-sm > .w-5",
     "emptyCartTextField": ".container > .relative > :nth-child(6) > :nth-child(1)",
     "grandTotal": ".py-2 > .w-5\\/12",
     "messageToast": ".message",

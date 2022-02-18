@@ -4,7 +4,6 @@ import checkout from '../../../fixtures/checkout.json';
 import selectors from '../../../fixtures/hyva/selectors/checkout.json';
 import { Checkout } from '../../../page-objects/hyva/checkout';
 import { Account } from '../../../page-objects/hyva/account';
-
 /* These tests apply to the Luna checkout */
 describe('Checkout tests', () => {
     it('Can see the correct product price and shipping costs', () => {
@@ -83,9 +82,14 @@ describe('Checkout tests', () => {
                         .length
                 ) {
                     cy.get(selectors.addressSelected).should('not.exist');
-                    Checkout.enterShippingAddress(checkout.shippingAddress);
-                    cy.get(selectors.saveAddressBtn).click();
+                    cy.get('.h-12 > .flex > .px-2').click()
+                    cy.get('[for=\"shipping_address.company\"]')
+                        .click()
+                        .type('Test')
+                    cy.contains('Save').click();
                 }
+                cy.get(':nth-child(1) > .justify-start > .inline-block').click()
+                cy.get('#shippingMethod_flatrate__flatrate').check({force: true})
                 cy.get(selectors.addressSelected).should('exist');
                 cy.get(selectors.shippingMethodField).click();
                 cy.get(selectors.moneyOrderPaymentMethodSelector).click();

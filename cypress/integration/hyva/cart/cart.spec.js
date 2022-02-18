@@ -1,5 +1,6 @@
 import cart from "../../../fixtures/hyva/selectors/cart.json";
 import { Cart } from "../../../page-objects/hyva/cart";
+import {isMobileHyva} from "../../../support/utils";
 
 describe("Isolated test for adding a product to the cart", () => {
     it("can add a product to the cart", () => {
@@ -24,7 +25,11 @@ describe("Cart tests", () => {
     });
 
     it("Can remove a product from the cart", () => {
-        cy.get(cart.deleteProductButton).click();
+        if(isMobileHyva()) {
+            cy.get(cart.deleteProductButtonMobile).click();
+        } else {
+            cy.get(cart.deleteProductButton).click();
+        }
         cy.get(cart.emptyCartTextField)
             .should("include.text", "You have no items in your shopping cart.")
             .should("be.visible");
@@ -54,23 +59,30 @@ describe("Cart tests", () => {
         cy.get(cart.couponDropdownSelector).click();
         cy.get(cart.couponInputField).type("wrong coupon code");
         cy.get(cart.addCouponButton).click();
+        cy.wait(2000)
         cy.get(cart.messageToast)
             .should(
                 "include.text",
                 "The coupon code isn't valid. Verify the code and try again."
             )
-            .should("be.visible");
+            if(!isMobileHyva()) {
+                cy.get(cart.messageToast)
+                    .should("be.visible");
+            }
     });
 
     it("Displays the correct product prices and totals", () => {
         cy.visit(cart.url.product1Url);
 
         //check if product price matches with price in cart
+        cy.wait(1000)
         cy.get(cart.product.productPrice).then(($productPrice) => {
             const productPrice = $productPrice[0].textContent.trim();
 
             Cart.addProductToCart(cart.url.product2Url);
+            cy.wait(1000)
             cy.visit(cart.url.cartUrl);
+            cy.wait(1000)
             cy.get(cart.product1Price).should("have.text", productPrice);
 
             //change the qty value
