@@ -12,5 +12,6 @@
     "PDPProductName": ".order-2 > .text-xl",
     "productPrice": ".final-price",
     "removeProductButton": ".pt-4 > button.inline-flex > .w-5",
-    "secondProductAmount": ":nth-child(3) > .w-3\\/4 > :nth-child(1) > .text-xl > [x-html=\"item.qty\"]"
+    "secondProductAmount": ":nth-child(3) > .w-3\\/4 > :nth-child(1) > .text-xl > [x-html=\"item.qty\"]",
+    "pageTitle": ".base"
 }
