@@ -221,7 +221,7 @@ npx cypress run --spec ./cypress/integration/path/to/some.spec.js
 
 ### Running against local environment
 
-Set up your local URL in `cypress/plugins/index.js`. Then add run Cypress with `NODE_ENV; npx cypress run`.
+Set up your local URL in `cypress/plugins/index.js`. Then run Cypress with `NODE_ENV=develop; npx cypress run`.
 
 ## Contributing
 
