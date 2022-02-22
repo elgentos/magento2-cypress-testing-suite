@@ -26,7 +26,8 @@ This testing suite was announced in [Peter Jaap](https://twitter.com/PeterJaap) 
 ### Assumptions
 - Magento 2 runs in Single Store Mode
 - Default language is English
-- Viewport is 1920x1280 (tests for mobile viewports are availabline for Luma, not yet for Hyvä)
+- Viewport is 1920x1280, with support for mobile viewports 
+
 - [Multi Source Inventory is not used](https://github.com/magento/inventory)
 
 ### Not plug & play
