@@ -46,7 +46,7 @@ You need to copy the whole suite into your project. We are open to suggestions o
 We haven't made tests for the Hyvä React Checkout yet. PR's are definitely welcome now that [we have a stable version](https://github.com/hyva-themes/magento2-react-checkout).
 
 ## Progress
-We are at 62%; 48 out of 78 tests are done.
+We are at 72%; 56 out of the proposed 78 tests are done.
 
 Wording & naming are subject to change.
 
