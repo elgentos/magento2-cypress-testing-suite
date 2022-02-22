@@ -152,6 +152,8 @@ mv magento2-cypress-testing-suite/cypress.json .
 rm -rf magento2-cypress-testing-suite
 ```
 
+Also see Tags below about how to set up using tags. 
+
 Then edit the `cypress.json` file in the root of your project to update your baseUrl and possibly some other defaults we've set:
 
 ```json
@@ -197,7 +199,7 @@ Or you can set it in your CI/CD variables by prefixing the environment variable 
 
 ### Tags
 
-If you would like to use [tags](https://github.com/annaet/cypress-tags), you need to install the 3rd party tag support package. Following the [setup](https://github.com/annaet/cypress-tags#setup) for that package, you need to add it to the `plugins/index.js` and `support/index.d.ts`.
+We use [tags](https://github.com/annaet/cypress-tags).to discern between hot tests and cold tests. You need to install the 3rd party tag support package. Following the [setup](https://github.com/annaet/cypress-tags#setup) for that package, you need to add it to the `plugins/index.js` and `support/index.d.ts`.
 
 ```bash
 npm install cypress-tags typescript --save-dev
