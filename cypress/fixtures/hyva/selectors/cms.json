@@ -1,0 +1,7 @@
+{
+  "infocenter": ".bg-white > .wrapper > .order-3",
+  "cmsListItem": "nav > ul > li",
+  "cmsItemLink": "li > a",
+  "pageTitle": "h1.page-title",
+  "cmsDefaultPages": [":nth-child(1) > ul.mt-4 > :nth-child(2) > .text-base", "ul.mt-4 > :nth-child(3) > .text-base", "ul.mt-4 > :nth-child(4) > .text-base"]
+}

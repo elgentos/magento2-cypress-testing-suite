@@ -14,6 +14,8 @@
         "messageToast": "div.message",
         "productPrice": ".price"
     },
+    "productRowInCart": "div.table-row-item",
+    "productNameInCart": "a[x-html='item.product.name']",
     "product1Price": ":nth-child(3) > .sm\\:order-2 > .flex > :nth-child(2) > .block",
     "product1Subtotal": ":nth-child(3) > .md\\:justify-end > .sm\\:items-center > .flex > .block > span",
     "product2Subtotal": ":nth-child(4) > .md\\:justify-end > .sm\\:items-center > .flex > .block > span",
