@@ -125,6 +125,11 @@ describe("Cart tests", () => {
     });
 
     it("merges an already existing cart when a customer logs in", () => {
-        //test goes here
+        cy.get(cart.productNameInCart).invoke('text').then(productName => {
+            Account.login(account.customerLogin.username, account.customerLogin.password);
+            cy.visit(cart.url.cartUrl);
+            cy.get(cart.productNameInCart).should('have.text', productName)
+        })
+        Account.logout();
     });
 });
