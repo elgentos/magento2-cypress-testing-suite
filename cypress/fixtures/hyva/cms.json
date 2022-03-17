@@ -1,0 +1,5 @@
+{
+  "wrongPageUrl": "/abc",
+  "cmsTitles": ["Customer Login", "Orders and Returns", "Contact Us"],
+  "errorPageTitle": "Whoops, our bad..."
+}
