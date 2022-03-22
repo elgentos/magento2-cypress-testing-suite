@@ -3,6 +3,7 @@
     "headerNavCategory": "div.lg\\:block > nav > div:nth-child(2) > span > a[title=\"Women\"]",
     "headerNavSubCategory": "div.lg\\:block > nav > div:nth-child(2) > div > a:nth-child(1)",
     "mainHeading": "h1.title-font",
+    "addToCartButton": "button.btn-primary:visible",
     "newsletterSubscribeButton": "#newsletter-validate-detail button",
     "productCard": "#maincontent div > div div.card.card-interactive",
     "subscribeToNewsletterField": "#newsletter-subscribe",

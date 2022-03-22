@@ -2,6 +2,7 @@
     "addToCartButton": "#product-addtocart-button",
     "firstProductAmount": ":nth-child(2) > .w-3\\/4 > :nth-child(1) > .text-xl > [x-html=\"item.qty\"]",
     "miniCartButton": "#menu-cart-icon > .w-8",
+    "miniCartSlider": ".fixed > .w-screen > .flex-col",
     "miniCartCheckoutButton": ":nth-child(3) > :nth-child(2) > .inline-flex",
     "miniCartEditProductButton": ".pt-4 > .mr-2",
     "miniCartFirstProductPrice": ":nth-child(2) > .w-3\\/4 > :nth-child(3) > [x-html=\"item.product_price\"]",
@@ -9,9 +10,11 @@
     "miniCartSecondProductPrice": ":nth-child(3) > .w-3\\/4 > :nth-child(3) > [x-html=\"item.product_price\"]",
     "miniCartSubtotal": "[x-html=\"cart.subtotal\"] > .price",
     "miniCartViewCartLink": ".underline",
+    "productQty": "[x-html='item.qty']",
     "PDPProductName": ".order-2 > .text-xl",
     "productPrice": ".final-price",
     "removeProductButton": ".pt-4 > button.inline-flex > .w-5",
+    "qtyInputField": "input[name='qty']",
     "secondProductAmount": ":nth-child(3) > .w-3\\/4 > :nth-child(1) > .text-xl > [x-html=\"item.qty\"]",
     "pageTitle": ".base"
 }

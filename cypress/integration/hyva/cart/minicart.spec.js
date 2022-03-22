@@ -34,6 +34,23 @@ describe('Mini cart tests', () => {
         cy.get(selectors.miniCartCheckoutButton).click()
         cy.get(selectors.pageTitle).should('contains.text', 'Checkout').should('be.visible')
     })
+
+    it('can open minicart slider', () => {
+        cy.get(selectors.miniCartSlider).should('be.visible')
+    })
+
+    it('can change amount in the minicart', () => {
+        cy.get(selectors.miniCartSlider).within(() => {
+            cy.get(selectors.miniCartEditProductButton).click()
+        })
+        cy.get(selectors.qtyInputField)
+          .type("{backspace}2{enter}")
+          .should("have.value", "2");
+        cy.get(selectors.addToCartButton).click()
+        cy.get(selectors.miniCartButton).click()
+        cy.get(selectors.productQty)
+          .should('have.text', '2')
+    })
 })
 
 describe('Test without added product',() => {
