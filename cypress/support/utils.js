@@ -13,7 +13,6 @@ export function getWebsites() {
         headers: {
             authorization: `Bearer ${Cypress.env('MAGENTO2_ADMIN_TOKEN')}`
         },
-        timeout: 100000,
     })
         .then(response => {
             return response.body

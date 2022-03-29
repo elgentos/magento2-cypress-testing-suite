@@ -7,7 +7,6 @@ export class Magento2RestApi {
             url: '/rest/all/V1/customers',
             body: customer,
             failOnStatusCode: false,
-            timeout: 100000,
         }).then((response) => {
             // Conditional testing is bad mmkay, I just haven't found a way to expect oneOf in different properties yet
             if (response.body.hasOwnProperty('message')) {
@@ -26,7 +25,6 @@ export class Magento2RestApi {
             method: 'POST',
             url: '/rest/all/V1/integration/customer/token',
             body: customer,
-            timeout: 50000
         }).then((response) => {
             // TODO: do something with the token...
             cy.log(response.body)
@@ -47,7 +45,6 @@ export class Magento2RestApi {
             headers: {
                 authorization: `Bearer ${Cypress.env('MAGENTO2_ADMIN_TOKEN')}`
             },
-            timeout: 100000,
         }).then((response) => {
             console.log(response.body);
         });
