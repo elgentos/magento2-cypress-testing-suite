@@ -1,0 +1,5 @@
+{
+    "successMessage": ".message-success.success",
+    "errorMessage": ".message-error",
+    "pageTitle": "h1.page-title .base"
+}
