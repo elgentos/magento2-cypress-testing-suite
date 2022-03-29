@@ -1,3 +1,5 @@
+import globalSelectors from '../fixtures/globalSelectors.json'
+
 export const isMobile = () => {
     return Cypress.config('viewportWidth') < Cypress.env('mobileViewportWidthBreakpoint')
 }
@@ -17,4 +19,22 @@ export function getWebsites() {
         .then(response => {
             return response.body
         })
+}
+
+export function shouldHavePageTitle(title) {
+    cy.get(globalSelectors.pageTitle)
+        .should('exist')
+        .should('contain.text', title)
+}
+
+export function shouldHaveSuccessMessage(message) {
+    cy.get(globalSelectors.successMessage)
+        .should('exist')
+        .should('contain.text', message)
+}
+
+export function shouldHaveErrorMessage(message) {
+    cy.get(globalSelectors.errorMessage)
+        .should('exist')
+        .should('contain.text', message)
 }
