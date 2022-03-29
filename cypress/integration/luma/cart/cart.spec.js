@@ -1,23 +1,24 @@
-import { Cart } from '../../../page-objects/luma/cart';
+import {Cart} from '../../../page-objects/luma/cart';
 import cartLuma from '../../../fixtures/luma/selectors/cart';
+import productLuma from '../../../fixtures/luma/product.json';
+import {Magento2RestApi} from '../../../support/magento2-rest-api'
+import {shouldHaveErrorMessage, shouldHaveSuccessMessage} from '../../../support/utils'
 
 describe('Isolated test for adding a product to the cart', () => {
     it('Can add a product to the cart', () => {
-        Cart.addProductToCart(cartLuma.url.product1Url);
-        cy.get(cartLuma.product.messageToast)
-            .should(
-                'include.text',
-                'You added Didi Sport Watch to your shopping cart.'
-            )
-            .should('be.visible');
+        Cart.addProductToCart(productLuma.simpleProductUrl);
+        shouldHaveSuccessMessage(`You added ${productLuma.simpleProductName} to your shopping cart.`)
     });
 });
 
 describe('Cart tests', () => {
     beforeEach(() => {
-        Cart.addProductToCart(cartLuma.url.product1Url);
-        cy.visit(cartLuma.url.cartUrl);
-        cy.wait(3000);
+        cy.intercept('**/rest/*/V1/guest-carts/*/totals-information')
+            .as('totalsInformation')
+
+        Cart.addProductToCart(productLuma.simpleProductUrl);
+        cy.visit(cartLuma.cartUrl);
+        cy.wait('@totalsInformation')
     });
 
     it('Can change the quantity in the cart', () => {
@@ -34,22 +35,17 @@ describe('Cart tests', () => {
     });
 
     it('Can add a coupon to the cart', () => {
-        Cart.addProductToCart(cartLuma.url.product2Url);
-        Cart.addCouponCode();
-        cy.get(cartLuma.cartSummaryTable)
-            .should('include.text', 'Discount')
-            .should('be.visible');
+        Magento2RestApi.createRandomCouponCode()
+            .then(coupon => {
+                Cart.addCouponCode(coupon)
+                cy.get(cartLuma.cartSummaryTable)
+                    .should('include.text', 'Discount')
+                    .should('be.visible')
+            })
     });
 
-    it('cannot add a non existing coupon', () => {
-        cy.get(cartLuma.couponDropdownSelector).click();
-        cy.get(cartLuma.couponInputField).type('wrong coupon code');
-        cy.get(cartLuma.addCouponButton).click();
-        cy.get(cartLuma.messageToast)
-            .should(
-                'include.text',
-                'The coupon code "wrong coupon code" is not valid.'
-            )
-            .should('be.visible');
+    it('Cannot add a non existing coupon', () => {
+        Cart.addCouponCode('wrong coupon code')
+        shouldHaveErrorMessage('The coupon code "wrong coupon code" is not valid.')
     });
 });
