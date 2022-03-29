@@ -65,7 +65,7 @@ function addAProductToCartAndEnterBillingAddressInCheckout() {
         .click()
 
     cy.wait('@estimateShipping')
-    Checkout.enterBillingAddress(checkout.billingAddress)
+    Checkout.enterShippingAddress(checkout.billingAddress)
     cy.wait('@emailAvailable')
 }
 
@@ -129,7 +129,7 @@ describe('Checkout tests', () => {
                     const cartDiscount = parseFloat($cartDiscount.last().text().trim().slice(2))
                     cy.visit(checkout.checkoutUrl)
                     cy.wait('@estimateShipping')
-                    Checkout.enterBillingAddress(checkout.billingAddress)
+                    Checkout.enterShippingAddress(checkout.billingAddress)
                     cy.get('.button.action.continue.primary').click()
                     cy.wait('@sectionLoad')
                     cy.wait('@sectionLoad')
