@@ -6,9 +6,7 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 })
 
 afterEach( function () {
-    if (this.currentTest.state === 'failed') {
+    if (!Cypress.browser.isHeadless && this.currentTest.state === 'failed') {
         Cypress.runner.stop()
     }
-});
-
-
+})
