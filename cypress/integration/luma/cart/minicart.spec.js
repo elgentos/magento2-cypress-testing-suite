@@ -1,15 +1,15 @@
-import minicart from "../../../fixtures/minicart"
-import selectors from "../../../fixtures/luma/selectors/minicart"
+import selectors from '../../../fixtures/luma/selectors/minicart'
+import product from '../../../fixtures/luma/product'
+import {Cart} from '../../../page-objects/luma/cart'
+import {shouldHavePageTitle, shouldHaveSuccessMessage} from '../../../support/utils'
 
 describe('Mini cart tests', () => {
     beforeEach(() => {
         cy.removeLocalStorage();
         cy.clearCookies();
-        cy.visit(minicart.didiSportWatch)
-        cy.get(selectors.addToCartButton).click()
-        cy.wait(5000)
+        Cart.addProductToCart(product.simpleProductUrl);
+        shouldHaveSuccessMessage(`You added ${product.simpleProductName} to your shopping cart.`)
         cy.get(selectors.miniCartButton).click()
-        cy.wait(2000)
     })
 
     it('Can delete an item from the cart slider', () => {
@@ -28,22 +28,18 @@ describe('Mini cart tests', () => {
         })
     })
 
-    it('can navigate to the cart with a link in the mini-cart', () => {
+    it('Can navigate to the cart with a link in the mini-cart', () => {
         cy.get(selectors.miniCartViewCartLink).click()
-        cy.get(selectors.pageTitle).should('contain.text', 'Shopping Cart').should('be.visible')
+        shouldHavePageTitle('Shopping Cart')
     })
 
-    it('can navigate to the checkout with a link in the slider', () => {
+    it('Can navigate to the checkout with a link in the slider', () => {
         cy.get(selectors.miniCartCheckoutButton).click()
-        cy.url().should('contain', 'checkout')
+        cy.url()
+            .should('contain', 'checkout')
     })
-})
 
-describe('Test without added product', () => {
     it('Can check if the items and prices in the slider are displayed correctly', () => {
-        cy.visit(minicart.waterBottle)
-        cy.get(selectors.addToCartButton).click()
-        cy.wait(5000)
         cy.get(selectors.productPrice).then(($productPrice) => {
             cy.get(selectors.miniCartButton).click()
             const productPrice = $productPrice[0].textContent.trim()
@@ -53,12 +49,11 @@ describe('Test without added product', () => {
                 cy.get(selectors.firstProductAmount).invoke('data', 'item-qty').then(($qty) => {
                     const qty = $qty
                     cy.get(selectors.miniCartSubtotal).then(($total) => {
-                        const total = parseInt($total[0].textContent.trim().slice(1))
+                        const total = parseFloat($total[0].textContent.trim().slice(1))
                         cy.get(selectors.miniCartFirstProductPrice).then(($productPriceMiniCart) => {
                             const productPriceMiniCart = $productPriceMiniCart[0].textContent.trim().slice(1)
                             console.log(productPriceMiniCart, '$productPriceMiniCart')
                             const subTotal = (parseFloat(productPriceMiniCart) * parseFloat(qty))
-                            cy.log(subTotal)
                             expect(subTotal).to.equal(total)
                         })
                     })
