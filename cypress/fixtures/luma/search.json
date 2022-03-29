@@ -1,7 +1,5 @@
 {
-  "productCategory": "hoodie",
-  "singleProduct": "Didi",
-  "singleProductName": "Didi Sport Watch",
+  "searchTerm": "Didi",
   "noResults": "1234abcd",
   "getHint": "didi",
   "hintResult": "Didi"
