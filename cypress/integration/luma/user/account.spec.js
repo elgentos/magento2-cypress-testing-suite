@@ -99,14 +99,17 @@ describe('Account activities', () => {
     })
 
     it('Can add an address automatically from saved address', () => {
+        cy.intercept('**/rest/*/V1/carts/mine/estimate-shipping-methods-by-address-id')
+            .as('estimateShippingWithAddress')
+
         Account.createAddress(account.customerInfo)
         // There needs to be an item in the cart for this to work, and there needs to be a saved address
         cy.visit(product.simpleProductUrl)
         cy.contains('Add to Cart').click()
         cy.visit(checkout.checkoutUrl)
-        // TODO: Replace with cy.intercept
-        cy.wait(7000) // this shouldn't be needed but for some reason it doesn't work without
-        cy.get('.shipping-address-item.selected-item').should('have.length', 1)
+        cy.wait('@estimateShippingWithAddress')
+        cy.get(checkoutSelectors.addressSelected)
+            .should('have.length', 1)
     })
 
     it('Can remove an address', () => {
