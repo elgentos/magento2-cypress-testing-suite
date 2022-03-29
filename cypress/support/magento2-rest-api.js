@@ -67,7 +67,6 @@ export class Magento2RestApi {
                 headers: {
                     authorization: `Bearer ${Cypress.env('MAGENTO2_ADMIN_TOKEN')}`
                 },
-                timeout: 100000,
                 body: {
                     rule: {
                         apply_to_shipping: true,
@@ -96,7 +95,6 @@ export class Magento2RestApi {
                     headers: {
                         authorization: `Bearer ${Cypress.env('MAGENTO2_ADMIN_TOKEN')}`
                     },
-                    timeout: 100000,
                     body: {
                         couponSpec: {
                             rule_id: rule.body.rule_id,
