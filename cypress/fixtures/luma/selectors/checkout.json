@@ -14,6 +14,7 @@
 	"emailValidationErrorField": "fieldset#customer-email-fieldset .control div[for=customer-email].mage-error",
 	"addToCartButton": "#product-addtocart-button",
 	"checkoutEmailLabel": "#customer-email",
+	"checkoutPasswordInput": "input#customer-password",
 	"moneyOrderPaymentMethodSelector": "#checkmo",
 	"moneOrderAgreement1": "#agreement_checkmo_1",
 	"moneOrderAgreement2": "#agreement_checkmo_2",
