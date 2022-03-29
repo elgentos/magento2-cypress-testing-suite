@@ -12,5 +12,8 @@
   "viewToggle": "#mode-list",
   "pageNavigation": "ul.pages-items li",
   "pageLink": "a.page",
-  "secondPageItem": "ul.pages-items > li:nth-child(3) > .page"
+  "secondPageItem": "ul.pages-items > li:nth-child(3) > .page",
+  "filterTitle": ".filter-options-title",
+  "filterOption": ".filter-options-filter",
+  "filterByLabel": ".filter-options-content ol.items > li:nth-child(1) > a > label"
 }
