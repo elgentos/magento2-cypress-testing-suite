@@ -13,12 +13,12 @@ describe('Isolated test for adding a product to the cart', () => {
 
 describe('Cart tests', () => {
     beforeEach(() => {
-        cy.intercept('**/rest/*/V1/guest-carts/*/totals-information')
-            .as('totalsInformation')
+        cy.intercept('**/rest/default/V1/guest-carts/*/estimate-shipping-methods')
+            .as('estimateShippingMethod')
 
         Cart.addProductToCart(productLuma.simpleProductUrl);
         cy.visit(cartLuma.cartUrl);
-        cy.wait('@totalsInformation')
+        cy.wait('@estimateShippingMethod')
     });
 
     it('Can change the quantity in the cart', () => {
