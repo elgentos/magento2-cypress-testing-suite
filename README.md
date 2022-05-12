@@ -192,14 +192,13 @@ You then can add the token to `cypress.env.json` as an environment variable:
 {
   "MAGENTO2_ADMIN_TOKEN": "token_goes_here"
 }
-
 ```
 
 Or you can set it in your CI/CD variables by prefixing the environment variable name with `CYPRESS_`: `CYPRESS_MAGENTO2_ADMIN_TOKEN: <token_goes_here>`.
 
 ### Tags
 
-We use [tags](https://github.com/annaet/cypress-tags).to discern between hot tests and cold tests. You need to install the 3rd party tag support package. Following the [setup](https://github.com/annaet/cypress-tags#setup) for that package, you need to add it to the `plugins/index.js` and `support/index.d.ts`.
+We use [tags](https://github.com/annaet/cypress-tags) to discern between hot tests and cold tests. You need to install the 3rd party tag support package. Following the [setup](https://github.com/annaet/cypress-tags#setup) for that package, you need to add it to the `plugins/index.js` and `support/index.d.ts`.
 
 ```bash
 npm install cypress-tags typescript --save-dev
@@ -213,10 +212,16 @@ npx cypress run
 # npx cypress open # if you want to use the GUI
 ```
 
-Individual specs can be run using the following [command](https://docs.cypress.io/guides/guides/command-line#Commands)
+Individual specs can be run using the following [command](https://docs.cypress.io/guides/guides/command-line#Commands):
 
 ```bash
 npx cypress run --spec ./cypress/integration/path/to/some.spec.js
+```
+
+Hot and cold tests based on tags can be run using the following command:
+
+```bash
+CYPRESS_INCLUDE_TAGS=hot npx cypress run
 ```
 
 ### Running against local environment
