@@ -27,7 +27,7 @@
 	"totalPrice": ".grand.totals .price",
 	"taxesPrice": ".table-totals .totals-tax-summary td .price",
 	"checkoutDiscountPrice": ".totals.discount .price",
-	"cartDiscount": ":nth-child(3) > .amount",
+	"cartDiscount": "table.totals tr.totals:nth-child(2) .amount",
 	"checkoutBtn": ".button.action.continue.primary",
 	"orderConfirmationOrderNumber": ".checkout-success strong",
 	"checkoutSuccess": ".checkout-success",

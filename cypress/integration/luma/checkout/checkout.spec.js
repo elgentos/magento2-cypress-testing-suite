@@ -85,7 +85,10 @@ describe('Checkout tests', () => {
             cy.visit(checkout.checkoutUrl)
             cy.wait('@estimateShipping')
             Checkout.enterShippingAddress(checkout.shippingAddress)
-            cy.wait('@sectionLoad')
+            cy.wait('@estimateShipping')
+            cy.get('.table-checkout-shipping-method td')
+                .contains('Fixed')
+                .click()
             cy.get('.button.action.continue.primary').click()
             cy.wait('@sectionLoad')
 
@@ -99,11 +102,13 @@ describe('Checkout tests', () => {
                 cy.get(selectors.checkoutShippingPrice).then(($shippingPrice) => {
                     const shippingPrice = $shippingPrice[0].innerText.trim()
                     cy.get(selectors.totalPrice).then(($totalPrice) => {
-                        const totalPrice = $totalPrice[0].innerText.trim().slice(1)
-                        cy.get(selectors.taxesPrice).then($taxesPrice => {
-                            const taxes = $taxesPrice[0].innerText.trim().slice(1)
-                            expect(parseFloat(checkoutPrice.slice(1)) + parseFloat(shippingPrice.slice(1)) + parseFloat(taxes)).to.equal(parseFloat(totalPrice))
-                        })
+                        const totalPrice = $totalPrice[0].innerText.trim()
+                        // Uncomment if your shop has taxes
+                        // cy.get(selectors.taxesPrice).then($taxesPrice => {
+                        //     const taxes = $taxesPrice[0].innerText.trim().slice(1)
+                        //     expect(parseFloat(checkoutPrice.slice(1)) + parseFloat(shippingPrice.slice(1)) + parseFloat(taxes)).to.equal(parseFloat(totalPrice))
+                        // })
+                        expect(parseFloat(checkoutPrice) + parseFloat(shippingPrice)).to.equal(parseFloat(totalPrice))
                     })
                 })
             })
@@ -115,7 +120,7 @@ describe('Checkout tests', () => {
 
         Cart.addProductToCart(productLuma.simpleProductUrl)
         cy.visit(cartLuma.cartUrl)
-        cy.wait('@totalsInformation')
+        cy.wait('@estimateShipping')
 
         Magento2RestApi.createRandomCouponCode()
             .then(coupon => {
@@ -126,10 +131,11 @@ describe('Checkout tests', () => {
                     .should('include.text', 'Discount')
                     .should('be.visible')
                 cy.get(selectors.cartDiscount).then(($cartDiscount) => {
-                    const cartDiscount = parseFloat($cartDiscount.last().text().trim().slice(2))
+                    // FIXME: This gives me 9.2 instead of 9.7
+                    const cartDiscount = parseFloat($cartDiscount.last().text().trim().slice(1).replace(',', '.'))
                     cy.visit(checkout.checkoutUrl)
                     cy.wait('@estimateShipping')
-                    Checkout.enterShippingAddress(checkout.billingAddress)
+                    Checkout.enterShippingAddress(checkout.shippingAddress)
                     cy.get('.button.action.continue.primary').click()
                     cy.wait('@sectionLoad')
                     cy.wait('@sectionLoad')
@@ -137,7 +143,8 @@ describe('Checkout tests', () => {
                         cy.get('.action.showcart').click()
                     }
                     cy.get(selectors.checkoutDiscountPrice).then(($discount) => {
-                        const discount = parseFloat($discount[0].innerText.trim().slice(2))
+                        console.log($discount[0].innerText.trim().slice(1))
+                        const discount = parseFloat($discount[0].innerText.trim().slice(1).replace(',', '.'))
                         expect(discount).to.equal(cartDiscount)
                     })
                 })

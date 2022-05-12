@@ -10,13 +10,14 @@ export class Checkout {
     }
 
     static enterShippingAddress(shippingAddress) {
+        cy.get(selectors.customerEmailField).type(shippingAddress.email)
         cy.get(`${selectors.shippingContainer} ${selectors.firstNameField}`).type(shippingAddress.firstname)
         cy.get(`${selectors.shippingContainer} ${selectors.lastNameField}`).type(shippingAddress.lastname)
         cy.get(`${selectors.shippingContainer} ${selectors.companyField}`).type(shippingAddress.companyname)
         cy.get(`${selectors.shippingContainer} ${selectors.addressField}`).eq(0).type(shippingAddress.street)
         cy.get(`${selectors.shippingContainer} ${selectors.cityField}`).type(shippingAddress.city)
         cy.get(`${selectors.shippingContainer} ${selectors.postCodeField}`).type(shippingAddress.postcode)
-        cy.get(`${selectors.shippingContainer} ${selectors.countryField}`).select('United Kingdom')
+        cy.get(`${selectors.shippingContainer} ${selectors.countryField}`).select('NL')
         cy.get(`${selectors.shippingContainer} ${selectors.telephoneField}`).type(shippingAddress.tel)
     }
 
@@ -28,7 +29,7 @@ export class Checkout {
         cy.get(`${selectors.billingContainer} ${selectors.addressField}`).eq(0).type(shippingAddress.street)
         cy.get(`${selectors.billingContainer} ${selectors.cityField}`).type(shippingAddress.city)
         cy.get(`${selectors.billingContainer} ${selectors.postCodeField}`).type(shippingAddress.postcode)
-        cy.get(`${selectors.billingContainer} ${selectors.countryField}`).select('United Kingdom')
+        cy.get(`${selectors.billingContainer} ${selectors.countryField}`).select('NL')
         cy.get(`${selectors.billingContainer} ${selectors.telephoneField}`).type(shippingAddress.tel)
     }
 
