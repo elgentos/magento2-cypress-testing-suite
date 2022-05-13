@@ -1,46 +1,59 @@
-import { Search } from "../../../page-objects/luma/search"
-import searchLuma from "../../../fixtures/luma/search"
-import selectorsLuma from "../../../fixtures/luma/selectors/search"
-import {isMobile} from "../../../support/utils";
-
+import {Search} from '../../../page-objects/luma/search'
+import searchLuma from '../../../fixtures/luma/search'
+import selectors from '../../../fixtures/luma/selectors/search'
+import product from '../../../fixtures/luma/product'
+import {isMobile} from '../../../support/utils'
+import homepage from '../../../fixtures/luma/homepage.json'
 
 describe('Perform searches', () => {
     beforeEach(() => {
-        cy.visit('/')
+        cy.visit(homepage.homePageUrl)
+    })
+
+    it('Can perform search from the homepage', () => {
+        if(isMobile()) {
+            cy.get(selectors.headerSearchIcon).click()
+        }
+        cy.get(selectors.headerSearchIcon)
+            .should('be.visible')
+            .type(`${product.simpleProductName}{enter}`)
+        cy.get(selectors.pageHeader)
+            .should('contain.text', product.simpleProductName)
     })
 
     it('Can perform search with multiple hits', () => {
-        Search.search(searchLuma.productCategory)
-        cy.get(selectorsLuma.pageHeader)
-            .should('have.text', `Search results for: '${searchLuma.productCategory}'`)
+        Search.search(searchLuma.searchTerm)
+        cy.get(selectors.pageHeader)
+            .should('have.text', `Search results for: '${searchLuma.searchTerm}'`)
+        cy.get(selectors.resultContainer)
+            .should('have.length.gt', 0)
     })
 
     it('Can find a single product', () => {
-        Search.search(searchLuma.singleProduct)
-        cy.get(selectorsLuma.toolbarNumber)
-            .should('be.visible')
-            .should('contain.text', '1')
+        Search.search(product.simpleProductName)
+        cy.get(selectors.resultContainer)
+            .should('contain.text', product.simpleProductName)
     })
 
     it('Can perform search with no search results', () => {
         Search.search(searchLuma.noResults)
-        cy.get(selectorsLuma.pageHeader)
+        cy.get(selectors.pageHeader)
             .should('be.visible')
-            .should("contain.text", `Search results for: '${searchLuma.noResults}'`)
-        cy.get(selectorsLuma.noResultsMessage)
+            .should('contain.text', `Search results for: '${searchLuma.noResults}'`)
+        cy.get(selectors.noResultsMessage)
             .should('be.visible')
             .should('contain.text', 'Your search returned no results.')
     })
 
     it('Can see suggestions when entering search terms', () => {
-        if(isMobile()) {
-            cy.get(selectorsLuma.headerSearchIconMobile).click()
+        if (isMobile()) {
+            cy.get(selectors.headerSearchIconMobile).click()
         }
-        cy.get(selectorsLuma.headerSearchIcon).click()
-        cy.get(selectorsLuma.headerSearchField)
+        cy.get(selectors.headerSearchIcon).click()
+        cy.get(selectors.headerSearchField)
             .should('be.visible')
-            .type(`${searchLuma.getHint}`)
-        cy.get(selectorsLuma.searchSuggestions)
+            .type(`${searchLuma.searchTerm}`)
+        cy.get(selectors.searchSuggestions)
             .should('be.visible')
             .should('contain.text', searchLuma.hintResult)
     })

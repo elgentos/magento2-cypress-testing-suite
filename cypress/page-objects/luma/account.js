@@ -1,13 +1,16 @@
 import selectors from '../../fixtures/luma/selectors/account'
 import account from '../../fixtures/account'
-import {isMobile} from "../../support/utils";
+import {isMobile} from '../../support/utils'
 
 export class Account {
     static login(user, pw) {
         cy.visit(account.routes.accountIndex);
-        cy.wait(2000)
         cy.get(selectors.loginEmailInputSelector).type(user)
-        cy.get(selectors.loginPasswordInputSelector).type(`${pw}{enter}`)
+        cy.get(selectors.loginPasswordInputSelector)
+            .first()
+            .type(pw)
+        cy.get('button[type=submit]')
+            .contains('Sign In').click()
     }
 
     static isLoggedIn() {
@@ -18,7 +21,9 @@ export class Account {
         if(isMobile()) {
             cy.get('.sidebar-main > .block > .title').click()
         }
-        cy.get('#block-collapsible-nav').contains('Account Information').click()
+        cy.get('#account-nav')
+            .contains('Account Information')
+            .click()
     }
 
     static checkAllProfileSpecs() {
@@ -32,7 +37,8 @@ export class Account {
         cy.get(selectors.changePasswordFormSelector).within(($from) => {
             cy.get(selectors.currentPasswordInputSelector).type(pwd)
             cy.get(selectors.newPasswordInputSelector).type(newPwd)
-            cy.get(selectors.newPasswordConfirmationInputSelector).type(`${newPwd}{enter}`)
+            cy.get(selectors.newPasswordConfirmationInputSelector).type(newPwd)
+            cy.get(selectors.changePasswordSave).click()
         })
     }
 
@@ -50,7 +56,6 @@ export class Account {
         cy.get(selectors.accountEmailInputSelector).type(email)
         cy.get(selectors.newPasswordInputSelector).type(passwd)
         cy.get(selectors.newPasswordConfirmationInputSelector).type(passwd)
-        cy.wait(3000)
         cy.get('.form-create-account button').click()
     }
 
@@ -58,15 +63,27 @@ export class Account {
         if(isMobile()) {
             cy.get('.nav-toggle').click()
             cy.get('[aria-controls="store.links"]').click()
-        } else {
-            cy.get(':nth-child(2) > .customer-welcome > .customer-name > .action').click()
         }
-        cy.contains('Sign Out').click({force: true})
+        cy.contains('Sign Out').click()
+        // TODO: Wait for page load
+        cy.contains('You are signed out')
+            .should('exist')
+    }
+
+    static ensureLoggedOut() {
+        cy.visit('/customer/account/logout/')
+    }
+
+    static ensureLoggedIn(username, password) {
+        this.ensureLoggedOut()
+        this.login(username, password)
     }
 
     /** Create an address that is used with other tests */
-    static createAddress(customerInfo) {
-        cy.visit(account.routes.accountAddAddress)
+    static createAddress(customerInfo, goToPage = true) {
+        if(goToPage) {
+            cy.visit(account.routes.accountAddAddress)
+        }
         cy.get(selectors.addAddressFormSelector).then(($form) => {
             if ($form.find('#primary_billing').length) {
                 cy.get('#primary_billing').check()

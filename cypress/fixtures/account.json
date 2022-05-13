@@ -1,15 +1,15 @@
 {
     "customer": {
         "customer": {
-            "email": "test@cypress-testing.com",
+            "email": "roni_cost@example.com",
             "firstname": "Test",
             "lastname": "Test"
         },
-        "password": "Test!234"
+        "password": "roni_cost3@example.com"
     },
     "customerInfo": {
         "city": "Groningen",
-        "country": "Netherlands",
+        "country": "NL",
         "phone": "1234567890",
         "state": "Groningen",
         "streetAddress": "Teststraat 1",

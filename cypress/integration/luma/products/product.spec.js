@@ -1,13 +1,13 @@
-import {Account} from "../../../page-objects/luma/account"
-
-import product from "../../../fixtures/luma/product"
-import account from "../../../fixtures/account"
-import selectors from "../../../fixtures/luma/selectors/product"
+import product from '../../../fixtures/luma/product'
+import selectors from '../../../fixtures/luma/selectors/product'
+import checkout from '../../../fixtures/checkout'
+import {shouldHaveErrorMessage, shouldHaveSuccessMessage} from '../../../support/utils'
 
 describe('Simple Product test suite', () => {
     beforeEach(() => {
+        cy.intercept('**/customer/section/load/?sections=*')
+            .as('loadSections')
         cy.visit(product.simpleProductUrl)
-        cy.wait(2000)
     })
 
     it('Can see a title and image for the product', () => {
@@ -31,8 +31,7 @@ describe('Simple Product test suite', () => {
 
     it('Can add a product to the cart from the product page', () => {
         cy.get(selectors.addToCartButton).click()
-        cy.get(selectors.successMessage)
-            .contains(`You added ${product.simpleProductName} to your shopping cart.`)
+        shouldHaveSuccessMessage(`You added ${product.simpleProductName} to your shopping cart.`)
         // Requires a wait for the product count to update
         cy.wait(1000)
         cy.get('.showcart').click()
@@ -46,31 +45,17 @@ describe('Simple Product test suite', () => {
 
     })
 
-    it('Can see breadcrumbs', () => {
+    it.skip('Can see breadcrumbs', () => {
         cy.get(selectors.breadCrumbItems)
             .should('have.length.gte', 2)
     })
 
     it('Can\'t add a product to a wishlist when the user in not logged in', () => {
-        cy.get(selectors.addToWishlistButtonGuest).click()
-        cy.wait(2000)
-        cy.get(selectors.errorMessage)
-            .should('exist')
-            .should("contain.text", 'You must login or register to add items to your wishlist.')
-    })
-
-    it('Can add a product to the wishlist when customer is logged in', () => {
-        const customerMail = Date.now() + account.customer.customer.email
-        cy.visit(account.routes.accountCreate)
-        Account.createNewCustomer(account.customer.customer.firstname, account.customer.customer.lastname, customerMail, account.customer.password)
-        cy.visit(product.simpleProductUrl)
-        cy.wait(3000)
-        cy.get(selectors.addToWishlistButton).click().then(() => {
-            cy.wait(3000)
-            cy.get(selectors.successMessage)
-                .should('include.text', `${product.simpleProductName} has been added to your Wish List.`)
-                .should('be.visible')
-        })
+        cy.wait(1000)
+        cy.get(selectors.addToWishlistButtonGuest)
+            .first()
+            .click()
+        shouldHaveErrorMessage('You must login or register to add items to your wishlist.')
     })
 
     it('Can see product review score and the individual reviews', () => {
@@ -115,26 +100,27 @@ describe('Simple Product test suite', () => {
             .should('contain.text', 'In stock')
     })
 
-    it('Can increment the product quantity on the pdp', () => {
+    it('Can increment the product quantity on the product detail page', () => {
         cy.get(selectors.productQty)
             .type('{uparrow}')
             .should('have.value', '2')
     })
-})
 
-describe('Configurable products test suite', () => {
-    beforeEach(() => {
-        cy.visit(product.configurableProductUrl)
-        cy.wait(1000)
-    })
-
-    it('can find products in the related products list', () => {
-        // Configurable product has related products
+    // No related products in sample data
+    it.skip('Can find products in the related products list', () => {
         cy.get(selectors.relatedProductsTitle)
             .should('exist')
             .should('contain.text', 'Related Products')
         cy.get(selectors.relatedProductsCard)
             .should('have.length.gte', 3)
+    })
+})
+
+describe('Configurable products test suite', () => {
+    beforeEach(() => {
+        cy.intercept('**/customer/section/load/?sections=*')
+            .as('loadSections')
+        cy.visit(product.configurableProductUrl)
     })
 
     it('Can\'t add a configurable product to the cart when no configuration is selected', () => {
@@ -144,7 +130,7 @@ describe('Configurable products test suite', () => {
             .should('exist')
     })
 
-    it('Can select product attributes', () => {
+    it('Can select swatch product attributes', () => {
         cy.get(selectors.productAttributeSelector)
             .eq(0).find('div').first().click()
         cy.get(selectors.productAttributeSelector)
@@ -155,5 +141,17 @@ describe('Configurable products test suite', () => {
         cy.get(selectors.productAttributeSelector)
             .eq(1).find('div').first()
             .should('have.class', 'selected')
+    })
+
+    // No selectable product option in sample data
+    it.skip('Can select product options', () => {
+        cy.get('#product-options-wrapper .field.configurable select')
+            .first()
+            .select(product.configurableOption)
+        cy.get(selectors.addToCartButton).click()
+        shouldHaveSuccessMessage(`You added ${product.configurableProductName} to your shopping cart.`)
+        cy.visit(checkout.cartUrl)
+        cy.get('#shopping-cart-table')
+            .should('contain.text', product.configurableOption)
     })
 })

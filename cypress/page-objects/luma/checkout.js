@@ -1,5 +1,5 @@
-import selectors from "../../fixtures/luma/selectors/checkout"
-import checkout from "../../fixtures/checkout"
+import selectors from '../../fixtures/luma/selectors/checkout'
+import checkout from '../../fixtures/checkout'
 
 export class Checkout {
 
@@ -11,14 +11,28 @@ export class Checkout {
 
     static enterShippingAddress(shippingAddress) {
         cy.get(selectors.customerEmailField).type(shippingAddress.email)
-        cy.get(selectors.firstNameField).type(shippingAddress.firstname)
-        cy.get(selectors.lastNameField).type(shippingAddress.lastname)
-        cy.get(selectors.companyField).type(shippingAddress.companyname)
-        cy.get(selectors.addressField).eq(0).type(shippingAddress.street)
-        cy.get(selectors.cityField).type(shippingAddress.city)
-        cy.get(selectors.postCodeField).type(shippingAddress.postcode)
-        cy.get(selectors.countryField).select('United Kingdom')
-        cy.get(selectors.telephoneField).type(shippingAddress.tel)
+        cy.get(`${selectors.shippingContainer} ${selectors.firstNameField}`).type(shippingAddress.firstname)
+        cy.get(`${selectors.shippingContainer} ${selectors.lastNameField}`).type(shippingAddress.lastname)
+        cy.get(`${selectors.shippingContainer} ${selectors.companyField}`).type(shippingAddress.companyname)
+        cy.get(`${selectors.shippingContainer} ${selectors.addressField}`).eq(0).type(shippingAddress.street)
+        cy.get(`${selectors.shippingContainer} ${selectors.cityField}`).type(shippingAddress.city)
+        cy.get(`${selectors.shippingContainer} ${selectors.postCodeField}`).type(shippingAddress.postcode)
+        cy.get(`${selectors.shippingContainer} ${selectors.countryField}`).select('NL')
+        cy.get(`${selectors.shippingContainer} ${selectors.telephoneField}`).type(shippingAddress.tel)
+    }
+
+    static enterBillingAddress(shippingAddress, withEmail = true) {
+        if(withEmail) {
+            cy.get(selectors.customerEmailField).type(shippingAddress.email)
+        }
+        cy.get(`${selectors.billingContainer} ${selectors.firstNameField}`).type(shippingAddress.firstname)
+        cy.get(`${selectors.billingContainer} ${selectors.lastNameField}`).type(shippingAddress.lastname)
+        cy.get(`${selectors.billingContainer} ${selectors.companyField}`).type(shippingAddress.companyname)
+        cy.get(`${selectors.billingContainer} ${selectors.addressField}`).eq(0).type(shippingAddress.street)
+        cy.get(`${selectors.billingContainer} ${selectors.cityField}`).type(shippingAddress.city)
+        cy.get(`${selectors.billingContainer} ${selectors.postCodeField}`).type(shippingAddress.postcode)
+        cy.get(`${selectors.billingContainer} ${selectors.countryField}`).select('NL')
+        cy.get(`${selectors.billingContainer} ${selectors.telephoneField}`).type(shippingAddress.tel)
     }
 
     static addProductToCart(productUrl) {

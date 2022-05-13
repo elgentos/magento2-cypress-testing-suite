@@ -1,8 +1,8 @@
-import homepage from "../../fixtures/luma/homepage"
-import selectors from "../../fixtures/selectors/luma/homepage"
-import product from "../../fixtures/luma/product"
-import account from "../../fixtures/account"
-import {isMobile} from "../../support/utils";
+import homepage from '../../fixtures/luma/homepage'
+import selectors from '../../fixtures/luma/selectors/homepage'
+import globalSelectors from '../../fixtures/globalSelectors'
+import account from '../../fixtures/account'
+import {shouldHaveErrorMessage, shouldHaveSuccessMessage} from '../../support/utils'
 
 describe('Home page tests', () => {
     beforeEach(() => {
@@ -16,19 +16,9 @@ describe('Home page tests', () => {
             .should('have.length.gte', 1)
     })
 
-    it('Can perform search from homepage', () => {
-        if(isMobile()) {
-            cy.get(selectors.searchIconMobile).click()
-        }
-        cy.get(selectors.searchIcon)
-            .should('be.visible')
-            .type(`${product.simpleProductName}{enter}`)
-        cy.get(selectors.mainHeading)
-            .should('contain.text', product.simpleProductName)
-    })
-
     it('Can open category', () => {
         cy.get(selectors.headerNavSubCategory)
+            .first()
             .click({force: true})
         cy.get(selectors.mainHeading)
             .should('contain.text', homepage.subCategoryName)
@@ -39,10 +29,10 @@ describe('Home page tests', () => {
         cy.get(selectors.newsletterSubscribeButton).click()
         cy.wait(2000)
         cy.get('.page.messages').then(($messageSection) => {
-            if (!$messageSection.find(selectors.failedMessage).text().trim()) {
-                cy.get(selectors.successMessage).should('contain.text', homepage.subscriptionSuccess)
+            if (!$messageSection.find(globalSelectors.errorMessage).text().trim()) {
+                shouldHaveSuccessMessage(homepage.subscriptionSuccess)
             } else {
-                cy.get(selectors.failedMessage).should('contain.text', homepage.subscriptionFail)
+                shouldHaveErrorMessage(homepage.subscriptionFail)
             }
         })
     })

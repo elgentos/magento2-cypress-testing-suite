@@ -4,7 +4,7 @@
   "productPriceDataAtt": "[data-price-type=\"finalPrice\"]",
   "highestNumberOfProductsShowOption": "#limiter",
   "numberOfProductsSelect": "#limiter",
-  "numberOfShownItems": "#toolbar-amount:first-of-type .toolbar-number:nth-child(2)",
+  "numberOfShownItems": "#toolbar-amount",
   "categoryProductContainer": ".products-grid > ol",
   "breadcrumbsItem": ".breadcrumbs ul li",
   "categoryProductGridWrapper": ".modes-mode.mode-grid",
@@ -12,5 +12,8 @@
   "viewToggle": "#mode-list",
   "pageNavigation": "ul.pages-items li",
   "pageLink": "a.page",
-  "secondPageItem": "ul.pages-items > li:nth-child(3) > .page"
+  "secondPageItem": "ul.pages-items > li:nth-child(3) > .page",
+  "filterTitle": ".filter-options-title",
+  "filterOption": ".filter-options-item",
+  "filterByLabel": ".filter-options .swatch-attribute-options a .color"
 }

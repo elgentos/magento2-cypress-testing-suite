@@ -1,53 +1,58 @@
-import {Product} from "../../../page-objects/product";
-
-import product from '../../../fixtures/luma/product'
+import category from '../../../fixtures/category'
 import selectors from '../../../fixtures/luma/selectors/category'
-import {isMobile} from "../../../support/utils";
+import {isMobile} from '../../../support/utils'
 
 describe('Category page tests', () => {
     beforeEach(() => {
-        cy.visit(Product.routes.category)
-        cy.wait(3000)
+        cy.visit(category.categoryUrl)
+        cy.get('#page-title-heading .base')
+            .should('contain.text', category.category)
     })
 
-    it('Can visit the category page and filters on color red', () => {
-        if(isMobile()) {
+    it(`Can visit the category page and filters on ${category.filterBy}`, () => {
+        if (isMobile()) {
             cy.contains('Shop By').click()
         }
-        cy.contains('.filter-options-title', 'Color').click()
-        cy.get(selectors.selectColorRed).click({force: true})
-        cy.url().should('contain', '?color=')
+        cy.contains(selectors.filterTitle, category.filterBy)
+            .should('exist')
+        cy.get(selectors.filterOption)
+            .contains(category.filterBy)
+            .get(selectors.filterByLabel)
+            .first()
+            .click({force: true})
+        cy.url()
+            .should('contain', `?${category.filterQueryParam}=`)
     })
 
     it('Can sort products on price from lowest to highest', () => {
-        cy.get(selectors.sortBySelect).first().select(product.selectByPrice);
-        cy.get(selectors.productPriceDataAtt).eq(0).invoke('data', 'price-amount')
+        cy.get(selectors.sortBySelect).first().select(category.selectByPrice)
+        cy.get(selectors.productPriceDataAtt)
+            .first()
+            .invoke('data', 'price-amount')
             .then((firstPrice) => {
-                cy.get(selectors.productPriceDataAtt).eq(1).invoke('data', 'price-amount')
-                    .then((secondPrice) => {
-                        expect(firstPrice).to.be.lessThan(secondPrice);
-                    });
-            });
+                cy.get(selectors.productPriceDataAtt)
+                    .eq(1)
+                    .invoke('data', 'price-amount')
+                    .should('be.gte', firstPrice)
+            })
     })
 
     it('Can change the number of products to be displayed', () => {
-        cy.get(selectors.highestNumberOfProductsShowOption).find('option').last().invoke('val')
-            .then((numberOfProducts) => {
-                    cy.get(selectors.numberOfProductsSelect).select(numberOfProducts, {force: true});
-                    cy.get(selectors.numberOfShownItems).first().should('have.text', numberOfProducts);
-                    cy.get(selectors.categoryProductContainer).children().should('to.have.length.of.at.most', +numberOfProducts);
-                }
-            )
+        const numberOfProducts = '24'
+        cy.get(selectors.highestNumberOfProductsShowOption)
+            .select(numberOfProducts)
+        cy.get(selectors.numberOfShownItems).first().should('contain', numberOfProducts)
+        cy.get(selectors.categoryProductContainer).children().should('to.have.length.of.at.most', +numberOfProducts)
     })
 
     it('Can see the correct breadcrumbs', () => {
         cy.get(selectors.breadcrumbsItem).first().should('contain.text', 'Home')
-        cy.get(selectors.breadcrumbsItem).eq(1).should('contain.text', `${product.category}`)
-        cy.get(selectors.breadcrumbsItem).eq(2).should('contain.text', `${product.subCategory}`)
+        cy.get(selectors.breadcrumbsItem).eq(1).should('contain.text', 'Men')
+        cy.get(selectors.breadcrumbsItem).eq(2).should('contain.text', category.category)
     })
 
-    if(!isMobile()) {
-        it('Can switch between list and crid view', () => {
+    if (!isMobile()) {
+        it('Can switch between list and grid view', () => {
             cy.get(selectors.categoryProductGridWrapper).should('be.visible')
             cy.get(selectors.viewToggle).click()
             cy.get(selectors.categoryProductListWrapper).should('be.visible')

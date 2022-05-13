@@ -12,7 +12,7 @@
   "outOfStockProductUrl": "dash-digital-watch.html",
   "outOfStockProductName": "Dash Digital Watch",
   "productAttributeSelector": ".swatch-attribute-options",
-  "currency": "$",
+  "currency": "€",
   "priceRegexp": "$",
   "simpleSearchTerm": "didi",
   "couponProductUrl": "/affirm-water-bottle.html"

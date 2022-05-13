@@ -1,6 +1,8 @@
 {
-  "categoryUrl": "/women/tops-women.html",
-  "category": "Women",
+  "categoryUrl": "/men/tops-men.html",
+  "category": "Tops",
   "subCategory": "Tops",
+  "filterBy": "Color",
+  "filterQueryParam": "color",
   "selectByPrice": "Price"
 }
