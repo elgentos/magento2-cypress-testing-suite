@@ -8,7 +8,6 @@ describe('Simple Product test suite', () => {
         cy.intercept('**/customer/section/load/?sections=*')
             .as('loadSections')
         cy.visit(product.simpleProductUrl)
-        cy.wait('@loadSections')
     })
 
     it('Can see a title and image for the product', () => {
@@ -46,12 +45,13 @@ describe('Simple Product test suite', () => {
 
     })
 
-    it('Can see breadcrumbs', () => {
+    it.skip('Can see breadcrumbs', () => {
         cy.get(selectors.breadCrumbItems)
             .should('have.length.gte', 2)
     })
 
     it('Can\'t add a product to a wishlist when the user in not logged in', () => {
+        cy.wait(1000)
         cy.get(selectors.addToWishlistButtonGuest)
             .first()
             .click()
@@ -106,7 +106,8 @@ describe('Simple Product test suite', () => {
             .should('have.value', '2')
     })
 
-    it('Can find products in the related products list', () => {
+    // No related products in sample data
+    it.skip('Can find products in the related products list', () => {
         cy.get(selectors.relatedProductsTitle)
             .should('exist')
             .should('contain.text', 'Related Products')
@@ -120,7 +121,6 @@ describe('Configurable products test suite', () => {
         cy.intercept('**/customer/section/load/?sections=*')
             .as('loadSections')
         cy.visit(product.configurableProductUrl)
-        cy.wait('@loadSections')
     })
 
     it('Can\'t add a configurable product to the cart when no configuration is selected', () => {
@@ -131,19 +131,20 @@ describe('Configurable products test suite', () => {
     })
 
     it('Can select swatch product attributes', () => {
-        cy.get(selectors.productSwatchAttributeSelector)
+        cy.get(selectors.productAttributeSelector)
             .eq(0).find('div').first().click()
-        cy.get(selectors.productSwatchAttributeSelector)
+        cy.get(selectors.productAttributeSelector)
             .eq(0).find('div').first()
             .should('have.class', 'selected')
-        cy.get(selectors.productSwatchAttributeSelector)
+        cy.get(selectors.productAttributeSelector)
             .eq(1).find('div').first().click()
-        cy.get(selectors.productSwatchAttributeSelector)
+        cy.get(selectors.productAttributeSelector)
             .eq(1).find('div').first()
             .should('have.class', 'selected')
     })
 
-    it('Can select product options', () => {
+    // No selectable product option in sample data
+    it.skip('Can select product options', () => {
         cy.get('#product-options-wrapper .field.configurable select')
             .first()
             .select(product.configurableOption)

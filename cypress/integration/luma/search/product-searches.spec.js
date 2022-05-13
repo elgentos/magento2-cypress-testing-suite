@@ -25,7 +25,7 @@ describe('Perform searches', () => {
         Search.search(searchLuma.searchTerm)
         cy.get(selectors.pageHeader)
             .should('have.text', `Search results for: '${searchLuma.searchTerm}'`)
-        cy.get(`${selectors.resultContainer} ${selectors.resultItem}`)
+        cy.get(selectors.resultContainer)
             .should('have.length.gt', 0)
     })
 
