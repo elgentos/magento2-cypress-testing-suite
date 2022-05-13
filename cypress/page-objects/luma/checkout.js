@@ -21,8 +21,10 @@ export class Checkout {
         cy.get(`${selectors.shippingContainer} ${selectors.telephoneField}`).type(shippingAddress.tel)
     }
 
-    static enterBillingAddress(shippingAddress) {
-        cy.get(`${selectors.billingContainer} ${selectors.customerEmailField}`).type(shippingAddress.email)
+    static enterBillingAddress(shippingAddress, withEmail = true) {
+        if(withEmail) {
+            cy.get(selectors.customerEmailField).type(shippingAddress.email)
+        }
         cy.get(`${selectors.billingContainer} ${selectors.firstNameField}`).type(shippingAddress.firstname)
         cy.get(`${selectors.billingContainer} ${selectors.lastNameField}`).type(shippingAddress.lastname)
         cy.get(`${selectors.billingContainer} ${selectors.companyField}`).type(shippingAddress.companyname)

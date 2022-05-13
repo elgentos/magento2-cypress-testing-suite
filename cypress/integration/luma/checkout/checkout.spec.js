@@ -25,13 +25,13 @@ function setupGuestCheckoutInterceptors() {
         .as('paymentInformation')
 }
 
-function chooseMoneyOrderPaymentAndPlaceOrder() {
+function chooseMoneyOrderPaymentAndPlaceOrder(wait = '@estimateShipping') {
+    if(wait !== null) {
+        cy.wait(wait)
+    }
     cy.get(selectors.checkoutBtn).click()
-    cy.wait('@sectionLoad')
     cy.get(selectors.moneyOrderPaymentMethodSelector).check({force: true})
     cy.get(selectors.moneyOrderPaymentMethodSelector).should('be.checked')
-    cy.get(selectors.moneOrderAgreement1).check()
-    cy.get(selectors.moneOrderAgreement2).check()
 }
 
 function addProductToCartAndVerifyItWasAdded() {
@@ -50,26 +50,19 @@ function addAProductToCartAndEnterBillingAddressInCheckout() {
         .click()
     cy.url()
         .should('contain', checkout.cartUrl)
-    cy.wait('@sectionLoad')
     cy.wait('@estimateShipping')
-    cy.wait('@totalsInformation')
     cy.get(selectors.proceedToCheckout)
         .click()
 
-    cy.get(global.pageTitle)
-        .should('contain.text', 'Customer Login')
-    cy.get(selectors.checkoutGuestCheckbox)
-        .check({force: true})
-    cy.wait(1000) // FIXME: This wait should not be nessecary
-    cy.get(selectors.checkoutGuestContinue)
-        .click()
-
     cy.wait('@estimateShipping')
-    Checkout.enterShippingAddress(checkout.billingAddress)
-    cy.wait('@emailAvailable')
+    Checkout.enterShippingAddress(checkout.shippingAddress)
 }
 
 describe('Checkout tests', () => {
+    beforeEach(() => {
+        Account.ensureLoggedOut()
+    })
+
     it('Can see the correct product price and shipping costs', () => {
         setupGuestCheckoutInterceptors()
         cy.intercept('**/rest/*/V1/carts/mine/shipping-information')
@@ -130,9 +123,13 @@ describe('Checkout tests', () => {
                 cy.get(cartLuma.cartSummaryTable)
                     .should('include.text', 'Discount')
                     .should('be.visible')
+                // The discount is applied to the shipping as well. Because of that it changes after the
+                // shipping information is loaded and parsed. To make sure we're grabbing the right discount
+                // amount we wait until that's done.
+                cy.get(selectors.shippingTotal)
+                    .should('not.contain', '0,00')
                 cy.get(selectors.cartDiscount).then(($cartDiscount) => {
-                    // FIXME: This gives me 9.2 instead of 9.7
-                    const cartDiscount = parseFloat($cartDiscount.last().text().trim().slice(1).replace(',', '.'))
+                    const cartDiscount = parseFloat($cartDiscount[0].innerText.trim().slice(1).replace(',', '.'))
                     cy.visit(checkout.checkoutUrl)
                     cy.wait('@estimateShipping')
                     Checkout.enterShippingAddress(checkout.shippingAddress)
@@ -157,6 +154,8 @@ describe('Checkout tests', () => {
             .as('shippingInformation')
         cy.intercept('**/rest/*/V1/carts/mine/payment-information')
             .as('paymentInformation')
+        cy.intercept('**/rest/default/V1/carts/mine/estimate-shipping-methods-by-address-id')
+            .as('estimateShippingByAddressId')
 
         Cart.addProductToCart(product.simpleProductUrl)
         cy.wait('@sectionLoad')
@@ -168,7 +167,7 @@ describe('Checkout tests', () => {
         cy.wait('@sectionLoad')
         cy.get(selectors.addressSelected).should('exist')
 
-        chooseMoneyOrderPaymentAndPlaceOrder()
+        chooseMoneyOrderPaymentAndPlaceOrder('@estimateShippingByAddressId')
         cy.get(selectors.placeOrderBtn)
             .last()
             .should('be.visible')
@@ -200,7 +199,7 @@ describe('Checkout tests', () => {
         cy.wait('@paymentInformation')
 
         cy.get(selectors.checkoutSuccess)
-            .should('contain.text', 'Thank you for order!')
+            .should('contain.text', 'Your order # is:')
     })
 
     it('Can do a checkout as guest with a different shipping address', () => {
@@ -208,14 +207,16 @@ describe('Checkout tests', () => {
 
         addAProductToCartAndEnterBillingAddressInCheckout()
 
+        cy.wait('@estimateShipping')
+        cy.get(selectors.checkoutBtn).click()
         cy.get(selectors.sameBillingAsShipping)
             .click()
-        Checkout.enterShippingAddress(checkout.shippingAddress)
+        Checkout.enterBillingAddress(checkout.shippingAddress, false)
 
-        chooseMoneyOrderPaymentAndPlaceOrder()
+        cy.get(selectors.updateBillingAddress)
+            .click()
 
         cy.get('.shipping-information .ship-to .shipping-information-content')
-            .should('contain.text', checkout.shippingAddress.companyname)
             .should('contain.text', checkout.shippingAddress.firstname)
             .should('contain.text', checkout.shippingAddress.lastname)
             .should('contain.text', checkout.shippingAddress.street)
@@ -228,30 +229,7 @@ describe('Checkout tests', () => {
         cy.wait('@paymentInformation')
 
         cy.get(selectors.checkoutSuccess)
-            .should('contain.text', 'Thank you for order!')
-    })
-
-    it('Should add shipping costs again when the subtotal goes below free shipping threshhold', () => {
-        setupGuestCheckoutInterceptors()
-
-        Cart.addProductToCart(productLuma.simpleProductUrl)
-        cy.visit(cartLuma.cartUrl)
-        cy.wait('@totalsInformation')
-
-        cy.get(selectors.checkoutShippingPrice)
-            .should('contain.text', `${product.currency}0.00`)
-
-        Magento2RestApi.createRandomCouponCode(80)
-            .then(coupon => {
-                Cart.addCouponCode(coupon)
-                cy.wait('@estimateShipping')
-                cy.wait('@sectionLoad')
-                cy.get(cartLuma.cartSummaryTable)
-                    .should('include.text', 'Discount')
-                    .should('be.visible')
-                cy.get(selectors.checkoutShippingPrice)
-                    .should('not.contain.text', `${product.currency}0.00`)
-            })
+            .should('contain.text', 'Your order # is:')
     })
 
     describe('Validate email address in checkout', () => {
@@ -265,12 +243,12 @@ describe('Checkout tests', () => {
         })
 
         it('Enters a correct email address', () => {
-            cy.get(`${selectors.billingContainer} ${selectors.customerEmailField}`)
+            cy.get(`${selectors.customerEmailFieldset} ${selectors.customerEmailField}`)
                 .type('john.doe@example.com')
         })
 
         it('Enters an incorrect email address', () => {
-            cy.get(`${selectors.billingContainer} ${selectors.customerEmailField}`)
+            cy.get(`${selectors.customerEmailFieldset} ${selectors.customerEmailField}`)
                 .type('John')
                 .blur()
             cy.get(selectors.emailValidationErrorField)
@@ -278,7 +256,7 @@ describe('Checkout tests', () => {
         })
 
         it('Enters another incorrect email address', () => {
-            cy.get(`${selectors.billingContainer} ${selectors.customerEmailField}`)
+            cy.get(`${selectors.customerEmailFieldset} ${selectors.customerEmailField}`)
                 .type('john.doe#example.com')
                 .blur()
             cy.get(selectors.emailValidationErrorField)

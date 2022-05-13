@@ -3,6 +3,7 @@
 	"billingContainer": ".billing-address-form form",
 	"companyField": "[name=\"company\"]",
 	"customerEmailField": "#customer-email",
+	"customerEmailFieldset": "#customer-email-fieldset",
 	"firstNameField": "[name=\"firstname\"]",
 	"lastNameField": "[name=\"lastname\"]",
 	"addressField": "[name=\"street[0]\"]",
@@ -11,7 +12,7 @@
 	"countryField": "[name=\"country_id\"]",
 	"regionField": "[name=\"region\"]",
 	"telephoneField": "[name=\"telephone\"]",
-	"emailValidationErrorField": "fieldset#customer-email-fieldset .control div[for=customer-email].mage-error",
+	"emailValidationErrorField": "#customer-email-error",
 	"addToCartButton": "#product-addtocart-button",
 	"checkoutEmailLabel": "#customer-email",
 	"checkoutPasswordInput": "input#customer-password",
@@ -35,5 +36,8 @@
 	"proceedToCheckout": "button[data-role=\"proceed-to-checkout\"]",
 	"checkoutGuestCheckbox": "#checkout_method_guest",
 	"checkoutGuestContinue": "#newcustomer .actions-toolbar .primary .action.create.primary",
-	"sameBillingAsShipping": "label[for=billing-address-same-as-shipping]"
+	"sameBillingAsShipping": "label[for=billing-address-same-as-shipping-checkmo]",
+	"shippingTotal": "tr.totals.shipping .amount",
+	"continueToPayment": "#shipping-method-buttons-container button",
+	"updateBillingAddress": ".payment-method-billing-address button.action.action-update"
 }
