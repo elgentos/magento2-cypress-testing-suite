@@ -19,39 +19,39 @@ describe('Category page tests', () => {
             .contains(category.filterBy)
             .get(selectors.filterByLabel)
             .first()
-            .click({force: true}) // Only visible when hovering
+            .click({force: true})
         cy.url()
             .should('contain', `?${category.filterQueryParam}=`)
     })
 
     it('Can sort products on price from lowest to highest', () => {
-        cy.get(selectors.sortBySelect).first().select(category.selectByPrice);
-        cy.get(selectors.productPriceDataAtt).eq(0).invoke('data', 'price-amount')
+        cy.get(selectors.sortBySelect).first().select(category.selectByPrice)
+        cy.get(selectors.productPriceDataAtt)
+            .first()
+            .invoke('data', 'price-amount')
             .then((firstPrice) => {
                 cy.get(selectors.productPriceDataAtt)
                     .eq(1)
                     .invoke('data', 'price-amount')
-                    .should('be.lte', firstPrice)
-            });
+                    .should('be.gte', firstPrice)
+            })
     })
 
     it('Can change the number of products to be displayed', () => {
-        cy.get(selectors.highestNumberOfProductsShowOption).find('option').eq(1).invoke('val')
-            .then((numberOfProducts) => {
-                    cy.get(selectors.numberOfProductsSelect).select(numberOfProducts, {force: true});
-                    cy.get(selectors.numberOfShownItems).first().should('have.text', numberOfProducts);
-                    cy.get(selectors.categoryProductContainer).children().should('to.have.length.of.at.most', +numberOfProducts);
-                }
-            )
+        const numberOfProducts = '24'
+        cy.get(selectors.highestNumberOfProductsShowOption)
+            .select(numberOfProducts)
+        cy.get(selectors.numberOfShownItems).first().should('contain', numberOfProducts)
+        cy.get(selectors.categoryProductContainer).children().should('to.have.length.of.at.most', +numberOfProducts)
     })
 
     it('Can see the correct breadcrumbs', () => {
         cy.get(selectors.breadcrumbsItem).first().should('contain.text', 'Home')
-        cy.get(selectors.breadcrumbsItem).eq(1).should('contain.text', 'Products')
+        cy.get(selectors.breadcrumbsItem).eq(1).should('contain.text', 'Men')
         cy.get(selectors.breadcrumbsItem).eq(2).should('contain.text', category.category)
     })
 
-    if(!isMobile()) {
+    if (!isMobile()) {
         it('Can switch between list and grid view', () => {
             cy.get(selectors.categoryProductGridWrapper).should('be.visible')
             cy.get(selectors.viewToggle).click()
