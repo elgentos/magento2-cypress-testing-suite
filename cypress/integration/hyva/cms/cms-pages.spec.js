@@ -1,5 +1,5 @@
-import selectors from "../../../../fixtures/hyva/selectors/cms.json";
-import cms from "../../../../fixtures/hyva/cms.json";
+import selectors from "../../../fixtures/hyva/selectors/cms.json";
+import cms from "../../../fixtures/hyva/cms.json";
 
 describe('CMS tests', () => {
   it('Can display the default 404 page', () => {
