@@ -3,7 +3,7 @@ import selectors from '../../fixtures/hyva/selectors/homepage.json';
 import searchSelectors from '../../fixtures/hyva/selectors/search.json';
 import product from '../../fixtures/hyva/product.json';
 import account from '../../fixtures/account.json';
-import cart from "../../../fixtures/hyva/selectors/cart.json";
+import cart from "../../fixtures/hyva/selectors/cart.json";
 
 describe('Home page tests', () => {
     beforeEach(() => {
