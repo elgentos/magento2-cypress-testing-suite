@@ -1,12 +1,11 @@
 {
-    "addCouponButton": "#discount-coupon-form > .fieldset > .flex > .btn",
-    "cartSummaryTable": ".pt-0",
+    "addCouponButton": "#discount-coupon-form button[type=submit]",
+    "cartSummaryTable": ".cart-summary",
     "couponCode": "H20",
     "couponDropdownSelector": ".cursor-pointer > .underline",
     "couponInputField": "#coupon_code",
-    "deleteProductButton": ".text-sm > .hidden",
-    "deleteProductButtonMobile": ".text-sm > .w-5",
-    "emptyCartTextField": ".container > .relative > :nth-child(6) > :nth-child(1)",
+    "deleteProductButton": "[title=\"Remove item\"]",
+    "emptyCartTextField": ".cart-empty",
     "grandTotal": ".py-2 > .w-5\\/12",
     "messageToast": ".message",
     "product": {
@@ -15,11 +14,10 @@
         "productPrice": ".price"
     },
     "productRowInCart": "div.table-row-item",
-    "productNameInCart": "a[x-html='item.product.name']",
-    "product1Price": ":nth-child(3) > .sm\\:order-2 > .flex > :nth-child(2) > .block",
-    "product1Subtotal": ":nth-child(3) > .md\\:justify-end > .sm\\:items-center > .flex > .block > span",
-    "product2Subtotal": ":nth-child(4) > .md\\:justify-end > .sm\\:items-center > .flex > .block > span",
-    "qtyInputField": "[id^=\"qty-\"]",
+    "productNameInCart": ".cart .item .product-item-name a",
+    "productPrice": "tbody tr td.price .cart-price .price",
+    "productSubtotal": "tbody tr td.subtotal .cart-price .price",
+    "qtyInputField": "input[id$=-qty]",
     "url": {
         "cartUrl": "checkout/cart",
         "product1Url": "/didi-sport-watch.html",

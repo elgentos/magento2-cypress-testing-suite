@@ -93,9 +93,9 @@ describe('Simple Product test suite', () => {
     });
 
     it('Can add reviews to a product', () => {
-        cy.get(selectors.productCustomerReviewWriteTitle)
+        cy.get(selectors.productCustomerReviewForm)
             .should('exist')
-            .should('contain.text', 'Write Your Own Review');
+            .should(($el => expect($el.text().replace(/\s+/mg, ' ')).to.contain(`You're reviewing: ${product.simpleProductName}`)));
         cy.get(selectors.reviewReviewerNameField)
             .type('Someone')
             .should('have.value', 'Someone');
@@ -124,14 +124,17 @@ describe('Simple Product test suite', () => {
     });
 
     /* This test requires that the existence of an admin token in the cypress.env.json  */
-    // it.only(["hot"], "Can't add an out of stock product to the cart", () => {
-    //     Magento2RestApi.updateProductQty(product.outOfStockProductSku, 0);
-    //     cy.visit(product.outOfStockProductUrl);
-    //     cy.get(selectors.productStockMessage)
-    //         .should("exist")
-    //         .should("contain.text", "Out of stock");
-    //     cy.get(selectors.addToCartButton).should("not.exist");
-    // });
+    /* Also, it requires the cataloginventory_stock to be reindexed after the update */
+    // if (Cypress.env('MAGENTO2_ADMIN_TOKEN')) {
+    //     it.only(["hot"], "Can't add an out of stock product to the cart", () => {
+    //         Magento2RestApi.updateProductQty(product.outOfStockProductSku, 0);
+    //         cy.visit(product.outOfStockProductUrl);
+    //         cy.get(selectors.productStockMessage)
+    //             .should("exist")
+    //             .should("contain.text", "Out of stock");
+    //         cy.get(selectors.addToCartButton).should("not.exist");
+    //     });
+    // }
 
     it('Can increment the product quantity on the pdp', () => {
         cy.get(selectors.productQty)
@@ -162,8 +165,6 @@ describe('Configurable products test suite', () => {
     it('Can select product attributes', () => {
         cy.get(selectors.productAttributeSelector)
             .eq(0)
-            .find('div')
-            .first()
             .click();
         cy.get(selectors.productAttributeSelector)
             .eq(0)
@@ -172,8 +173,6 @@ describe('Configurable products test suite', () => {
             .should('be.checked');
         cy.get(selectors.productAttributeSelector)
             .eq(1)
-            .find('div')
-            .first()
             .click();
         cy.get(selectors.productAttributeSelector)
             .eq(1)

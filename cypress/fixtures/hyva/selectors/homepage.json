@@ -5,7 +5,7 @@
     "mainHeading": "h1.title-font",
     "addToCartButton": "button.btn-primary:visible",
     "newsletterSubscribeButton": "#newsletter-validate-detail button",
-    "productCard": "#maincontent div > div div.card.card-interactive",
+    "productCard": "#maincontent .js_slides .js_slide",
     "subscribeToNewsletterField": "#newsletter-subscribe",
     "successMessage": ".message.success span"
 }

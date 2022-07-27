@@ -14,7 +14,7 @@ describe('Mini cart tests', () => {
         cy.contains('You removed the item.')
     })
 
-    it('Can navigates to the product when clicking the edit icon', () => {
+    it('Can navigate to the product when clicking the edit icon', () => {
         cy.get(selectors.miniCartProductName).then(($productName) => {
             const productName = $productName[0].textContent.trim()
             cy.get(selectors.miniCartEditProductButton).click()
@@ -25,21 +25,21 @@ describe('Mini cart tests', () => {
         })
     })
 
-    it('can navigate to the cart with a link in the slider', () => {
+    it('Can navigate to the cart with a link in the slider', () => {
         cy.get(selectors.miniCartViewCartLink).click()
         cy.get(selectors.pageTitle).should('contain.text','Shopping Cart').should('be.visible')
     })
 
-    it('can navigate to the checkout with a link in the slider', () => {
+    it('Can navigate to the checkout with a link in the slider', () => {
         cy.get(selectors.miniCartCheckoutButton).click()
         cy.get(selectors.pageTitle).should('contains.text', 'Checkout').should('be.visible')
     })
 
-    it('can open minicart slider', () => {
+    it('Can open minicart slider', () => {
         cy.get(selectors.miniCartSlider).should('be.visible')
     })
 
-    it('can change amount in the minicart', () => {
+    it('Can change amount in the minicart', () => {
         cy.get(selectors.miniCartSlider).within(() => {
             cy.get(selectors.miniCartEditProductButton).click()
         })

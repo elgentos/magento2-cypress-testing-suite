@@ -1,9 +1,11 @@
 import cart from "../../../fixtures/hyva/selectors/cart.json";
+import account from "../../../fixtures/account.json";
 import { Cart } from "../../../page-objects/hyva/cart";
+import { Account } from "../../../page-objects/hyva/account";
 import {isMobileHyva} from "../../../support/utils";
 
 describe("Isolated test for adding a product to the cart", () => {
-    it("can add a product to the cart", () => {
+    it("Can add a product to the cart", () => {
         Cart.addProductToCart(cart.url.product1Url);
         cy.get(cart.product.messageToast)
             .should("include.text", "to your shopping cart")
@@ -15,7 +17,8 @@ describe("Cart tests", () => {
     beforeEach(() => {
         Cart.addProductToCart(cart.url.product1Url);
         cy.visit(cart.url.cartUrl);
-        cy.wait(3000);
+        cy.get("#maincontent h1.page-title").should("contain.text", "Shopping Cart") // ??
+        //cy.wait(3000);
     });
 
     it("Can change the quantity in the cart", () => {
@@ -25,11 +28,7 @@ describe("Cart tests", () => {
     });
 
     it("Can remove a product from the cart", () => {
-        if(isMobileHyva()) {
-            cy.get(cart.deleteProductButtonMobile).click();
-        } else {
-            cy.get(cart.deleteProductButton).click();
-        }
+        cy.get(cart.deleteProductButton).click();
         cy.get(cart.emptyCartTextField)
             .should("include.text", "You have no items in your shopping cart.")
             .should("be.visible");
@@ -38,32 +37,30 @@ describe("Cart tests", () => {
     it("Can add a coupon to the cart", () => {
         Cart.addProductToCart(cart.url.product2Url);
         Cart.addCouponCode(cart.couponCode);
-        cy.get(cart.cartSummaryTable)
-            .should("include.text", "Coupons/Discounts")
-            .should("be.visible");
+        cy.get("#messages .message.success").should("contain.text", `You used coupon code "${cart.couponCode}"`) //??
+        cy.get(cart.couponInputField).invoke('attr', 'value').should('eq', cart.couponCode)
+        cy.get(cart.cartSummaryTable).should("include.text", "Discount")
+        cy.get("#cart-totals [x-html=\"segment.title\"]").contains("Discount").should("include.text", "Discount") // ??
     });
 
     it("Can delete an added coupon from the cart", () => {
         Cart.addProductToCart(cart.url.product2Url);
         Cart.addCouponCode(cart.couponCode);
-        cy.get(cart.cartSummaryTable)
-            .should("include.text", "Coupons/Discounts")
-            .should("be.visible");
+        cy.get(cart.cartSummaryTable).should("include.text", "Discount")
         Cart.removeCoupon();
-        cy.get(cart.cartSummaryTable)
-            .should("include.text", "Coupons/Discounts")
-            .should("not.be.visible");
+        cy.get("#messages .message.success").should("contain.text", `You canceled the coupon code.`) //??
+        cy.get("#cart-totals [x-html=\"segment.title\"]").should("not.exist") // ??
+        cy.get(cart.cartSummaryTable).should("not.include.text", "Discount")
     });
 
-    it("Cannot add a non existing coupon", () => {
+    it("Cannot add an invalid coupon", () => {
         cy.get(cart.couponDropdownSelector).click();
         cy.get(cart.couponInputField).type("wrong coupon code");
         cy.get(cart.addCouponButton).click();
-        cy.wait(2000)
         cy.get(cart.messageToast)
             .should(
                 "include.text",
-                "The coupon code isn't valid. Verify the code and try again."
+                `The coupon code "wrong coupon code" is not valid.`
             )
             if(!isMobileHyva()) {
                 cy.get(cart.messageToast)
@@ -75,15 +72,15 @@ describe("Cart tests", () => {
         cy.visit(cart.url.product1Url);
 
         //check if product price matches with price in cart
-        cy.wait(1000)
+        //cy.wait(1000)
         cy.get(cart.product.productPrice).then(($productPrice) => {
             const productPrice = $productPrice[0].textContent.trim();
 
             Cart.addProductToCart(cart.url.product2Url);
-            cy.wait(1000)
+            cy.get(cart.product.messageToast).should("include.text", "to your shopping cart")
             cy.visit(cart.url.cartUrl);
-            cy.wait(1000)
-            cy.get(cart.product1Price).should("have.text", productPrice);
+            cy.get("#maincontent h1.page-title").should("contain.text", "Shopping Cart") // ??
+            cy.get(cart.productPrice).first().should("have.text", productPrice);
 
             //change the qty value
             cy.get(cart.qtyInputField)
@@ -91,10 +88,10 @@ describe("Cart tests", () => {
                 .type("{backspace}2{enter}")
                 .then(($qty) => {
                     const qty = parseInt($qty.val());
-                    cy.wait(3000);
+                    cy.wait(3000); // wait for page to reload with new prices
 
                     //check if qty * product subtotal displays the correct amount
-                    cy.get(cart.product1Subtotal).then(($subTotal) => {
+                    cy.get(cart.productSubtotal).first().then(($subTotal) => {
                         const subTotal = parseInt(
                             $subTotal[0].textContent.trim().slice(1)
                         );
@@ -106,10 +103,10 @@ describe("Cart tests", () => {
         });
 
         //check if the grand total is correct
-        cy.get(cart.product1Subtotal).then(($total1) => {
+        cy.get(cart.productSubtotal).eq(0).then(($total1) => {
             const subTotal1 = parseInt($total1[0].textContent.trim().slice(1));
 
-            cy.get(cart.product2Subtotal).then(($total2) => {
+            cy.get(cart.productSubtotal).eq(1).then(($total2) => {
                 const subTotal2 = parseInt(
                     $total2[0].textContent.trim().slice(1)
                 );
@@ -124,7 +121,9 @@ describe("Cart tests", () => {
         });
     });
 
-    it("merges an already existing cart when a customer logs in", () => {
+    /* This test assumes user/account.spec.js haas run before, since that is where the user account is created */
+    // TODO: move this test to account.spec.js
+    it("Merges an already existing cart when a customer logs in", () => {
         cy.get(cart.productNameInCart).invoke('text').then(productName => {
             Account.login(account.customerLogin.username, account.customerLogin.password);
             cy.visit(cart.url.cartUrl);

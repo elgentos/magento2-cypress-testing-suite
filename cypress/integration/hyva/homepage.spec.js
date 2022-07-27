@@ -31,7 +31,7 @@ describe('Home page tests', () => {
 
     it('Can open category', () => {
         // Force because hover is not (yet?) possible in cypress
-        cy.get(selectors.headerNavSubCategory).click();
+        cy.get(selectors.headerNavSubCategory).click({force: true});
         cy.get(selectors.mainHeading).should(
            'contain.text',
            homepage.subCategoryName
