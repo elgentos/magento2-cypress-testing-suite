@@ -21,6 +21,7 @@ This testing suite was announced in [Peter Jaap](https://twitter.com/PeterJaap) 
 - `npm`
 - An admin bearer token (see [Setup](#setup))
 
+
 ## Assumptions & limitations
 
 ### Assumptions
@@ -178,6 +179,7 @@ cypress.env.json
 ```
 
 ## Setup
+
 Some tests are dependent on making changes in the database. This is done through the Magento 2 REST API. You will need to create an admin token for these tests. This is easily done using [magerun2](https://github.com/netz98/n98-magerun2).
 
 Get a list of all the admin users: `magerun2 admin:user:list`
@@ -198,7 +200,8 @@ Or you can set it in your CI/CD variables by prefixing the environment variable 
 
 ### Tags
 
-We use [tags](https://github.com/annaet/cypress-tags) to discern between hot tests and cold tests. You need to install the 3rd party tag support package. Following the [setup](https://github.com/annaet/cypress-tags#setup) for that package, you need to add it to the `plugins/index.js` and `support/index.d.ts`.
+We use [tags](https://github.com/annaet/cypress-tags) to discern between hot tests and cold tests. If you followed the installation instructions above the `cypress-tags` module is already installed.  
+Note: it is used in the `cypress.config.js` file in the `setupNodeEvents` callback.
 
 ```bash
 npm install cypress-tags typescript --save-dev
@@ -226,7 +229,20 @@ CYPRESS_INCLUDE_TAGS=hot npx cypress run
 
 ### Running against local environment
 
-Set up your local URL in `cypress/plugins/index.js`. Then run Cypress with `NODE_ENV=develop; npx cypress run`.
+Set up your local URL in `cypress.config.js`, or export  Then run Cypress with `NODE_ENV=develop; npx cypress run`.
+
+Alternatively set your local URL in the environment variable CYPRESS_MAGENTO2_BASE_URL;
+
+### Environment variables
+
+Even though the test suite is intended to become part of a project, it is possible to change some behavior using environment variables.  
+This is useful for running the suite in different environments, for example, development, CI, or against production.
+
+* `NODE_ENV` if set to `develop` the development base URL configured in `cypress.config.js` will be used, and the default timeout is set to 10 seconds
+* `CYPRESS_MAGENTO2_BASE_URL` If set, this value will be used as the Magento 2 base_url. Otherwise, the base URL from `cypress.config.js` will be used.
+* `CYPRESS_MAGENTO2_SPEC_PATTERN` If set, only tests matching this glob pattern will be executed. Otherwise, the tests configured in `cypress.config.js` will be used.
+* `CYPRESS_MAGENTO2_DEFAULT_TIMEOUT` If set, used as the default timeout. Otherwise, the timeout defaults to 10 seconds if NODE_ENV is set to `develop`, or 4 seconds otherwise. 
+* `CYPRESS_MAGENTO2_ADMIN_TOKEN` Used to authenticate against the Magento 2 API for setting up test fixtures. 
 
 ## Contributing
 
