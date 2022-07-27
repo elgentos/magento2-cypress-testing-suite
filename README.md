@@ -241,6 +241,7 @@ This is useful for running the suite in different environments, for example, dev
 * `NODE_ENV` if set to `develop` the development base URL configured in `cypress.config.js` will be used, and the default timeout is set to 10 seconds
 * `CYPRESS_MAGENTO2_BASE_URL` If set, this value will be used as the Magento 2 base_url. Otherwise, the base URL from `cypress.config.js` will be used.
 * `CYPRESS_MAGENTO2_SPEC_PATTERN` If set, only tests matching this glob pattern will be executed. Otherwise, the tests configured in `cypress.config.js` will be used.
+* `CYPRESS_MAGENTO2_EXPORT_PATTERN` If set, tests matching this glob pattern will be excluded.
 * `CYPRESS_MAGENTO2_DEFAULT_TIMEOUT` If set, used as the default timeout. Otherwise, the timeout defaults to 10 seconds if NODE_ENV is set to `develop`, or 4 seconds otherwise. 
 * `CYPRESS_MAGENTO2_ADMIN_TOKEN` Used to authenticate against the Magento 2 API for setting up test fixtures. 
 
