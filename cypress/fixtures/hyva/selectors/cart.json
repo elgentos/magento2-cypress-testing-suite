@@ -1,12 +1,14 @@
 {
     "addCouponButton": "#discount-coupon-form button[type=submit]",
     "cartSummaryTable": ".cart-summary",
+    "pageTitle": "#maincontent h1.page-title",
     "couponCode": "H20",
     "couponDropdownSelector": ".cursor-pointer > .underline",
     "couponInputField": "#coupon_code",
     "deleteProductButton": "[title=\"Remove item\"]",
     "emptyCartTextField": ".cart-empty",
     "grandTotal": ".py-2 > .w-5\\/12",
+    "cartTotalLabels": "#cart-totals [x-html=\"segment.title\"]",
     "messageToast": ".message",
     "product": {
         "addToCartButton": "#product-addtocart-button",
@@ -18,6 +20,7 @@
     "productPrice": "tbody tr td.price .cart-price .price",
     "productSubtotal": "tbody tr td.subtotal .cart-price .price",
     "qtyInputField": "input[id$=-qty]",
+    "successMessages": "#messages .message.success",
     "url": {
         "cartUrl": "checkout/cart",
         "product1Url": "/didi-sport-watch.html",

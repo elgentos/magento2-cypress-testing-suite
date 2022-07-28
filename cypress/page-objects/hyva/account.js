@@ -11,7 +11,7 @@ export class Account {
     }
 
     static isLoggedIn() {
-        cy.get('#header > div.container > div.order-3 nav').contains('My Account') // ??
+        cy.get(selectors.accountMenuItems).contains('My Account')
     }
 
     static goToProfile() {
@@ -59,11 +59,11 @@ export class Account {
     }
 
     static logout() {
-        cy.get('[aria-label="My Account"]').click(); // ??
-        cy.get('#header > div.container > div.order-3 nav') // ??
+        cy.get(selectors.accountMenuIcon).click()
+        cy.get(selectors.accountMenuItems)
             .contains('Sign Out')
             .click();
-        cy.get('#header > div.container > div.order-3 nav').contains('Sign In');
+        return cy.get(selectors.accountMenuItems).contains('Sign In');
     }
 
     /** Create an address that is used with other tests */

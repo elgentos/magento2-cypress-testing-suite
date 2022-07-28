@@ -43,7 +43,6 @@ describe('Home page tests', () => {
             Date.now() + account.customer.customer.email
         );
         cy.get(selectors.newsletterSubscribeButton).click();
-        cy.wait(0);
         cy.get('#messages').then(($messageSection) => {
             if (!$messageSection.find(selectors.failedMessage).text().trim()) {
                 cy.get(selectors.successMessage).should(

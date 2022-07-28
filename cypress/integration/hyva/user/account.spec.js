@@ -7,6 +7,8 @@ import selectors from '../../../fixtures/hyva/selectors/account.json';
 import checkoutSelectors from '../../../fixtures/hyva/selectors/checkout.json';
 import productSelectors from '../../../fixtures/hyva/selectors/product.json';
 import homepageSelectors from '../../../fixtures/hyva/selectors/homepage.json'
+import cart from "../../../fixtures/hyva/selectors/cart.json";
+import {Cart} from "../../../page-objects/hyva/cart";
 
 describe(['hot'], 'Account test creation', () => {
     it('Can create an account', () => {
@@ -231,7 +233,7 @@ describe(['hot'], 'Account activities', () => {
     });
 
     it('Can edit the wishlist and remove item', () => {
-        // Add comment/check qtty/send list/remove item
+        // Add comment/check qty/send list/remove item
         cy.visit(product.wishlistUrl);
         cy.get(selectors.wishlistItemCommentField).first().type('foobar');
         cy.get(selectors.wishlistUpdateButton).click();
@@ -265,13 +267,27 @@ describe(['hot'], 'Account activities', () => {
 
     it('Can log out', () => {
         cy.get(selectors.accountIcon).click();
-        cy.get(selectors.accountMenu).contains('Sign Out').click();
+        cy.get(selectors.accountMenuItems).contains('Sign Out').click();
         cy.get(homepageSelectors.mainHeading).should(
             'contain.text',
             'You have signed out'
         );
     });
 });
+
+describe('Customer cart', () => {
+    // This test is in this file because it depends on the customer account fixture created by this spec
+    it("Merges an already existing cart when a customer logs in", () => {
+        Cart.addProductToCart(cart.url.product1Url);
+        cy.visit(cart.url.cartUrl);
+        cy.get(cart.productNameInCart).invoke('text').then(productName => {
+            Account.login(account.customerLogin.username, account.customerLogin.password)
+            cy.visit(cart.url.cartUrl);
+            cy.get(cart.productNameInCart).should('have.text', productName)
+        })
+        Account.logout();
+    });
+})
 
 describe(['hot'], 'Guest user test', () => {
     it('Can login from cart', () => {

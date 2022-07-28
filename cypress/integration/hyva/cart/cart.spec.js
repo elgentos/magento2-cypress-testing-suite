@@ -17,8 +17,7 @@ describe("Cart tests", () => {
     beforeEach(() => {
         Cart.addProductToCart(cart.url.product1Url);
         cy.visit(cart.url.cartUrl);
-        cy.get("#maincontent h1.page-title").should("contain.text", "Shopping Cart") // ??
-        //cy.wait(3000);
+        cy.get(cart.pageTitle).should("contain.text", "Shopping Cart")
     });
 
     it("Can change the quantity in the cart", () => {
@@ -37,10 +36,10 @@ describe("Cart tests", () => {
     it("Can add a coupon to the cart", () => {
         Cart.addProductToCart(cart.url.product2Url);
         Cart.addCouponCode(cart.couponCode);
-        cy.get("#messages .message.success").should("contain.text", `You used coupon code "${cart.couponCode}"`) //??
+        cy.get(cart.successMessages).should("contain.text", `You used coupon code "${cart.couponCode}"`)
         cy.get(cart.couponInputField).invoke('attr', 'value').should('eq', cart.couponCode)
         cy.get(cart.cartSummaryTable).should("include.text", "Discount")
-        cy.get("#cart-totals [x-html=\"segment.title\"]").contains("Discount").should("include.text", "Discount") // ??
+        cy.get(cart.cartTotalLabels).contains("Discount").should("include.text", "Discount")
     });
 
     it("Can delete an added coupon from the cart", () => {
@@ -48,8 +47,8 @@ describe("Cart tests", () => {
         Cart.addCouponCode(cart.couponCode);
         cy.get(cart.cartSummaryTable).should("include.text", "Discount")
         Cart.removeCoupon();
-        cy.get("#messages .message.success").should("contain.text", `You canceled the coupon code.`) //??
-        cy.get("#cart-totals [x-html=\"segment.title\"]").should("not.exist") // ??
+        cy.get(cart.successMessages).should("contain.text", `You canceled the coupon code.`)
+        cy.get(cart.cartTotalLabels).should("not.exist")
         cy.get(cart.cartSummaryTable).should("not.include.text", "Discount")
     });
 
@@ -72,14 +71,13 @@ describe("Cart tests", () => {
         cy.visit(cart.url.product1Url);
 
         //check if product price matches with price in cart
-        //cy.wait(1000)
         cy.get(cart.product.productPrice).then(($productPrice) => {
             const productPrice = $productPrice[0].textContent.trim();
 
             Cart.addProductToCart(cart.url.product2Url);
             cy.get(cart.product.messageToast).should("include.text", "to your shopping cart")
             cy.visit(cart.url.cartUrl);
-            cy.get("#maincontent h1.page-title").should("contain.text", "Shopping Cart") // ??
+            cy.get(cart.pageTitle).should("contain.text", "Shopping Cart")
             cy.get(cart.productPrice).first().should("have.text", productPrice);
 
             //change the qty value
@@ -119,16 +117,5 @@ describe("Cart tests", () => {
                 });
             });
         });
-    });
-
-    /* This test assumes user/account.spec.js haas run before, since that is where the user account is created */
-    // TODO: move this test to account.spec.js
-    it("Merges an already existing cart when a customer logs in", () => {
-        cy.get(cart.productNameInCart).invoke('text').then(productName => {
-            Account.login(account.customerLogin.username, account.customerLogin.password);
-            cy.visit(cart.url.cartUrl);
-            cy.get(cart.productNameInCart).should('have.text', productName)
-        })
-        Account.logout();
     });
 });
