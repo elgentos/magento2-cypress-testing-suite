@@ -3,7 +3,7 @@ import selectors from '../../fixtures/hyva/selectors/homepage.json';
 import searchSelectors from '../../fixtures/hyva/selectors/search.json';
 import product from '../../fixtures/hyva/product.json';
 import account from '../../fixtures/account.json';
-import cart from "../../../fixtures/hyva/selectors/cart.json";
+import cart from "../../fixtures/hyva/selectors/cart.json";
 
 describe('Home page tests', () => {
     beforeEach(() => {
@@ -31,7 +31,7 @@ describe('Home page tests', () => {
 
     it('Can open category', () => {
         // Force because hover is not (yet?) possible in cypress
-        cy.get(selectors.headerNavSubCategory).click();
+        cy.get(selectors.headerNavSubCategory).click({force: true});
         cy.get(selectors.mainHeading).should(
            'contain.text',
            homepage.subCategoryName
@@ -43,7 +43,6 @@ describe('Home page tests', () => {
             Date.now() + account.customer.customer.email
         );
         cy.get(selectors.newsletterSubscribeButton).click();
-        cy.wait(0);
         cy.get('#messages').then(($messageSection) => {
             if (!$messageSection.find(selectors.failedMessage).text().trim()) {
                 cy.get(selectors.successMessage).should(

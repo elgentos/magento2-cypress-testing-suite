@@ -7,8 +7,12 @@ describe("Category page tests", () => {
     });
 
     it("Can visit the category page and filters on color red", () => {
+        cy.get(selectors.shopByColorFilter).contains('Color').click();
         cy.get(selectors.selectColorRed).click();
-        cy.url().should("contain", "?color=Red");
+
+        cy.get(selectors.shopByColorFilter).contains('Color').should("not.exist")
+        cy.get(selectors.activeFilterLabel).should("contain.text", "Color")
+        cy.get(selectors.activeFilterValue).should("contain.text", "Red")
     });
 
     it("Can sort products on price from lowest to highest", () => {
@@ -30,7 +34,7 @@ describe("Category page tests", () => {
         cy.get(selectors.highestNumberOfProductsShowOption)
             .invoke("val")
             .then((numberOfProducts) => {
-                cy.get(selectors.numberOfProductsSelect).select(
+                cy.get(selectors.numberOfProductsSelect).first().select(
                     numberOfProducts
                 );
                 cy.get(selectors.numberOfShownItems)
@@ -54,9 +58,9 @@ describe("Category page tests", () => {
             .should("contain.text", `${product.subCategory}`);
     });
 
-    it("Can switch between list and crid view", () => {
+    it("Can switch between grid and list view", () => {
         cy.get(selectors.categoryProductGridWrapper).should("be.visible");
-        cy.get(selectors.viewToggle).click();
+        cy.get(selectors.listModeButton).first().click();
         cy.get(selectors.categoryProductListWrapper).should("be.visible");
     });
 

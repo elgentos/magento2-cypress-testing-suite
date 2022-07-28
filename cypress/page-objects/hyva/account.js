@@ -7,10 +7,11 @@ export class Account {
         cy.visit(account.routes.accountIndex);
         cy.get(selectors.loginEmailInputSelector).type(user);
         cy.get(selectors.loginPasswordInputSelector).type(`${pw}{enter}`);
+        this.isLoggedIn();
     }
 
     static isLoggedIn() {
-        cy.contains(selectors.myAccountHeaderSelector, 'My Account');
+        cy.get(selectors.accountMenuItems).contains('My Account')
     }
 
     static goToProfile() {
@@ -58,10 +59,11 @@ export class Account {
     }
 
     static logout() {
-        cy.get('[aria-label="My Account"]').click();
-        cy.get('[aria-labelledby="customer-menu"]')
+        cy.get(selectors.accountMenuIcon).click()
+        cy.get(selectors.accountMenuItems)
             .contains('Sign Out')
             .click();
+        return cy.get(selectors.accountMenuItems).contains('Sign In');
     }
 
     /** Create an address that is used with other tests */

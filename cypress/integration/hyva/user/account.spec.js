@@ -1,5 +1,5 @@
-import { Account } from '../../../page-objects/hyva/account';
-import { Magento2RestApi } from '../../../support/magento2-rest-api';
+import {Account} from '../../../page-objects/hyva/account';
+import {Magento2RestApi} from '../../../support/magento2-rest-api';
 import account from '../../../fixtures/account.json';
 import product from '../../../fixtures/hyva/product.json';
 import checkout from '../../../fixtures/checkout.json';
@@ -7,6 +7,8 @@ import selectors from '../../../fixtures/hyva/selectors/account.json';
 import checkoutSelectors from '../../../fixtures/hyva/selectors/checkout.json';
 import productSelectors from '../../../fixtures/hyva/selectors/product.json';
 import homepageSelectors from '../../../fixtures/hyva/selectors/homepage.json'
+import cart from "../../../fixtures/hyva/selectors/cart.json";
+import {Cart} from "../../../page-objects/hyva/cart";
 
 describe(['hot'], 'Account test creation', () => {
     it('Can create an account', () => {
@@ -52,7 +54,7 @@ describe(['hot'], 'Account activities', () => {
             if (
                 $mainContent[0].querySelector('h1') &&
                 $mainContent[0].querySelector('h1').innerText.trim() !==
-                    'My Account'
+                'My Account'
             ) {
                 Account.login(
                     account.customer.customer.email,
@@ -183,17 +185,19 @@ describe(['hot'], 'Account activities', () => {
         cy.contains('You saved the address.').should('exist');
     });
 
-    it("Can add an address automatically from saved address'", () => {
-        // There needs to be a saved address for this test to work,
-        // TODO: add an "Account.addAddress()" method to the Account page-object
-        cy.visit(product.simpleProductUrl);
-        cy.contains('Add to Cart').click();
-        cy.visit(checkout.checkoutUrl);
-        cy.wait(1000); // this shouldn't be needed but for some reason it doesn't work without
-        cy.get(
-            '[id^="additional.shipping_address_selected_other_option_"]'
-        ).should('have.length.above', 1);
-    });
+    if (!Cypress.env('MAGENTO2_SKIP_CHECKOUT')) {
+        it("Can add an address automatically from saved address'", () => {
+            // There needs to be a saved address for this test to work,
+            // TODO: add an "Account.addAddress()" method to the Account page-object
+            cy.visit(product.simpleProductUrl);
+            cy.contains('Add to Cart').click();
+            cy.visit(checkout.checkoutUrl);
+            cy.wait(1000); // this shouldn't be needed but for some reason it doesn't work without
+            cy.get(
+                '[id^="additional.shipping_address_selected_other_option_"]'
+            ).should('have.length.above', 1);
+        });
+    }
 
     it('Can remove an address', () => {
         Account.createAddress(account.customerInfo);
@@ -229,7 +233,7 @@ describe(['hot'], 'Account activities', () => {
     });
 
     it('Can edit the wishlist and remove item', () => {
-        // Add comment/check qtty/send list/remove item
+        // Add comment/check qty/send list/remove item
         cy.visit(product.wishlistUrl);
         cy.get(selectors.wishlistItemCommentField).first().type('foobar');
         cy.get(selectors.wishlistUpdateButton).click();
@@ -263,13 +267,27 @@ describe(['hot'], 'Account activities', () => {
 
     it('Can log out', () => {
         cy.get(selectors.accountIcon).click();
-        cy.get(selectors.accountMenu).contains('Sign Out').click();
+        cy.get(selectors.accountMenuItems).contains('Sign Out').click();
         cy.get(homepageSelectors.mainHeading).should(
             'contain.text',
             'You have signed out'
         );
     });
 });
+
+describe('Customer cart', () => {
+    // This test is in this file because it depends on the customer account fixture created by this spec
+    it("Merges an already existing cart when a customer logs in", () => {
+        Cart.addProductToCart(cart.url.product1Url);
+        cy.visit(cart.url.cartUrl);
+        cy.get(cart.productNameInCart).invoke('text').then(productName => {
+            Account.login(account.customerLogin.username, account.customerLogin.password)
+            cy.visit(cart.url.cartUrl);
+            cy.get(cart.productNameInCart).should('have.text', productName)
+        })
+        Account.logout();
+    });
+})
 
 describe(['hot'], 'Guest user test', () => {
     it('Can login from cart', () => {
@@ -296,24 +314,26 @@ describe(['hot'], 'Guest user test', () => {
         cy.contains(product.simpleProductName).should('exist');
     });
 
-    it('Can login from checkout', () => {
-        cy.visit(product.simpleProductUrl);
-        cy.get(checkoutSelectors.addToCartButton)
-            .should('contain.text', 'Add to Cart')
-            .click();
-        cy.visit(checkout.checkoutUrl, { timeout: 5000 });
-        cy.get(checkoutSelectors.checkoutLoginToggle).click();
-        cy.get(checkoutSelectors.checkoutEmailLabel)
-            .click()
-            .type(account.customer.customer.email);
-        cy.get(checkoutSelectors.checkoutPasswordLabel)
-            .click()
-            .type(account.customer.password);
-        cy.get(checkoutSelectors.checkoutLoginButton).click();
-        cy.get(checkoutSelectors.checkoutLoggedInEmail).should(
-            'contain.text',
-            account.customer.customer.email
-        );
-        cy.get('.message span').should('not.exist');
-    });
+    if (!Cypress.env('MAGENTO2_SKIP_CHECKOUT')) {
+        it('Can login from checkout', () => {
+            cy.visit(product.simpleProductUrl);
+            cy.get(checkoutSelectors.addToCartButton)
+                .should('contain.text', 'Add to Cart')
+                .click();
+            cy.visit(checkout.checkoutUrl, {timeout: 5000});
+            cy.get(checkoutSelectors.checkoutLoginToggle).click();
+            cy.get(checkoutSelectors.checkoutEmailLabel)
+                .click()
+                .type(account.customer.customer.email);
+            cy.get(checkoutSelectors.checkoutPasswordLabel)
+                .click()
+                .type(account.customer.password);
+            cy.get(checkoutSelectors.checkoutLoginButton).click();
+            cy.get(checkoutSelectors.checkoutLoggedInEmail).should(
+                'contain.text',
+                account.customer.customer.email
+            );
+            cy.get('.message span').should('not.exist');
+        });
+    }
 });

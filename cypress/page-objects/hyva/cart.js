@@ -11,14 +11,11 @@ export class Cart {
         cy.get(cart.couponDropdownSelector).click();
         cy.get(cart.couponInputField).type(couponCode);
         cy.get(cart.addCouponButton).click();
-        cy.wait(2000);
     }
 
     static removeCoupon() {
         cy.visit(cart.url.cartUrl);
         cy.get(cart.couponDropdownSelector).click();
-        cy.get(cart.addCouponButton).click({
-            force: true,
-        });
+        cy.get(cart.addCouponButton).click({force: true});
     }
 }

@@ -37,6 +37,7 @@ describe('Checkout tests', () => {
         })
     })
 
+    /* These tests apply to the React checkout */
     it('Can see coupon discount in checkout', () => {
         Checkout.addProductToCart(product.couponProductUrl)
         cy.wait(3000)

@@ -17,16 +17,18 @@ This testing suite was announced in [Peter Jaap](https://twitter.com/PeterJaap) 
 
 ## Prerequisites
 - Magento 2.3.x / 2.4.x
-- [Hyvä](https://hyva.io) or Luma-based theme
+- [Hyvä](https://hyva.io) (1.1.16) or Luma-based theme
 - `npm`
 - An admin bearer token (see [Setup](#setup))
+
 
 ## Assumptions & limitations
 
 ### Assumptions
 - Magento 2 runs in Single Store Mode
 - Default language is English
-- Viewport is 1920x1280, with support for mobile viewports 
+- Viewport is 1920x1280, with support for mobile viewports
+- Sample Data is installed
 
 - [Multi Source Inventory is not used](https://github.com/magento/inventory)
 
@@ -34,16 +36,17 @@ This testing suite was announced in [Peter Jaap](https://twitter.com/PeterJaap) 
 This test suite is _not_ plug & play for your store. A number of tests rely on Magento's default sample data. These tests will fail when you don't have the sample data. It is up to you to change the fixtures/selectors/tests to make them pass for your store.
 
 ### Open source-only right now
-We don't do Commerce builds over at elgentos so we haven't spent time creating tests for Commerce-only functionality.
+We don't do Commerce builds over at elgentos, so we haven't spent time creating tests for Commerce-only functionality.
 
 ### No 100% test coverage
-We do not particularly strive for 100% test coverage. We have identified the most common and most revenue-dependent scenarios. For example, we do test viewing products, filtering categories, adding products to the cart, etcetera but we do (currently) not test the [Email a Friend](https://docs.magento.com/user-guide/marketing/email-a-friend.html) or [Compare Products](https://docs.magento.com/user-guide/marketing/product-compare.html) feature since these are rarely used in an average Magento store. We are perfectly willing to merge a PR with these tests of course.
+We do not particularly strive for 100% test coverage. We have identified the most common and most revenue-dependent scenarios. For example, we do test viewing products, filtering categories, adding products to the cart etc, but we (currently) do not test the [Email a Friend](https://docs.magento.com/user-guide/marketing/email-a-friend.html) or [Compare Products](https://docs.magento.com/user-guide/marketing/product-compare.html) feature since these are rarely used in an average Magento store. We are perfectly willing to merge a PR with these tests of course.
 
 ### No extensibility / inheritance of tests
 You need to copy the whole suite into your project. We are open to suggestions on how to solve this, see [Discussions](https://github.com/elgentos/magento2-cypress-testing-suite/discussions).
 
-### Checkout tests are for the Luma (fallback) checkout
-We haven't made tests for the Hyvä React Checkout yet. PR's are definitely welcome now that [we have a stable version](https://github.com/hyva-themes/magento2-react-checkout).
+### The Hyvä checkout tests assume the React Checkout is used
+The Hyvä checkout tests assume the [Hyvä React Checkout](https://github.com/hyva-themes/magento2-react-checkout). To skip checkout related Hyvä tests, set the environment variable `CYPRESS_MAGENTO2_SKIP_CHECKOUT`.    
+PR's are definitely welcome to improve the checkout related tests.
 
 ## Progress
 We are at 72%; 56 out of the proposed 78 tests are done.
@@ -135,10 +138,9 @@ Wording & naming are subject to change.
 |                          |                                 | :black_square_button: it can edit an order |
 
 ## Installation
-First, install Cypress in the root of your Magento 2 project;
+First, install Cypress in the root of your Magento 2 project:
 
 ```bash
-npm init
 npm install cypress --save-dev
 npm install cypress-file-upload cypress-localstorage-commands cypress-tags typescript --save-dev
 ```
@@ -148,24 +150,14 @@ The easiest way to install the tests is to clone this repository and move the `c
 ```bash
 git clone git@github.com:elgentos/magento2-cypress-testing-suite.git 
 mv magento2-cypress-testing-suite/cypress .
-mv magento2-cypress-testing-suite/cypress.json .
+mv magento2-cypress-testing-suite/cypress.config.js .
 rm -rf magento2-cypress-testing-suite
 ```
 
-Also see Tags below about how to set up using tags. 
+Then edit the `cypress.config.js` file in the root of your project to update your baseUrl and possibly some other defaults we've set:
 
-Then edit the `cypress.json` file in the root of your project to update your baseUrl and possibly some other defaults we've set:
-
-```json
-{
-  "baseUrl": "https://example.com",
-  "watchForFileChanges": false,
-  "viewportWidth": 1920,
-  "viewportHeight": 1080,
-  "env": {
-    "mobileViewportWidthBreakpoint": 768
-  }
-}
+```js
+const baseUrl = process.env.NODE_ENV === "develop" ? "http://cypress.magento2.localhost" : "https://example.com/";
 ```
 
 Also add these lines to your `.gitignore` to avoid cluttering your Git repo;
@@ -194,20 +186,14 @@ You then can add the token to `cypress.env.json` as an environment variable:
 }
 ```
 
-Or you can set it in your CI/CD variables by prefixing the environment variable name with `CYPRESS_`: `CYPRESS_MAGENTO2_ADMIN_TOKEN: <token_goes_here>`.
+Alternatively you can set it in your CI/CD variables by prefixing the environment variable name with `CYPRESS_`: `CYPRESS_MAGENTO2_ADMIN_TOKEN: <token_goes_here>`.
 
 ### Tags
-
-We use [tags](https://github.com/annaet/cypress-tags) to discern between hot tests and cold tests. You need to install the 3rd party tag support package. Following the [setup](https://github.com/annaet/cypress-tags#setup) for that package, you need to add it to the `plugins/index.js` and `support/index.d.ts`.
-
-```bash
-npm install cypress-tags typescript --save-dev
-```
+We use [tags](https://github.com/annaet/cypress-tags) to discern between hot tests and cold tests. If you followed the installation instructions above the `cypress-tags` module is already installed.  
+Note: it is used in the `cypress.config.js` file in the `setupNodeEvents` callback.
 
 ## Running
-
 ```bash
-npm ci
 npx cypress run
 # npx cypress open # if you want to use the GUI
 ```
@@ -225,16 +211,27 @@ CYPRESS_INCLUDE_TAGS=hot npx cypress run
 ```
 
 ### Running against local environment
+Set up your local base URL in `cypress.config.js`, or export `CYPRESS_MAGENTO2_BASE_URL`.  
+Then run Cypress with `NODE_ENV=develop; npx cypress run`.
 
-Set up your local URL in `cypress/plugins/index.js`. Then run Cypress with `NODE_ENV=develop; npx cypress run`.
+### Environment variables
+Even though the test suite is intended to become part of a project, it is possible to change some behavior using environment variables.  
+This is useful for running the suite in different environments, for example, development, CI, or against production.
+
+* `NODE_ENV` if set to `develop` the development base URL configured in `cypress.config.js` will be used, and the default timeout is set to 10 seconds
+* `CYPRESS_MAGENTO2_BASE_URL` If set, this value will be used as the Magento 2 base_url. Otherwise, the base URL from `cypress.config.js` will be used.
+* `CYPRESS_MAGENTO2_SPEC_PATTERN` If set, only tests matching this glob pattern will be executed. Otherwise, the tests configured in `cypress.config.js` will be used.
+* `CYPRESS_MAGENTO2_EXPORT_PATTERN` If set, tests matching this glob pattern will be excluded.
+* `CYPRESS_MAGENTO2_DEFAULT_TIMEOUT` If set, used as the default timeout. Otherwise, the timeout defaults to 10 seconds if NODE_ENV is set to `develop`, or 4 seconds otherwise. 
+* `CYPRESS_MAGENTO2_ADMIN_TOKEN` Used to authenticate against the Magento 2 API for setting up test fixtures.
+* `MAGENTO2_SKIP_CHECKOUT` Set to a truthy value to skip any Hyvä tests that assume a Checkout is installed.
 
 ## Contributing
-
 We are very open to contributions! We would love to have mobile viewport support for Hyvä, tests for Commerce functionality, additional tests, code improvements, a fallback mechanism, etcetera etcetera. See the Issues tab for issues to pick up. 
 
 We will be updating this readme soon with extensive contribution guidelines, but here is a short summary:
 - Avoid creating global `cy` functions ([Custom Commands](https://docs.cypress.io/api/cypress-api/custom-commands)), instead put functions in utils/helpers and import them
 - Avoid creating [aliases](https://docs.cypress.io/guides/core-concepts/variables-and-aliases#Aliases) that are only used once
 - Use `cy.get()` as much as possible, only use `cy.contains()` in specific cases - try to avoid it
-- Do not write assertions in page objects, move those to the spec files. Red flag; `should()` in a page object
+- Do not add assertions to page objects, move those to the spec files. Red flag; `should()` in a page object
 - Every test (an `it()` function) has to be able to run stand-alone; it should not depend on any other test. You can test this by add `.only` (see [Cypress docs](https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests#Excluding-and-Including-Tests)).

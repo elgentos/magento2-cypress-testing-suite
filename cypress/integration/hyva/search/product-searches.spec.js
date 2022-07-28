@@ -14,16 +14,16 @@ describe('Perform searches', () => {
             'contain.text',
             `Search results for: '${search.productCategory}'`
         );
+        cy.get(selectors.searchResults).should('have.length.gte', 8)
     });
 
     it('Can find a single product', () => {
         Search.search(search.singleProduct);
-        cy.get(homepageSelectors.successMessage)
-            .should('be.visible')
-            .should(
-                'contain.text',
-                `${search.sinpleProductName} is the only product matching your '${search.singleProduct}' search.`
-            );
+        cy.get(homepageSelectors.mainHeading).should(
+            'contain.text',
+            `Search results for: '${search.singleProduct}'`
+        );
+        cy.get(selectors.searchResults).should('have.lengthOf', 1)
     });
 
     it('Can perform search with no search results', () => {
