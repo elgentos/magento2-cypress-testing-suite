@@ -6,7 +6,7 @@ import {isMobile} from "../../../support/utils";
 
 describe('Category page tests', () => {
     beforeEach(() => {
-        cy.visit(Product.routes.category)
+        cy.visit(product.categoryUrl)
         cy.wait(3000)
     })
 
