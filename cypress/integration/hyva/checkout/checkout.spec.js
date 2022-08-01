@@ -4,6 +4,7 @@ import checkout from '../../../fixtures/checkout.json';
 import selectors from '../../../fixtures/hyva/selectors/checkout.json';
 import { Checkout } from '../../../page-objects/hyva/checkout';
 import { Account } from '../../../page-objects/hyva/account';
+import homepageSelectors from "../../../fixtures/hyva/selectors/homepage.json";
 
 if(! Cypress.env('MAGENTO2_SKIP_CHECKOUT')) {
     /* These tests apply to the React checkout */
@@ -68,7 +69,7 @@ if(! Cypress.env('MAGENTO2_SKIP_CHECKOUT')) {
         });
 
         it(
-            ['hot'],
+            ['hot', 'footer'],
             'Can find and order in the customer order history after having placed an order',
             () => {
                 Checkout.addSimpleProductToCart(product.simpleProductUrl);
@@ -85,14 +86,14 @@ if(! Cypress.env('MAGENTO2_SKIP_CHECKOUT')) {
                             .length
                     ) {
                         cy.get(selectors.addressSelected).should('not.exist');
-                        cy.get('.h-12 > .flex > .px-2').click()
+                        cy.get(selectors.shippingAddressEditButton, {timeout: 5000}).click()
                         cy.get('[for=\"shipping_address.company\"]')
                             .click()
                             .type('Test')
-                        cy.contains('Save').click();
+                        cy.get(selectors.saveAddressBtn).click();
                     }
-                    cy.get(':nth-child(1) > .justify-start > .inline-block').click()
-                    cy.get('#shippingMethod_flatrate__flatrate').check({force: true})
+                    cy.get(selectors.shippingMethodBlock).click();
+                    cy.get(selectors.shippingMethodFlatRate).check({force: true});
                     cy.get(selectors.addressSelected).should('exist');
                     cy.get(selectors.shippingMethodField).click();
                     cy.get(selectors.moneyOrderPaymentMethodSelector).click();
@@ -118,6 +119,29 @@ if(! Cypress.env('MAGENTO2_SKIP_CHECKOUT')) {
                                             orderNrRegex
                                         )[0];
                                     expect(orderNr).to.be.equal(orderHistoryNr);
+
+                                    // Log out and test the Orders and Returns footer link, only visible to guests
+                                    cy.get(selectors.myAccountMenuItems).contains('Sign Out').click();
+                                    cy.get(homepageSelectors.mainHeading).should(
+                                        'contain.text',
+                                        'You have signed out'
+                                    );
+
+                                    cy.get(selectors.footerOrdersReturns).click();
+                                    cy.get(selectors.ordersReturnsOrderId).type(orderNr);
+                                    cy.get(selectors.ordersReturnsBillingLastName).type(account.customer.customer.lastname);
+                                    cy.get(selectors.ordersReturnsEmail).type(account.customer.customer.email);
+                                    cy.get(selectors.ordersReturnsSubmit).click();
+                                    cy.get(selectors.ordersReturnsTitle).should(
+                                        "contain.text",
+                                        orderNr,
+                                        "Order Number matches recent order"
+                                    );
+                                    cy.get(selectors.ordersReturnsOrderItems).should(
+                                        "contain.text",
+                                        product.simpleProductName,
+                                        "Product items matches recent order"
+                                    );
                                 }
                             );
                         }
