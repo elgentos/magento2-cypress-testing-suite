@@ -49,7 +49,7 @@ The Hyvä checkout tests assume the [Hyvä React Checkout](https://github.com/hy
 PR's are definitely welcome to improve the checkout related tests.
 
 ## Progress
-We are at 72%; 56 out of the proposed 78 tests are done.
+We are at 73%; 57 out of the proposed 78 tests are done.
 
 Wording & naming are subject to change.
 
@@ -87,7 +87,7 @@ Wording & naming are subject to change.
 |                          |                                 | :heavy_check_mark: it can perform search from homepage |
 |                          |                                 | :heavy_check_mark: it can open a category |
 |                          |                                 | :black_square_button: it can show the header correctly and all links work |
-|                          |                                 | :black_square_button: it can show the footer correctly and all links work |
+|                          |                                 | :heavy_check_mark: it can show the footer correctly and all links work |
 |                          |                                 | :black_square_button: it can show the main section of the homepage correctly and all links work |
 |                          |                                 | :heavy_check_mark: it can subscribe to the newsletter |
 |                          |                                 | :black_square_button: it can add products shown on the homepage to the cart when a add to cart button is present |
