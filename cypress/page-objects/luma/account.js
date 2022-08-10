@@ -5,7 +5,6 @@ import {isMobile} from "../../support/utils";
 export class Account {
     static login(user, pw) {
         cy.visit(account.routes.accountIndex);
-        cy.wait(2000)
         cy.get(selectors.loginEmailInputSelector).type(user)
         cy.get(selectors.loginPasswordInputSelector).type(`${pw}{enter}`)
     }
