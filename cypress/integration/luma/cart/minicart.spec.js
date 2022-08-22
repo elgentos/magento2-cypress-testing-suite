@@ -3,7 +3,7 @@ import selectors from "../../../fixtures/luma/selectors/minicart"
 
 describe('Mini cart tests', () => {
     beforeEach(() => {
-        cy.removeLocalStorage();
+        cy.restoreLocalStorage();
         cy.clearCookies();
         cy.visit(minicart.didiSportWatch)
         cy.get(selectors.addToCartButton).click()
