@@ -97,9 +97,10 @@ describe('Home page tests', () => {
         );
         cy.get(selectors.searchTerms).should(
             "have.length.at.least",
-            4,
-            "At least four popular search terms exist"
+            2,
+            "At least two popular search terms exist"
         );
+        cy.get(selectors.searchTerms).contains(product.simpleProductName)
     });
 
     it(["footer"], "Can visit Contact form in the footer", () => {
