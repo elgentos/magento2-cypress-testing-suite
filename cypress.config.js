@@ -16,6 +16,7 @@ module.exports = defineConfig({
         excludeSpecPattern: process.env.CYPRESS_MAGENTO2_EXCLUDE_PATTERN || envConfig.MAGENTO2_EXCLUDE_PATTERN || '',
         defaultCommandTimeout: process.env.CYPRESS_MAGENTO2_DEFAULT_TIMEOUT || envConfig.MAGENTO2_DEFAULT_TIMEOUT || defaultCommandTimeout,
         watchForFileChanges: false,
+        videoUploadOnPasses: false,
         supportFile: false,
         viewportWidth: 1920,
         viewportHeight: 1080,
