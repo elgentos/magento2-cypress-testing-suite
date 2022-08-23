@@ -17,7 +17,7 @@ This testing suite was announced in [Peter Jaap](https://twitter.com/PeterJaap) 
 
 ## Prerequisites
 - Magento 2.3.x / 2.4.x
-- [Hyvä](https://hyva.io) (1.1.16) or Luma-based theme
+- [Hyvä](https://hyva.io) (1.1.17) or Luma-based theme
 - `npm`
 - An admin bearer token (see [Setup](#setup))
 
@@ -152,6 +152,18 @@ git clone git@github.com:elgentos/magento2-cypress-testing-suite.git
 mv magento2-cypress-testing-suite/cypress .
 mv magento2-cypress-testing-suite/cypress.config.js .
 rm -rf magento2-cypress-testing-suite
+```
+
+If you only need the Hyvä tests:
+
+```
+rm -rf cypress/{fixtures,page-objects,integration}/luma
+```
+
+If you only need the Luma tests;
+
+```
+rm -rf cypress/{fixtures,page-objects,integration}/hyva
 ```
 
 Then edit the `cypress.config.js` file in the root of your project to update your baseUrl and possibly some other defaults we've set:
