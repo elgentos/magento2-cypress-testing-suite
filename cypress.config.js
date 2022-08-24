@@ -40,7 +40,7 @@ module.exports = defineConfig({
                 : new Promise((resolve, reject) => {
                     // Do a preflight request to determine which test subset to run depending on the target theme
                     if (baseUrl.startsWith('https')) process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
-                    const req = require('https').request(baseUrl);
+                    const req = (baseUrl.startsWith('https') ? require('https') : require('http')).request(baseUrl);
                     req.on('response', res => {
                         const themeSpecs = res.headers['x-built-with'] === 'Hyva Themes' ? 'hyva' : 'luma'
                         config.specPattern = `cypress/integration/${themeSpecs}/**/*.spec.js`
