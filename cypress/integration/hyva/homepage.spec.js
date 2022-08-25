@@ -66,25 +66,12 @@ describe('Home page tests', () => {
            .should("be.visible");
     });
 
-    it(["footer"], "Can visit the My Account page in the footer", () => {
+    it(["footer"], "Can visit the login page from the footer", () => {
         cy.get(selectors.footerMyAccount).click();
-        Account.login(
-            account.customer.customer.email,
-            account.customer.password
-        );
         cy.get(selectors.pageTitle).should(
             "contain.text",
-            homepage.pageTitleMyAccount,
+            homepage.pageTitleLogin,
             "Page has the correct title"
-        );
-        cy.get(selectors.myAccountContactInformationBlock).should(
-            "contain.text",
-            (account.customer.customer.firstname + " " + account.customer.customer.lastname),
-            "Customer name is in the contact information section"
-        ).and(
-            "contain.text",
-            account.customer.customer.email,
-            "Customer email is in the contact information section"
         );
     });
 
@@ -95,10 +82,11 @@ describe('Home page tests', () => {
             homepage.pageTitleSearchTerms,
             "Page has the correct title"
         );
+        // assert at least one exists because this spec executes one search above
         cy.get(selectors.searchTerms).should(
             "have.length.at.least",
-            2,
-            "At least two popular search terms exist"
+            1,
+            "At least one popular search terms exist"
         );
         cy.get(selectors.searchTerms).contains(product.simpleProductName)
     });
