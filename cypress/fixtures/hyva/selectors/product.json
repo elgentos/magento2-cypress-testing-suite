@@ -6,6 +6,7 @@
     "customerReviewTitle": ".product-info-main section h3",
     "errorMessage": ".message.error",
     "forgottenField": ".swatch-attribute :invalid",
+    "mainHeading": "h1.title-font",
     "productAttributeSelector": "#product_addtocart_form .swatch-attribute .product-option-value-label",
     "productCustomerReviews": "[itemprop=\"review\"]",
     "productCustomerReviewForm": "#review_form",
