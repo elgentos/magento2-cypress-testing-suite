@@ -70,16 +70,17 @@ export class Account {
     static createAddress(customerInfo) {
         cy.visit(account.routes.accountAddAddress);
         cy.get(selectors.addAddressFormSelector).then(($form) => {
-            if ($form.find('#primary_billing').length) {
-                cy.get('#primary_billing').check();
-                cy.get('#primary_shipping').check();
+            if ($form.find(selectors.defaultShippingAddress).length) {
+                cy.get(selectors.defaultBillingAddress).check();
+                cy.get(selectors.defaultShippingAddress).check();
             }
-            cy.get('#street_1').type(customerInfo.streetAddress);
-            cy.get('#city').type(customerInfo.city);
-            cy.get('#telephone').type(customerInfo.phone);
-            cy.get('#zip').type(customerInfo.zip);
-            cy.get('#country').select(customerInfo.country);
-            cy.get('#region').type(customerInfo.state);
+            cy.get(selectors.newAddressStreetInput).type(customerInfo.streetAddressStreet);
+            cy.get(selectors.newAddressHouseNumberInput).type(customerInfo.streetAddressNumber);
+            cy.get(selectors.newAddressCityInput).type(customerInfo.city);
+            cy.get(selectors.newAddressTelInput).type(customerInfo.phone);
+            cy.get(selectors.newAddressZipcodeInput).type(customerInfo.zip);
+            cy.get(selectors.newAddressCountryInput).select(customerInfo.country);
+            cy.get(selectors.newAddressRegionInput).type(customerInfo.state);
             cy.contains('Save Address').click();
         });
     }
