@@ -1,5 +1,5 @@
 import homepage from "../../fixtures/luma/homepage"
-import selectors from "../../fixtures/selectors/luma/homepage"
+import selectors from "../../fixtures/luma/selectors/homepage"
 import product from "../../fixtures/luma/product"
 import account from "../../fixtures/account"
 import {isMobile} from "../../support/utils";
