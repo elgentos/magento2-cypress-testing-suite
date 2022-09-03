@@ -34,8 +34,8 @@
   "wishlistShareBackLink": ".form.wishlist.share .back",
   "wishlistRemoveItemButton": "[title=\"Remove Item\"]",
   "successMessage": ".message.success span",
-  "accountIcon": ":nth-child(2) > .customer-welcome > .customer-name > .action",
-  "accountMenuItems": ":nth-child(2) > .customer-welcome > .customer-menu > .header > .authorization-link > a",
+  "accountIcon": ".page-header .customer-welcome > .customer-name > .action",
+  "accountMenuItems": ".page-header .customer-welcome > .customer-menu > .header > .authorization-link > a",
   "signedOutHeader": ".base",
   "successMessageCartLink": ".message-success > div > a",
   "messageContents": ".message span"
