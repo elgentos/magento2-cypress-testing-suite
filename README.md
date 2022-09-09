@@ -236,7 +236,26 @@ This is useful for running the suite in different environments, for example, dev
 * `CYPRESS_MAGENTO2_EXPORT_PATTERN` If set, tests matching this glob pattern will be excluded.
 * `CYPRESS_MAGENTO2_DEFAULT_TIMEOUT` If set, used as the default timeout. Otherwise, the timeout defaults to 10 seconds if NODE_ENV is set to `develop`, or 4 seconds otherwise. 
 * `CYPRESS_MAGENTO2_ADMIN_TOKEN` Used to authenticate against the Magento 2 API for setting up test fixtures.
-* `MAGENTO2_SKIP_CHECKOUT` Set to a truthy value to skip any Hyvä tests that assume a Checkout is installed.
+* `CYPRESS_MAGENTO2_SKIP_CHECKOUT` Set to a truthy value to skip any Hyvä tests that assume a Checkout is installed.
+* `CYPRESS_MAGENTO2_SPEC_SUITE` Set the test suite to run, if not set defaults to `luma` or `hyva` depending on response headers.
+
+Any of these can also be configured in a `cypress.env.json` file without the `CYPRESS_` prefix.
+
+### Running tests from modules
+
+Spec files in extensions will be found by the default spec pattern at
+
+* `app/code/**/Test/Cypress/hyva/**/*.spec.js` or `app/code/**/Test/Cypress/luma/**/*.spec.js`
+* `vendor/**/Test/Cypress/hyva/**/*.spec.js` or `app/code/**/Test/Cypress/luma/**/*.spec.js`
+
+Tests for different frontends can be supplied by using a different folder in `Test/Cypress` and setting the `MAGENTO2_SPEC_SUITE` config to that name.
+For example: `app/code/Example/Module/Test/Cypress/vue/user/account.spec.js` would be found by
+
+```sh
+CYPRESS_MAGENTO2_SPEC_SUITE=vue npx cypress run
+```
+
+If you do not want all tests to be run, regardless of the folder names, set `MAGENTO2_SPEC_SUITE` to an empty string. 
 
 ## Contributing
 We are very open to contributions! We would love to have mobile viewport support for Hyvä, tests for Commerce functionality, additional tests, code improvements, a fallback mechanism, etcetera etcetera. See the Issues tab for issues to pick up. 
