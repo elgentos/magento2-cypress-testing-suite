@@ -59,14 +59,14 @@ describe('Test without added product',() => {
         cy.get(selectors.productPrice).then(($productPrice) => {
             cy.get(selectors.miniCartButton).click()
             const productPrice = $productPrice[0].textContent.trim().slice(1)
-            cy.get(selectors.miniCartFirstProductPrice).then(($productPrice2MiniCart) => {
+            cy.get(selectors.miniCartProductPrice).first().then(($productPrice2MiniCart) => {
                 const productPrice2MiniCart = $productPrice2MiniCart[0].textContent.trim().slice(1)
                 expect(productPrice).to.equal(productPrice2MiniCart)
                 cy.get(selectors.firstProductAmount).then(($qty) => {
                     const qty = $qty[0].textContent.trim()
                     cy.get(selectors.miniCartSubtotal).then(($total) => {
                         const total = parseInt($total[0].textContent.trim().slice(1))
-                        cy.get(selectors.miniCartFirstProductPrice).then(($productPriceMiniCart) => {
+                        cy.get(selectors.miniCartProductPrice).first().then(($productPriceMiniCart) => {
                             const productPriceMiniCart = $productPriceMiniCart[0].textContent.trim().slice(1)
                             const subTotal = (productPriceMiniCart * qty)
                             expect(subTotal).to.equal(+total)

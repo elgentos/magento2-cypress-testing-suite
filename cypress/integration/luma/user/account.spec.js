@@ -36,7 +36,7 @@ describe('Account activities', () => {
 
     after(() => {
         // Remove the added address
-        cy.wait(2500)
+        cy.wait(4000)
         Account.login(account.customer.customer.email, account.customer.password)
         cy.visit('/customer/address')
         cy.wait(4000)
@@ -68,7 +68,6 @@ describe('Account activities', () => {
     })
 
     it('Can change the profile values', () => {
-        Account.login(account.customer.customer.email, account.customer.password)
         let fn = account.tempCustomerInfo.firstname,
             ln = account.tempCustomerInfo.lastname
         cy.visit(account.routes.accountEdit)
@@ -85,6 +84,9 @@ describe('Account activities', () => {
                 cy.get(selectorsLuma.accountFirstnameInputSelector).should('have.value', fn)
                 cy.get(selectorsLuma.accountLastnameInputSelector).should('have.value', ln)
             })
+            cy.wait(8000)
+            cy.get('.page-header .customer-welcome > .customer-name > .action').click()
+            cy.contains('Sign Out').click()
         })
     })
 
@@ -131,6 +133,10 @@ describe('Account activities', () => {
         cy.visit(checkout.checkoutUrl)
         cy.wait(7000) // this shouldn't be needed but for some reason it doesn't work without
         cy.get('.shipping-address-item.selected-item').should('have.length', 1)
+        cy.visit('/')
+        cy.wait(3000)
+        cy.get('.page-header .customer-welcome > .customer-name > .action').click()
+        cy.contains('Sign Out').click()
     })
 
     it('Can remove an address', () => {
@@ -165,7 +171,7 @@ describe('Account activities', () => {
 
     it('Can log out', () => {
         cy.get(selectorsLuma.accountIcon).click({force: true})
-        cy.get(selectorsLuma.accountMenu).contains('Sign Out').click({force: true})
+        cy.get(selectorsLuma.accountMenuItems).contains('Sign Out').click({force: true})
         cy.get(selectorsLuma.signedOutHeader).should('contain.text', 'You are signed out')
         cy.wait(2000)
     })
@@ -195,6 +201,10 @@ describe('Guest user test', () => {
     })
 
     it('Can login from checkout', () => {
+        cy.visit('/')
+        cy.wait(3000)
+        cy.get('.page-header .customer-welcome > .customer-name > .action').click()
+        cy.contains('Sign Out').click()
         cy.visit(product.simpleProductUrl)
         cy.wait(4000)
         cy.get(checkoutSelectors.addToCartButton).should('contain.text', 'Add to Cart').click()
@@ -205,5 +215,10 @@ describe('Guest user test', () => {
         cy.get(checkoutSelectors.checkoutPasswordLabel).type(account.customer.password)
         cy.wait(1000)
         cy.get('button[data-action="checkout-method-login"]').click()
+        cy.wait(4000)
+        cy.visit('/')
+        cy.wait(3000)
+        cy.get('.page-header .customer-welcome > .customer-name > .action').click()
+        cy.contains('Sign Out').click()
     })
 })

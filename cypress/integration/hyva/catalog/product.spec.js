@@ -11,7 +11,7 @@ describe('Simple Product test suite', () => {
     });
 
     it('Can see a title and image for the product', () => {
-        cy.get(homepageSelectors.mainHeading)
+        cy.get(selectors.mainHeading)
             .should('contain.text', product.simpleProductName)
             .should('be.visible');
         cy.get(selectors.productImage)

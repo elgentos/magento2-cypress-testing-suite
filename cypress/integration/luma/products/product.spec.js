@@ -52,8 +52,9 @@ describe('Simple Product test suite', () => {
     })
 
     it('Can\'t add a product to a wishlist when the user in not logged in', () => {
+        cy.wait(3000)
         cy.get(selectors.addToWishlistButtonGuest).click()
-        cy.wait(2000)
+        cy.wait(3000)
         cy.get(selectors.errorMessage)
             .should('exist')
             .should("contain.text", 'You must login or register to add items to your wishlist.')
