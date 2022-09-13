@@ -246,7 +246,7 @@ Any of these can also be configured in a `cypress.env.json` file without the `CY
 Spec files in extensions will be found by the default spec pattern at
 
 * `app/code/**/Test/Cypress/hyva/**/*.spec.js` or `app/code/**/Test/Cypress/luma/**/*.spec.js`
-* `vendor/**/Test/Cypress/hyva/**/*.spec.js` or `app/code/**/Test/Cypress/luma/**/*.spec.js`
+* `vendor/**/Test/Cypress/hyva/**/*.spec.js` or `vendor/**/Test/Cypress/luma/**/*.spec.js`
 
 Tests for different frontends can be supplied by using a different folder in `Test/Cypress` and setting the `MAGENTO2_SPEC_SUITE` config to that name.
 For example: `app/code/Example/Module/Test/Cypress/vue/user/account.spec.js` would be found by
