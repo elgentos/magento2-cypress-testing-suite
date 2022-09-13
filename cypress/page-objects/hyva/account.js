@@ -74,8 +74,7 @@ export class Account {
                 cy.get(selectors.defaultBillingAddress).check();
                 cy.get(selectors.defaultShippingAddress).check();
             }
-            cy.get(selectors.newAddressStreetInput).type(customerInfo.streetAddressStreet);
-            cy.get(selectors.newAddressHouseNumberInput).type(customerInfo.streetAddressNumber);
+            cy.get(selectors.newAddressStreetInput).type(customerInfo.streetAddress);
             cy.get(selectors.newAddressCityInput).type(customerInfo.city);
             cy.get(selectors.newAddressTelInput).type(customerInfo.phone);
             cy.get(selectors.newAddressZipcodeInput).type(customerInfo.zip);
