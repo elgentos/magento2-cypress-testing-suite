@@ -13,6 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install the testing suite
-        run: npm install cypress cypress-file-upload cypress-localstorage-commands cypress-tags typescript --save-dev
+        run: npm ci
       - name: Run the Hyvä testing suite
         run: CYPRESS_MAGENTO2_SKIP_CHECKOUT=1 CYPRESS_MAGENTO2_SPEC_SUITE=hyva CYPRESS_MAGENTO2_BASE_URL=https://hyva-demo.elgentos.io npx cypress run

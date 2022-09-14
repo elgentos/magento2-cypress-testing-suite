@@ -143,11 +143,10 @@ Wording & naming are subject to change.
 |                          |                                 | :black_square_button: it can edit an order |
 
 ## Installation
-First, install Cypress in the root of your Magento 2 project:
+First, install Cypress and the dependencies in the root of your Magento 2 project:
 
 ```bash
-npm install cypress --save-dev
-npm install cypress-file-upload cypress-localstorage-commands cypress-tags typescript --save-dev
+npm ci
 ```
 
 The easiest way to install the tests is to clone this repository and move the `cypress` folder into your project. As of right now, we do not provide a fallback mechanism for customizations to the tests, see [Limitations](https://github.com/elgentos/magento2-cypress-testing-suite/blob/main/README.md#no-extensibility--inheritance-of-tests).
