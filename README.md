@@ -49,7 +49,7 @@ The Hyvä checkout tests assume the [Hyvä React Checkout](https://github.com/hy
 PR's are definitely welcome to improve the checkout related tests.
 
 ## Progress
-We are at 73%; 63 out of the proposed 86 tests are done.
+We are at 76%; 65 out of the proposed 86 tests are done.
 
 Wording & naming are subject to change.
 
@@ -134,9 +134,9 @@ Wording & naming are subject to change.
 |                          |                                 | :heavy_check_mark: it can add a bundled product to the cart
 | `cms-page.spec.js`       | CMS page tests                  | :black_square_button: it shows the default 404 page on an non-existent route |
 |                          |                                 | :black_square_button: it can open the default CMS page correctly |
-| `contact-form.spec.js`   | Contact form tests              | :black_square_button: it shows the contact form correctly |
+| `contact-form.spec.js`   | Contact form tests              | :heavy_check_mark: it shows the contact form correctly |
 |                          |                                 | :black_square_button: it cannot submit a form when no valid email address is entered |
-|                          |                                 | :black_square_button: it can submit the form when all validation passes |
+|                          |                                 | :heavy_check_mark: it can submit the form when all validation passes |
 | `back-end.spec.js`       | Back-end tests                  | :black_square_button: it can login on the administration panel of the magento environment |
 |                          |                                 | :black_square_button: it can show customer data |
 |                          |                                 | :black_square_button: it processes orders and invoices correctly |
