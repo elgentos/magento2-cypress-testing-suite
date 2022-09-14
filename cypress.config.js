@@ -26,7 +26,7 @@ module.exports = defineConfig({
         specSuite: process.env.CYPRESS_MAGENTO2_SPEC_SUITE ?? envConfig.MAGENTO2_SPEC_SUITE ?? undefined,
         excludeSpecPattern: process.env.CYPRESS_MAGENTO2_EXCLUDE_PATTERN ?? envConfig.MAGENTO2_EXCLUDE_PATTERN ?? '',
         defaultCommandTimeout: parseInt(process.env.CYPRESS_MAGENTO2_DEFAULT_TIMEOUT ?? envConfig.MAGENTO2_DEFAULT_TIMEOUT ?? defaultCommandTimeout),
-        videoUploadOnPasses: parseInt(process.env.CYPRESS_VIDEO_UPLOAD_ON_PASSES ?? parseIntenvConfig.VIDEO_UPLOAD_ON_PASSES) ?? false,
+        videoUploadOnPasses: !! parseInt(process.env.CYPRESS_VIDEO_UPLOAD_ON_PASSES ?? parseIntenvConfig.VIDEO_UPLOAD_ON_PASSES) ?? false,
         watchForFileChanges: false,
         supportFile: 'cypress/support/index.js',
         viewportWidth: 1920,
