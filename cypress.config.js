@@ -1,5 +1,5 @@
 const {defineConfig} = require('cypress');
-const tagify = require('cypress-tags');
+const {tagify} = require('cypress-tags');
 const fs = require('fs');
 const envConfig = fs.existsSync('./cypress.env.json') ? require('./cypress.env.json') : {};
 
