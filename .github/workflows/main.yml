@@ -10,9 +10,10 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    environment: ci
     steps:
       - uses: actions/checkout@v3
       - name: Install the testing suite
         run: npm ci
       - name: Run the Hyvä testing suite
-        run: CYPRESS_MAGENTO2_SKIP_CHECKOUT=1 CYPRESS_MAGENTO2_SPEC_SUITE=hyva CYPRESS_MAGENTO2_BASE_URL=https://hyva-demo.elgentos.io npx cypress run
+        run: CYPRESS_VIDEO_UPLOAD_ON_PASSES=1 CYPRESS_MAGENTO2_SKIP_CHECKOUT=1 CYPRESS_MAGENTO2_SPEC_SUITE=hyva CYPRESS_MAGENTO2_BASE_URL=https://hyva-demo.elgentos.io npx cypress run --record --key $CYPRESS_RECORD_KEY
