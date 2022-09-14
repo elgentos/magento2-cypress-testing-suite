@@ -49,7 +49,7 @@ The Hyvä checkout tests assume the [Hyvä React Checkout](https://github.com/hy
 PR's are definitely welcome to improve the checkout related tests.
 
 ## Progress
-We are at 73%; 57 out of the proposed 78 tests are done.
+We are at 73%; 63 out of the proposed 86 tests are done.
 
 Wording & naming are subject to change.
 
@@ -127,6 +127,11 @@ Wording & naming are subject to change.
 |                          |                                 | :heavy_check_mark: it can add a review when logged in |
 |                          |                                 | :heavy_check_mark: it can indicate if a product is in stock |
 |                          |                                 | :heavy_check_mark: it can't add a product to the cart when the product is out of stock (commented out, needs admin token in the cypress.env.json) |
+|                          | Bundle products test            | :heavy_check_mark: it can render the product name
+|                          |                                 | :heavy_check_mark: it can set the price to zero when every associated product qty is zero
+|                          |                                 | :heavy_check_mark: it can calculate the price based on selected options
+|                          |                                 | :heavy_check_mark: it can display selection quantities
+|                          |                                 | :heavy_check_mark: it can add a bundled product to the cart
 | `cms-page.spec.js`       | CMS page tests                  | :black_square_button: it shows the default 404 page on an non-existent route |
 |                          |                                 | :black_square_button: it can open the default CMS page correctly |
 | `contact-form.spec.js`   | Contact form tests              | :black_square_button: it shows the contact form correctly |
