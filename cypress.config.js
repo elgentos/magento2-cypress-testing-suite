@@ -26,7 +26,7 @@ module.exports = defineConfig({
         specSuite: envConfig.SPEC_SUITE || undefined,
         excludeSpecPattern: envConfig.EXCLUDE_SPEC_PATTERN || '',
         defaultCommandTimeout: parseInt(envConfig.DEFAULT_COMMAND_TIMEOUT || defaultCommandTimeout),
-        videoUploadOnPasses: !! (envConfig.VIDEO_UPLOAD_ON_PASSES || false),
+        videoUploadOnPasses: !!envConfig.VIDEO_UPLOAD_ON_PASSES,
         watchForFileChanges: false,
         supportFile: 'cypress/support/index.js',
         viewportWidth: 1920,
