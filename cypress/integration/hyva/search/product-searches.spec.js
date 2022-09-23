@@ -39,7 +39,7 @@ describe('Perform searches', () => {
             .should('contain.text', 'Your search returned no results.');
     });
 
-    it.only('Can see suggestions when entering search terms', () => {
+    it('Can see suggestions when entering search terms', () => {
         cy.get(selectors.headerSearchIcon).click();
         cy.get(selectors.headerSearchField)
             .should('be.visible')
