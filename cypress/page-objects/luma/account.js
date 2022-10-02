@@ -80,7 +80,7 @@ export class Account {
             cy.get(selectors.newAddressTelInput).type(customerInfo.phone)
             cy.get(selectors.newAddressZipcodeInput).type(customerInfo.zip)
             cy.get(selectors.newAddressCountryInput).select(customerInfo.country)
-            cy.get(selectors.newAddressRegionInput).select(account.customerInfo.state)
+            cy.get(selectors.newAddressRegionInput).select(customerInfo.state)
             cy.contains('Save Address').click()
         })
     }
