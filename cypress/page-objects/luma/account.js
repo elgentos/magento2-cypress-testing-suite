@@ -5,8 +5,12 @@ import {isMobile} from "../../support/utils";
 export class Account {
     static login(user, pw) {
         cy.visit(account.routes.accountIndex);
+        cy.get('.base').then(($text) => {
+            if ($text.text().indexOf('Customer Login') >= 0) {
         cy.get(selectors.loginEmailInputSelector).type(user)
         cy.get(selectors.loginPasswordInputSelector).type(`${pw}{enter}`)
+    }
+        })
     }
 
     static isLoggedIn() {
@@ -71,12 +75,26 @@ export class Account {
                 cy.get('#primary_billing').check()
                 cy.get('#primary_shipping').check()
             }
-            cy.get('#street_1').type(customerInfo.streetAddress)
-            cy.get('#city').type(customerInfo.city)
-            cy.get('#telephone').type(customerInfo.phone)
-            cy.get('#zip').type(customerInfo.zip)
-            cy.get('#country').select(customerInfo.country)
+            cy.get(selectors.newAddressStreetInput).type(customerInfo.streetAddress)
+            cy.get(selectors.newAddressCityInput).type(customerInfo.city)
+            cy.get(selectors.newAddressTelInput).type(customerInfo.phone)
+            cy.get(selectors.newAddressZipcodeInput).type(customerInfo.zip)
+            cy.get(selectors.newAddressCountryInput).select(customerInfo.country)
+            cy.get(selectors.newAddressRegionInput).select(account.customerInfo.state)
             cy.contains('Save Address').click()
+        })
+    }
+
+    static deleteAddress() {
+        cy.visit(account.routes.accountAddresses)
+        cy.wait(4000)
+        cy.get('.additional-addresses a.delete').eq(0).click({force: true})
+        cy.wait(1000)
+        cy.get('.modal-content').then(($modal) => {
+            if ($modal.text().indexOf('Are you sure you want to delete this address?') >= 0) {
+                cy.get('.action-primary').click()
+                cy.wait(2500)
+            }
         })
     }
 
