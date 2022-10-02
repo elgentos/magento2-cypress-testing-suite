@@ -19,15 +19,13 @@ describe('Account test creation', () => {
 
 describe('Account activities', () => {
     beforeEach(() => {
+        Account.login(account.customer.customer.email, account.customer.password)
         cy.wait(2500)
     })
 
     before(() => {
         cy.wait(2500)
         Magento2RestApi.createCustomerAccount(account.customer)
-        Account.login(account.customer.customer.email, account.customer.password)
-        Account.createAddress(account.customerInfo)
-        // We need to logout or the beforeEach will fail
         if(isMobile()) {
             cy.wait(2000)
         }
@@ -38,13 +36,6 @@ describe('Account activities', () => {
         // Remove the added address
         cy.wait(4000)
         Account.login(account.customer.customer.email, account.customer.password)
-        cy.visit('/customer/address')
-        cy.wait(4000)
-        cy.get('.additional-addresses a.delete').eq(0).click({force: true})
-        cy.wait(1000)
-        cy.get('.modal-content').contains('Are you sure you want to delete this address?')
-        cy.get('.action-primary').click()
-        cy.wait(2500)
     })
 
     it('Can check your profile', () => {
@@ -58,12 +49,14 @@ describe('Account activities', () => {
         cy.contains('Current Password').should('be.visible')
         cy.contains('New Password').should('be.visible')
         Account.changePassword(account.customer.password, account.tempCustomerInfo.password)
+        cy.wait(2500)
         cy.contains('You saved the account information.').should('exist')
         Account.login(account.customer.customer.email, account.tempCustomerInfo.password)
         cy.visit(account.routes.accountEdit)
         // Change password back to normal
         cy.get('#change-password').check({force: true})
         Account.changePassword(account.tempCustomerInfo.password, account.customer.password)
+        cy.wait(2500)
         cy.contains('You saved the account information.').should('exist')
     })
 
@@ -84,9 +77,7 @@ describe('Account activities', () => {
                 cy.get(selectorsLuma.accountFirstnameInputSelector).should('have.value', fn)
                 cy.get(selectorsLuma.accountLastnameInputSelector).should('have.value', ln)
             })
-            cy.wait(8000)
-            cy.get('.page-header .customer-welcome > .customer-name > .action').click()
-            cy.contains('Sign Out').click()
+            cy.wait(4000)
         })
     })
 
@@ -113,30 +104,40 @@ describe('Account activities', () => {
         cy.get(selectorsLuma.newAddressTelInput).type(account.customerInfo.phone)
         cy.get(selectorsLuma.newAddressZipcodeInput).type(account.customerInfo.zip)
         cy.get(selectorsLuma.newAddressCountryInput).select(account.customerInfo.country)
+        cy.get(selectorsLuma.newAddressRegionInput).select(account.customerInfo.state)
         cy.contains('Save Address').click()
+        cy.wait(3000)
+        cy.get('.messages')
+            .should('contain.text', 'You saved the address')
+        Account.deleteAddress()
     })
 
     it('Can change an address', () => {
+        Account.createAddress(account.customerInfo)
         const timeStamp = Date.now().toString()
         cy.visit(account.routes.accountAddresses)
         cy.get(selectorsLuma.editAddress).first().click()
         cy.get(selectorsLuma.addressEditStreetInput).eq(0).type(timeStamp)
         cy.get(selectorsLuma.saveAddressButton).contains('Save Address').click()
         cy.contains('You saved the address.').should('exist')
+        Account.deleteAddress()
     })
 
     it('Can add an address automatically from saved address', () => {
+        cy.intercept({
+            method: 'POST',
+            url: '/rest/default/V1/carts/mine/totals-information',
+        }).as('checkoutLoaded');
         // There needs to be an item in the cart for this to work, and there needs to be a saved address
         cy.visit(product.simpleProductUrl)
         cy.contains('Add to Cart').click()
         cy.wait(3000)
         cy.visit(checkout.checkoutUrl)
-        cy.wait(7000) // this shouldn't be needed but for some reason it doesn't work without
+        cy.wait('@checkoutLoaded') // wait for totals to be loaded, that should be enough for addresses to show up
         cy.get('.shipping-address-item.selected-item').should('have.length', 1)
         cy.visit('/')
         cy.wait(3000)
-        cy.get('.page-header .customer-welcome > .customer-name > .action').click()
-        cy.contains('Sign Out').click()
+        Account.deleteAddress()
     })
 
     it('Can remove an address', () => {
