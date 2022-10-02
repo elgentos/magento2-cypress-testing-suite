@@ -22,6 +22,7 @@
   "newAddressCountryInput": "#country",
   "newAddressBillingInput": "#primary_billing",
   "newAddressShippingInput": "#primary_shipping",
+  "newAddressRegionInput": "#region_id",
   "saveAddressButton": "button[data-action=\"save-address\"]",
   "deleteAddressButton": ".additional-addresses a.delete",
   "addToWishlistButton": "[data-action=\"add-to-wishlist\"]",
