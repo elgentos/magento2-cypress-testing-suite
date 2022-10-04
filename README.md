@@ -6,6 +6,9 @@ This testing suite was announced in [Peter Jaap](https://twitter.com/PeterJaap) 
 ![image](https://user-images.githubusercontent.com/431360/144490227-0913fe5e-2ded-46ec-a5a2-3880c4b9b30a.png)
 <p align="center"><em>A successful Cypress run which tests the store at https://hyva-demo.elgentos.io</em></p>
 
+[![image](https://user-images.githubusercontent.com/431360/193907706-a6d8cddf-e085-46ad-80de-df69ae51a9ea.png)](#videos)
+<p align="center"><em><a href="https://github.com/elgentos/magento2-cypress-testing-suite/blob/main/cypress/integration/hyva/homepage.spec.js">homepage.spec.js</a> tests running on https://hyva-demo.elgentos.io</em></p>
+
 ## Table of Contents
 
 * [Prerequisites](#prerequisites)
@@ -13,6 +16,7 @@ This testing suite was announced in [Peter Jaap](https://twitter.com/PeterJaap) 
 * [Progress](#progress)
 * [Setup](#setup)
 * [Running](#running)
+* [Videos](#videos)
 * [Contributing](#contributing)
 
 ## Prerequisites
@@ -260,6 +264,20 @@ CYPRESS_MAGENTO2_SPEC_SUITE=vue npx cypress run
 ```
 
 If you do not want all tests to be run, regardless of the folder names, set `MAGENTO2_SPEC_SUITE` to an empty string. 
+
+## Videos
+
+https://user-images.githubusercontent.com/431360/193906592-2859ce76-c889-4377-afa0-a5d01ee06919.mp4
+<p align="center"><em><a href="https://github.com/elgentos/magento2-cypress-testing-suite/blob/main/cypress/integration/hyva/homepage.spec.js">homepage.spec.js</a> tests running on https://hyva-demo.elgentos.io</em></p>
+
+https://user-images.githubusercontent.com/431360/193906756-a4f384c8-c6e2-422b-bf16-38134d34af25.mp4
+<p align="center"><em><a href="https://github.com/elgentos/magento2-cypress-testing-suite/blob/main/cypress/integration/hyva/catalog/product.spec.js">product.spec.js</a> tests running on https://hyva-demo.elgentos.io</em></p>
+
+https://user-images.githubusercontent.com/431360/193906780-8e2e62ce-23db-406c-82f1-080d17409934.mp4
+<p align="center"><em><a href="https://github.com/elgentos/magento2-cypress-testing-suite/blob/main/cypress/integration/hyva/catalog/category.spec.js">category.spec.js</a> tests running on https://hyva-demo.elgentos.io</em></p>
+
+https://user-images.githubusercontent.com/431360/193906808-f0a04467-72d4-4ef4-a1f4-e05de8f16252.mp4
+<p align="center"><em><a href="https://github.com/elgentos/magento2-cypress-testing-suite/blob/main/cypress/integration/hyva/search/product-searches.spec.js">product-searches.spec.js</a> tests running on https://hyva-demo.elgentos.io</em></p>
 
 ## Contributing
 We are very open to contributions! We would love to have mobile viewport support for Hyvä, tests for Commerce functionality, additional tests, code improvements, a fallback mechanism, etcetera etcetera. See the Issues tab for issues to pick up. 
