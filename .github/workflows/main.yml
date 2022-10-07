@@ -25,6 +25,9 @@ jobs:
           record: true
           parallel: true
         env:
+          DEBUG: 'cypress:server:util:process_profiler'
+          NO_COLOR: 1
+          CYPRESS_VIDEO_UPLOAD_ON_PASSES: true
           CYPRESS_MAGENTO2_SKIP_CHECKOUT: 'true'
           CYPRESS_MAGENTO2_SPEC_SUITE: 'hyva'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -31,6 +31,7 @@ module.exports = defineConfig({
         supportFile: 'cypress/support/index.js',
         viewportWidth: 1920,
         viewportHeight: 1080,
+        videoCompression: 0,
 
         env: {
             mobileViewportWidthBreakpoint: 768,
