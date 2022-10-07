@@ -241,15 +241,17 @@ Even though the test suite is intended to become part of a project, it is possib
 This is useful for running the suite in different environments, for example, development, CI, or against production.
 
 * `NODE_ENV` if set to `develop` the development base URL configured in `cypress.config.js` will be used, and the default timeout is set to 10 seconds
-* `CYPRESS_MAGENTO2_BASE_URL` If set, this value will be used as the Magento 2 base_url. Otherwise, the base URL from `cypress.config.js` will be used.
-* `CYPRESS_MAGENTO2_SPEC_PATTERN` If set, only tests matching this glob pattern will be executed. Otherwise, the tests configured in `cypress.config.js` will be used.
-* `CYPRESS_MAGENTO2_EXPORT_PATTERN` If set, tests matching this glob pattern will be excluded.
-* `CYPRESS_MAGENTO2_DEFAULT_TIMEOUT` If set, used as the default timeout. Otherwise, the timeout defaults to 10 seconds if NODE_ENV is set to `develop`, or 4 seconds otherwise. 
+* `CYPRESS_BASE_URL` If set, this value will be used as the Magento 2 base_url. Otherwise, the base URL from `cypress.config.js` will be used.
+* `CYPRESS_SPEC_PATTERN` If set, only tests matching this glob pattern will be executed. Otherwise, the tests configured in `cypress.config.js` will be used.
+* `CYPRESS_EXPORT_PATTERN` If set, tests matching this glob pattern will be excluded.
+* `CYPRESS_DEFAULT_TIMEOUT` If set, used as the default timeout. Otherwise, the timeout defaults to 10 seconds if NODE_ENV is set to `develop`, or 4 seconds otherwise. 
+* `CYPRESS_SPEC_SUITE` Set the test suite to run, if not set defaults to `luma` or `hyva` depending on response headers.
 * `CYPRESS_MAGENTO2_ADMIN_TOKEN` Used to authenticate against the Magento 2 API for setting up test fixtures.
 * `CYPRESS_MAGENTO2_SKIP_CHECKOUT` Set to a truthy value to skip any Hyvä tests that assume a Checkout is installed.
-* `CYPRESS_MAGENTO2_SPEC_SUITE` Set the test suite to run, if not set defaults to `luma` or `hyva` depending on response headers.
 
 Any of these can also be configured in a `cypress.env.json` file without the `CYPRESS_` prefix.
+
+Be aware that when you use the OS-level environment variables prefixed with `CYPRESS_`, that these are not processed by the logic in `cypress.config.js`. So when a boolean is expected, use `true`; any other value will not be cast to a boolean.
 
 ### Running tests from modules
 
@@ -258,14 +260,14 @@ Spec files in extensions will be found by the default spec pattern at
 * `app/code/**/Test/Cypress/hyva/**/*.spec.js` or `app/code/**/Test/Cypress/luma/**/*.spec.js`
 * `vendor/**/Test/Cypress/hyva/**/*.spec.js` or `vendor/**/Test/Cypress/luma/**/*.spec.js`
 
-Tests for different frontends can be supplied by using a different folder in `Test/Cypress` and setting the `MAGENTO2_SPEC_SUITE` config to that name.
+Tests for different frontends can be supplied by using a different folder in `Test/Cypress` and setting the `SPEC_SUITE` config to that name.
 For example: `app/code/Example/Module/Test/Cypress/vue/user/account.spec.js` would be found by
 
 ```sh
-CYPRESS_MAGENTO2_SPEC_SUITE=vue npx cypress run
+CYPRESS_SPEC_SUITE=vue npx cypress run
 ```
 
-If you do not want all tests to be run, regardless of the folder names, set `MAGENTO2_SPEC_SUITE` to an empty string. 
+If you do not want all tests to be run, regardless of the folder names, set `SPEC_SUITE` to an empty string. 
 
 ## Videos
 
