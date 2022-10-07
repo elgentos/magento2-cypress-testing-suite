@@ -9,6 +9,8 @@ This testing suite was announced in [Peter Jaap](https://twitter.com/PeterJaap) 
 [![image](https://user-images.githubusercontent.com/431360/193907706-a6d8cddf-e085-46ad-80de-df69ae51a9ea.png)](#videos)
 <p align="center"><em><a href="https://github.com/elgentos/magento2-cypress-testing-suite/blob/main/cypress/integration/hyva/homepage.spec.js">homepage.spec.js</a> tests running on https://hyva-demo.elgentos.io</em></p>
 
+You can see all runs of this testing suite in the [public Cypress Dashboard for this project](https://dashboard.cypress.io/projects/8vuidn). See for example [this succesfull run](https://dashboard.cypress.io/projects/8vuidn/runs/e0a3cf9c-9653-4b03-97cc-04178dd6adb8/test-results/044b4dba-9ee4-43ec-8db0-6fcf12c95df5).
+
 ## Table of Contents
 
 * [Prerequisites](#prerequisites)
