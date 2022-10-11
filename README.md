@@ -6,6 +6,11 @@ This testing suite was announced in [Peter Jaap](https://twitter.com/PeterJaap) 
 ![image](https://user-images.githubusercontent.com/431360/144490227-0913fe5e-2ded-46ec-a5a2-3880c4b9b30a.png)
 <p align="center"><em>A successful Cypress run which tests the store at https://hyva-demo.elgentos.io</em></p>
 
+[![image](https://user-images.githubusercontent.com/431360/193907706-a6d8cddf-e085-46ad-80de-df69ae51a9ea.png)](#videos)
+<p align="center"><em><a href="https://github.com/elgentos/magento2-cypress-testing-suite/blob/main/cypress/integration/hyva/homepage.spec.js">homepage.spec.js</a> tests running on https://hyva-demo.elgentos.io</em></p>
+
+You can see all runs of this testing suite in the [public Cypress Dashboard for this project](https://dashboard.cypress.io/projects/8vuidn). See for example [this succesfull run](https://dashboard.cypress.io/projects/8vuidn/runs/e0a3cf9c-9653-4b03-97cc-04178dd6adb8/test-results/044b4dba-9ee4-43ec-8db0-6fcf12c95df5).
+
 ## Table of Contents
 
 * [Prerequisites](#prerequisites)
@@ -13,6 +18,7 @@ This testing suite was announced in [Peter Jaap](https://twitter.com/PeterJaap) 
 * [Progress](#progress)
 * [Setup](#setup)
 * [Running](#running)
+* [Videos](#videos)
 * [Contributing](#contributing)
 
 ## Prerequisites
@@ -49,7 +55,7 @@ The Hyvä checkout tests assume the [Hyvä React Checkout](https://github.com/hy
 PR's are definitely welcome to improve the checkout related tests.
 
 ## Progress
-We are at 73%; 57 out of the proposed 78 tests are done.
+We are at 76%; 65 out of the proposed 86 tests are done.
 
 Wording & naming are subject to change.
 
@@ -127,22 +133,26 @@ Wording & naming are subject to change.
 |                          |                                 | :heavy_check_mark: it can add a review when logged in |
 |                          |                                 | :heavy_check_mark: it can indicate if a product is in stock |
 |                          |                                 | :heavy_check_mark: it can't add a product to the cart when the product is out of stock (commented out, needs admin token in the cypress.env.json) |
+|                          | Bundle products test            | :heavy_check_mark: it can render the product name
+|                          |                                 | :heavy_check_mark: it can set the price to zero when every associated product qty is zero
+|                          |                                 | :heavy_check_mark: it can calculate the price based on selected options
+|                          |                                 | :heavy_check_mark: it can display selection quantities
+|                          |                                 | :heavy_check_mark: it can add a bundled product to the cart
 | `cms-page.spec.js`       | CMS page tests                  | :black_square_button: it shows the default 404 page on an non-existent route |
 |                          |                                 | :black_square_button: it can open the default CMS page correctly |
-| `contact-form.spec.js`   | Contact form tests              | :black_square_button: it shows the contact form correctly |
+| `contact-form.spec.js`   | Contact form tests              | :heavy_check_mark: it shows the contact form correctly |
 |                          |                                 | :black_square_button: it cannot submit a form when no valid email address is entered |
-|                          |                                 | :black_square_button: it can submit the form when all validation passes |
+|                          |                                 | :heavy_check_mark: it can submit the form when all validation passes |
 | `back-end.spec.js`       | Back-end tests                  | :black_square_button: it can login on the administration panel of the magento environment |
 |                          |                                 | :black_square_button: it can show customer data |
 |                          |                                 | :black_square_button: it processes orders and invoices correctly |
 |                          |                                 | :black_square_button: it can edit an order |
 
 ## Installation
-First, install Cypress in the root of your Magento 2 project:
+First, install Cypress and the dependencies in the root of your Magento 2 project:
 
 ```bash
-npm install cypress --save-dev
-npm install cypress-file-upload cypress-localstorage-commands cypress-tags typescript --save-dev
+npm ci
 ```
 
 The easiest way to install the tests is to clone this repository and move the `cypress` folder into your project. As of right now, we do not provide a fallback mechanism for customizations to the tests, see [Limitations](https://github.com/elgentos/magento2-cypress-testing-suite/blob/main/README.md#no-extensibility--inheritance-of-tests).
@@ -256,6 +266,20 @@ CYPRESS_MAGENTO2_SPEC_SUITE=vue npx cypress run
 ```
 
 If you do not want all tests to be run, regardless of the folder names, set `MAGENTO2_SPEC_SUITE` to an empty string. 
+
+## Videos
+
+https://user-images.githubusercontent.com/431360/193906592-2859ce76-c889-4377-afa0-a5d01ee06919.mp4
+<p align="center"><em><a href="https://github.com/elgentos/magento2-cypress-testing-suite/blob/main/cypress/integration/hyva/homepage.spec.js">homepage.spec.js</a> tests running on https://hyva-demo.elgentos.io</em></p>
+
+https://user-images.githubusercontent.com/431360/193906756-a4f384c8-c6e2-422b-bf16-38134d34af25.mp4
+<p align="center"><em><a href="https://github.com/elgentos/magento2-cypress-testing-suite/blob/main/cypress/integration/hyva/catalog/product.spec.js">product.spec.js</a> tests running on https://hyva-demo.elgentos.io</em></p>
+
+https://user-images.githubusercontent.com/431360/193906780-8e2e62ce-23db-406c-82f1-080d17409934.mp4
+<p align="center"><em><a href="https://github.com/elgentos/magento2-cypress-testing-suite/blob/main/cypress/integration/hyva/catalog/category.spec.js">category.spec.js</a> tests running on https://hyva-demo.elgentos.io</em></p>
+
+https://user-images.githubusercontent.com/431360/193906808-f0a04467-72d4-4ef4-a1f4-e05de8f16252.mp4
+<p align="center"><em><a href="https://github.com/elgentos/magento2-cypress-testing-suite/blob/main/cypress/integration/hyva/search/product-searches.spec.js">product-searches.spec.js</a> tests running on https://hyva-demo.elgentos.io</em></p>
 
 ## Contributing
 We are very open to contributions! We would love to have mobile viewport support for Hyvä, tests for Commerce functionality, additional tests, code improvements, a fallback mechanism, etcetera etcetera. See the Issues tab for issues to pick up. 

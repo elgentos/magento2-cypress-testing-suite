@@ -179,6 +179,7 @@ describe('Account activities', () => {
 
 describe('Guest user test', () => {
     beforeEach(() => {
+        Account.logout();
         cy.wait(2500)
     })
 
@@ -201,10 +202,6 @@ describe('Guest user test', () => {
     })
 
     it('Can login from checkout', () => {
-        cy.visit('/')
-        cy.wait(3000)
-        cy.get('.page-header .customer-welcome > .customer-name > .action').click()
-        cy.contains('Sign Out').click()
         cy.visit(product.simpleProductUrl)
         cy.wait(4000)
         cy.get(checkoutSelectors.addToCartButton).should('contain.text', 'Add to Cart').click()

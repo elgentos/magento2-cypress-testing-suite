@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    environment: ci
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [1, 2, 3]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Run the Hyvä testing suite
+        uses: cypress-io/github-action@v4
+        with:
+          browser: chrome
+          record: true
+          parallel: true
+        env:
+          CYPRESS_MAGENTO2_SKIP_CHECKOUT: 'true'
+          CYPRESS_MAGENTO2_SPEC_SUITE: 'hyva'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CYPRESS_MAGENTO2_BASE_URL: 'https://hyva-demo.elgentos.io'
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          CYPRESS_VIDEO_COMPRESSION: 0
+          CYPRESS_RETRIES: 3

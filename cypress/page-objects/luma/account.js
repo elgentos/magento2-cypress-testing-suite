@@ -12,6 +12,21 @@ export class Account {
     static isLoggedIn() {
         cy.contains(selectors.myAccountHeaderSelector, 'My Account')
     }
+    
+    static logout() {
+        cy.visit(account.routes.accountIndex);
+        cy.get('.base').then(($text) => {
+            if ($text.text().indexOf('My Account') >= 0) {
+                if(isMobile()) {
+                    cy.get('.nav-toggle').click()
+                    cy.get('[aria-controls="store.links"]').click()
+                } else {
+                    cy.get('.page-header .customer-welcome > .customer-name > .action').click()
+                }
+                cy.contains('Sign Out').click({force: true})
+            }
+        })
+    }
 
     static goToProfile() {
         if(isMobile()) {
@@ -51,16 +66,6 @@ export class Account {
         cy.get(selectors.newPasswordConfirmationInputSelector).type(passwd)
         cy.wait(3000)
         cy.get('.form-create-account button').click()
-    }
-
-    static logout() {
-        if(isMobile()) {
-            cy.get('.nav-toggle').click()
-            cy.get('[aria-controls="store.links"]').click()
-        } else {
-            cy.get('.page-header .customer-welcome > .customer-name > .action').click()
-        }
-        cy.contains('Sign Out').click({force: true})
     }
 
     /** Create an address that is used with other tests */
