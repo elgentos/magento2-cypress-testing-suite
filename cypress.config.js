@@ -2,6 +2,7 @@ const {defineConfig} = require('cypress');
 const {tagify} = require('cypress-tags');
 const fs = require('fs');
 const envConfig = fs.existsSync('./cypress.env.json') ? require('./cypress.env.json') : {};
+const del = require('del');
 
 // Run "NODE_ENV=develop; npx cypress run" to run tests locally
 const defaultBaseUrl = process.env.NODE_ENV === 'develop' ? 'http://cypress.magento2.localhost' : 'https://example.com/';
@@ -26,7 +27,7 @@ module.exports = defineConfig({
         specSuite: process.env.CYPRESS_MAGENTO2_SPEC_SUITE || envConfig.MAGENTO2_SPEC_SUITE || undefined,
         excludeSpecPattern: process.env.CYPRESS_MAGENTO2_EXCLUDE_PATTERN || envConfig.MAGENTO2_EXCLUDE_PATTERN || '',
         defaultCommandTimeout: parseInt(process.env.CYPRESS_MAGENTO2_DEFAULT_TIMEOUT || envConfig.MAGENTO2_DEFAULT_TIMEOUT || defaultCommandTimeout),
-        videoUploadOnPasses: !! (process.env.CYPRESS_VIDEO_UPLOAD_ON_PASSES || envConfig.VIDEO_UPLOAD_ON_PASSES || false),
+        videoUploadOnPasses: !!(process.env.CYPRESS_VIDEO_UPLOAD_ON_PASSES || envConfig.VIDEO_UPLOAD_ON_PASSES || false),
         watchForFileChanges: false,
         supportFile: 'cypress/support/index.js',
         viewportWidth: 1920,
@@ -38,6 +39,19 @@ module.exports = defineConfig({
         },
 
         setupNodeEvents(on, config) {
+
+            on('after:spec', (spec, results) => {
+                if (results && results.video) {
+                    // Do we have failures for any retry attempts?
+                    const failures = _.some(results.tests, (test) => {
+                        return _.some(test.attempts, { state: 'failed' })
+                    })
+                    if (!failures) {
+                        // delete the video if the spec passed and no tests retried
+                        return del(results.video)
+                    }
+                }
+            })
 
             on('file:preprocessor', tagify(config))
 
