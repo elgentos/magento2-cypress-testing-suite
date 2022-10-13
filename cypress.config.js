@@ -2,7 +2,6 @@ const {defineConfig} = require('cypress');
 const {tagify} = require('cypress-tags');
 const fs = require('fs');
 const envConfig = fs.existsSync('./cypress.env.json') ? require('./cypress.env.json') : {};
-const del = require('del');
 
 // Run "NODE_ENV=develop; npx cypress run" to run tests locally
 const defaultBaseUrl = process.env.NODE_ENV === 'develop' ? 'http://cypress.magento2.localhost' : 'https://example.com/';
@@ -41,14 +40,17 @@ module.exports = defineConfig({
         setupNodeEvents(on, config) {
 
             on('after:spec', (spec, results) => {
+                // If a retry failed, save the video, otherwise delete it to save time by not compressing it.
                 if (results && results.video) {
                     // Do we have failures for any retry attempts?
-                    const failures = _.some(results.tests, (test) => {
-                        return _.some(test.attempts, { state: 'failed' })
-                    })
+                    const failures = results.tests.find(test => {
+                        return test.attempts.find(attempt => {
+                            return attempt.state === 'failed'
+                        })
+                    });
+                    // Delete the video if the spec passed on all attempts
                     if (!failures) {
-                        // delete the video if the spec passed and no tests retried
-                        return del(results.video)
+                        fs.existsSync(results.video) && fs.unlinkSync(results.video)
                     }
                 }
             })
