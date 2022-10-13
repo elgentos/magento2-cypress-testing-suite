@@ -248,6 +248,7 @@ This is useful for running the suite in different environments, for example, dev
 * `CYPRESS_MAGENTO2_ADMIN_TOKEN` Used to authenticate against the Magento 2 API for setting up test fixtures.
 * `CYPRESS_MAGENTO2_SKIP_CHECKOUT` Set to a truthy value to skip any Hyvä tests that assume a Checkout is installed.
 * `CYPRESS_MAGENTO2_SPEC_SUITE` Set the test suite to run, if not set defaults to `luma` or `hyva` depending on response headers.
+* `CYPRESS_CURRENCY_SYMBOL` Set the currency symbol to use for matching prices (defaults to `$`).
 
 Any of these can also be configured in a `cypress.env.json` file without the `CYPRESS_` prefix.
 

@@ -16,7 +16,10 @@ describe('Bundle products test suite', () => {
             cy.wrap(input).type('{selectall}0').blur();
             cy.wait(0); // wait for alpine to process change event
         })
-        cy.get('.bundle-info .final-price').first().should('contain.text', '$0.00')
+        // we don't know if the currency symbol is before or after the amount, since it depends on the currency
+        cy.get('.bundle-info .final-price').first()
+            .contains(Cypress.env('CURRENCY_SYMBOL') || product.currency)
+            .contains(/0\.00/)
     })
     it('Can calculate the price based on selected options', () => {
         // sum up the price of all first options
@@ -35,7 +38,7 @@ describe('Bundle products test suite', () => {
             cy.wait(0); // wait for alpine to process change event
         })
         cy.get('#bundleSummary .final-price').first().then(finalPrice => {
-            cy.wrap(finalPrice).should('contain.text', `$${(prices.reduce((sum, n) => sum + n, 0))}`)
+            cy.wrap(finalPrice).should('contain.text', `${(prices.reduce((sum, n) => sum + n, 0))}`)
         })
     })
     it('Can display selection quantities', () => {

@@ -3,7 +3,6 @@ import account from '../../../fixtures/account.json';
 import selectors from '../../../fixtures/hyva/selectors/product.json';
 import homepageSelectors from '../../../fixtures/hyva/selectors/homepage.json';
 import { Account } from '../../../page-objects/hyva/account';
-import { Magento2RestApi } from '../../../support/magento2-rest-api';
 
 describe('Simple Product test suite', () => {
     beforeEach(() => {
@@ -21,14 +20,8 @@ describe('Simple Product test suite', () => {
 
     it('Can see a price for the product', () => {
         cy.get(selectors.productPrice)
-            .should('contain', product.currency)
-            .then(($price) => {
-                // Still unsure about this but can't think of a cypress way to test this
-                const bool = new RegExp(product.priceRegexp).test(
-                    $price[0].innerText
-                );
-                expect(bool).to.be.true;
-            });
+            .should('contain', Cypress.env('CURRENCY_SYMBOL') || product.currency)
+            .contains(new RegExp(product.priceRegexp))
     });
 
     it('Can add a product to the cart from the product page', () => {
