@@ -29,6 +29,7 @@ jobs:
           CYPRESS_MAGENTO2_SPEC_SUITE: 'hyva'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CYPRESS_MAGENTO2_BASE_URL: 'https://demo.hyva.io'
+          CYPRESS_CURRENCY_SYMBOL: '€'
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           CYPRESS_VIDEO_COMPRESSION: 0
           CYPRESS_RETRIES: 3
