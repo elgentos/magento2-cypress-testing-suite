@@ -7,7 +7,10 @@ describe("Category page tests", () => {
     });
 
     it("Can visit the category page and filters on color red", () => {
+        cy.get(selectors.shopByColorFilter).contains('Color').click();
         cy.get(selectors.selectColorRed).click();
+
+        cy.get(selectors.shopByColorFilter).contains('Color').should("not.exist")
         cy.get(selectors.activeFilterLabel).should("contain.text", "Color")
         cy.get(selectors.activeFilterValue).should("contain.text", "Red")
     });
