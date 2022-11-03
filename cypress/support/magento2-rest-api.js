@@ -108,4 +108,47 @@ export class Magento2RestApi {
             })
         })
     }
+
+    /**
+     * Connect to magento sales api, anc confirm oder data
+     *
+     * Example orderData
+     *
+     * orderData.order_id [required]
+     * orderData.order_status
+     * orderData.order_total
+     * orderData.order_subtotal
+     *
+     * @param orderData object
+     */
+    static checkOrderExists(orderData) {
+        cy.log('----------------------------------------------');
+        cy.log(JSON.stringify(orderData))
+        cy.log('----------------------------------------------');
+        if (orderData.hasOwnProperty('order_id') && orderData['order_id'] ) {
+            cy.request({
+                method: 'GET',
+                url: '/rest/V1/orders',
+                qs: {
+                    'searchCriteria[filter_groups][0][filters][0][field]': 'increment_id',
+                    'searchCriteria[filter_groups][0][filters][0][value]': orderData.order_id,
+                    'searchCriteria[filter_groups][0][filters][0][condition_type]': 'eq',
+                },
+                failOnStatusCode: false,
+                headers: {
+                    authorization: `Bearer ${Cypress.env('MAGENTO2_ADMIN_TOKEN')}`
+                },
+            }).then((response) => {
+                expect(response.status).to.eq(200);
+                const result = response.body.items[0];
+                expect(result.increment_id).to.eq(orderData.order_id);
+                expect(result.subtotal).to.eq(parseFloat(orderData.subtotal));
+                expect(result.shipping_amount).to.eq(parseFloat(orderData.shipping_amount));
+                expect(result.grand_total).to.eq(parseFloat(orderData.grand_total));
+                expect(result.status).to.eq(orderData.status);
+            });
+        } else {
+            cy.log('required order_id not set to test sales api');
+        }
+    }
 }
