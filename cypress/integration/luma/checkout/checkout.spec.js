@@ -97,7 +97,7 @@ describe('Checkout tests', () => {
      */
 
     if (Cypress.env('MAGENTO2_ADMIN_TOKEN')) {
-        it.only('Can Use Check / Money Order Payment', () => {
+        it('Can Use Check / Money Order Payment', () => {
             let orderData = {};
             orderData.status = 'pending';
             cy.visit(product.simpleProductUrl)
