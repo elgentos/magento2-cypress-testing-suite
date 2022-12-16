@@ -23,28 +23,22 @@ export class Magento2RestApi {
     static logCustomerIn(customer) {
         cy.getCookie('form_key')
             .then(async form_key => {
-                const requestBody = {
+                const body = {
                     username: customer.username,
                     password: customer.password,
                     form_key,
                 };
 
-                const requestOptions = {
+                cy.request({
                     method: 'POST',
+                    url: '/customer/ajax/login',
                     headers: {
                         'Content-Type': 'application/json',
                         'X-Requested-With': 'XMLHttpRequest',
                     },
-                    body: JSON.stringify(requestBody),
-                    credentials: 'include',
-                };
-
-                await fetch(`/customer/ajax/login`, requestOptions)
-                    .then((response) => response.json())
-                    .then((responseAsJson) => {
-                        window.dispatchEvent(new Event('reload-customer-section-data'));
-                        return responseAsJson;
-                    });
+                    body,
+                    timeout: 50000
+                });
             });
     }
 
