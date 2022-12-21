@@ -31,7 +31,7 @@ describe('Mini cart tests', () => {
 
     it('Can navigate to the checkout with a link in the slider', () => {
         cy.get(selectors.miniCartCheckoutButton).click()
-        cy.get(selectors.pageTitle).should('contains.text', 'Checkout').should('be.visible')
+        cy.title().should('eq', 'Checkout')
     })
 
     it('Can open minicart slider', () => {

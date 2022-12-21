@@ -8,7 +8,7 @@
     "miniCartProductPrice": "#cart-drawer .minicart-price .price",
     "miniCartProductName": "[x-html=\"item.product_name\"]",
     "miniCartSubtotal": "[x-html=\"cart.subtotal\"] > .price",
-    "miniCartViewCartLink": ".underline",
+    "miniCartViewCartLink": "#cart-drawer .underline",
     "productQty": "[x-html='item.qty']",
     "PDPProductName": ".order-2 > .text-xl",
     "productPrice": ".final-price",

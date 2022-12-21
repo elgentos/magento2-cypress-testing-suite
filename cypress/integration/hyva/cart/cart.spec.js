@@ -48,7 +48,6 @@ describe("Cart tests", () => {
         cy.get(cart.cartSummaryTable).should("include.text", "Discount")
         Cart.removeCoupon();
         cy.get(cart.successMessages).should("contain.text", `You canceled the coupon code.`)
-        cy.get(cart.cartTotalLabels).should("not.exist")
         cy.get(cart.cartSummaryTable).should("not.include.text", "Discount")
     });
 
@@ -61,7 +60,7 @@ describe("Cart tests", () => {
                 "include.text",
                 `The coupon code "wrong coupon code" is not valid.`
             )
-            if(!isMobileHyva()) {
+            if (!isMobileHyva()) {
                 cy.get(cart.messageToast)
                     .should("be.visible");
             }
@@ -69,6 +68,7 @@ describe("Cart tests", () => {
 
     it("Displays the correct product prices and totals", () => {
         cy.visit(cart.url.product1Url);
+
 
         //check if product price matches with price in cart
         cy.get(cart.product.productPrice).then(($productPrice) => {
@@ -79,6 +79,13 @@ describe("Cart tests", () => {
             cy.visit(cart.url.cartUrl);
             cy.get(cart.pageTitle).should("contain.text", "Shopping Cart")
             cy.get(cart.productPrice).first().should("have.text", productPrice);
+
+            cy.get('#shipping-estimate-toggle').click();
+            //select country unlikely to have any tax rules
+            cy.get('#shipping-zip-form select[name="country_id"]').select('Aruba')
+            cy.get('#cart-totals svg.animate-spin').should('exist')
+            cy.get('#cart-totals svg.animate-spin').should('not.exist')
+            cy.wait(100)
 
             //change the qty value
             cy.get(cart.qtyInputField)

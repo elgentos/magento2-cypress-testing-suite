@@ -3,5 +3,5 @@
     "headerSearchIcon": "#menu-search-icon",
     "searchResults": ".search.results .products .card.card-interactive",
     "noResultsMessage": ".message.notice",
-    "searchSuggestions": "[x-text=\"searchResult.title\"]"
+    "searchSuggestions": "[x-text=\"suggestion.title\"]"
 }
