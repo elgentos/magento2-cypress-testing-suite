@@ -170,6 +170,7 @@ The easiest way to install the tests is to clone this repository and move the `c
 
 ```bash
 git clone git@github.com:elgentos/magento2-cypress-testing-suite.git
+mv magento2-cypress-testing-suite/package*.json .
 mv magento2-cypress-testing-suite/cypress .
 mv magento2-cypress-testing-suite/cypress.config.js .
 rm -rf magento2-cypress-testing-suite
