@@ -65,7 +65,7 @@ PR's are definitely welcome to improve the checkout related tests.
 
 ## Progress
 
-We are at 77%; 66 out of the proposed 86 tests are done.
+We are at 80%; 69 out of the proposed 86 tests are done.
 
 Wording & naming are subject to change.
 
@@ -102,12 +102,12 @@ Wording & naming are subject to change.
 | `homepage.spec.js`         | Home page tests                 | :heavy_check_mark: it can navigate to the homepage                                                                                                |
 |                            |                                 | :heavy_check_mark: it can perform search from homepage                                                                                            |
 |                            |                                 | :heavy_check_mark: it can open a category                                                                                                         |
-|                            |                                 | :black_square_button: it can show the header correctly and all links work                                                                         |
+|                            |                                 | :heavy_check_mark: it can show the header correctly and all links work                                                                            |
 |                            |                                 | :heavy_check_mark: it can show the footer correctly and all links work                                                                            |
 |                            |                                 | :black_square_button: it can show the main section of the homepage correctly and all links work                                                   |
 |                            |                                 | :heavy_check_mark: it can subscribe to the newsletter                                                                                             |
-|                            |                                 | :black_square_button: it can add products shown on the homepage to the cart when a add to cart button is present                                  |
-|                            |                                 | :black_square_button: it shows the cookie banner when cookies are not accepted yet (vanilla hyva shows no cookie banner)                          |
+|                            |                                 | :heavy_check_mark: it can add products shown on the homepage to the cart when an add to cart button is present                                    |
+|                            |                                 | :black_square_button: it shows the cookie banner when cookies are not accepted yet (Vanilla Hyvä shows no cookie banner)                          |
 | `checkout.spec.js`         | Checkout tests (guest)          | :black_square_button: it shows the correct products and quantities previously added to the cart                                                   |
 |                            |                                 | :heavy_check_mark: it shows correct prices like subtotal, VAT, shipping costs and total                                                           |
 |                            |                                 | :heavy_check_mark: it can see coupon discount in checkout                                                                                         |
@@ -124,7 +124,7 @@ Wording & naming are subject to change.
 |                            |                                 | :heavy_check_mark: it can add a coupon to the cart                                                                                                |
 |                            |                                 | :heavy_check_mark: it can delete an added coupon from the cart                                                                                    |
 |                            |                                 | :heavy_check_mark: it cannot add a non existing coupon                                                                                            |
-|                            |                                 | :heavy_check_mark: it displays the correct productprices and totals                                                                               |
+|                            |                                 | :heavy_check_mark: it displays the correct product prices and totals                                                                              |
 |                            |                                 | :black_square_button: it merges an already existing cart when a customer logs in                                                                  |
 | `minicart.spec.js`         | Minicart tests                  | :heavy_check_mark: it can open the cart slider by clicking on the cart icon in the header                                                         |
 |                            |                                 | :heavy_check_mark: it checks if the items and prices in the slider are displayed correctly                                                        |
@@ -132,12 +132,12 @@ Wording & naming are subject to change.
 |                            |                                 | :heavy_check_mark: it can change the quantity of an item in the cart slider                                                                       |
 |                            |                                 | :heavy_check_mark: it can navigate to the cart with a link in the slider                                                                          |
 |                            |                                 | :heavy_check_mark: it can navigate to the checkout with a link in the slider                                                                      |
-| `product-page.spec.js`     | Product page tests              | :heavy_check_mark: it can display the titel and image of the product                                                                              |
+| `product-page.spec.js`     | Product page tests              | :heavy_check_mark: it can display the title and image of the product                                                                              |
 |                            |                                 | :heavy_check_mark: it shows the product price                                                                                                     |
 |                            |                                 | :heavy_check_mark: it can configure the product when it is an configurable product                                                                |
 |                            |                                 | :heavy_check_mark: it can add the product to the cart                                                                                             |
 |                            |                                 | :heavy_check_mark: it can't add the product to the cart if it is a configurable product and no options are selected                               |
-|                            |                                 | :heavy_check_mark: it can add the product to the wislist                                                                                          |
+|                            |                                 | :heavy_check_mark: it can add the product to the wishlist                                                                                         |
 |                            |                                 | :heavy_check_mark: it shows the correct breadcrumb                                                                                                |
 |                            |                                 | :heavy_check_mark: it can show reviews made by logged in customers                                                                                |
 |                            |                                 | :heavy_check_mark: it can add a review when logged in                                                                                             |

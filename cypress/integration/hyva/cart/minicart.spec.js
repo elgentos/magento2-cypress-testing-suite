@@ -38,7 +38,7 @@ describe('Mini cart tests', () => {
         cy.get(selectors.miniCartSlider).should('be.visible')
     })
 
-    it('Can change quantity in the minicart', () => {
+    it(["minicart"], 'Can change quantity in the minicart', () => {
         let min = Math.ceil(3);
         let max = Math.floor(33);
         let newQuantity = Math.floor(Math.random() * (max - min) + min);
