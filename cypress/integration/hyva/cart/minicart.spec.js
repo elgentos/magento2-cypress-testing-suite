@@ -38,17 +38,20 @@ describe('Mini cart tests', () => {
         cy.get(selectors.miniCartSlider).should('be.visible')
     })
 
-    it('Can change amount in the minicart', () => {
-        cy.get(selectors.miniCartSlider).within(() => {
-            cy.get(selectors.miniCartEditProductButton).click()
-        })
+    it('Can change quantity in the minicart', () => {
+        let min = Math.ceil(3);
+        let max = Math.floor(33);
+        let newQuantity = Math.floor(Math.random() * (max - min) + min);
+
+        cy.get(selectors.miniCartEditProductButton).click();
         cy.get(selectors.qtyInputField)
-          .type("{backspace}2{enter}")
-          .should("have.value", "2");
+          .clear()
+          .type(newQuantity.toString())
+          .should("have.value", newQuantity.toString());
         cy.get(selectors.addToCartButton).click()
         cy.get(selectors.miniCartButton).click()
         cy.get(selectors.productQty)
-          .should('have.text', '2')
+          .should('have.text', newQuantity.toString())
     })
 })
 

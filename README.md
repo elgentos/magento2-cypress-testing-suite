@@ -65,12 +65,12 @@ PR's are definitely welcome to improve the checkout related tests.
 
 ## Progress
 
-We are at 76%; 65 out of the proposed 86 tests are done.
+We are at 77%; 66 out of the proposed 86 tests are done.
 
 Wording & naming are subject to change.
 
 | Spec file                  | Group                           | Test                                                                                                                                              |
-| -------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+|----------------------------|---------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
 | `account.spec.js`          | Account test creation           | :heavy_check_mark: it can create an account to log in with                                                                                        |
 |                            | Account activities              | :heavy_check_mark: it creates an account to log in with and use for further testing                                                               |
 |                            |                                 | :heavy_check_mark: it can log out                                                                                                                 |
@@ -126,10 +126,10 @@ Wording & naming are subject to change.
 |                            |                                 | :heavy_check_mark: it cannot add a non existing coupon                                                                                            |
 |                            |                                 | :heavy_check_mark: it displays the correct productprices and totals                                                                               |
 |                            |                                 | :black_square_button: it merges an already existing cart when a customer logs in                                                                  |
-| `minicart.spec.js`         | Minicart tests                  | :black_square_button: it can open the cart slider by clicking on the cart icon in the header                                                      |
+| `minicart.spec.js`         | Minicart tests                  | :heavy_check_mark: it can open the cart slider by clicking on the cart icon in the header                                                         |
 |                            |                                 | :heavy_check_mark: it checks if the items and prices in the slider are displayed correctly                                                        |
 |                            |                                 | :heavy_check_mark: it can delete an item in the cart slider                                                                                       |
-|                            |                                 | :black_square_button: it can change the quantity of an item in the cart slider                                                                    |
+|                            |                                 | :heavy_check_mark: it can change the quantity of an item in the cart slider                                                                       |
 |                            |                                 | :heavy_check_mark: it can navigate to the cart with a link in the slider                                                                          |
 |                            |                                 | :heavy_check_mark: it can navigate to the checkout with a link in the slider                                                                      |
 | `product-page.spec.js`     | Product page tests              | :heavy_check_mark: it can display the titel and image of the product                                                                              |
