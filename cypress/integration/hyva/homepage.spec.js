@@ -89,14 +89,14 @@ describe('Home page tests', () => {
     });
 
     it(["header"], "Can visit the homepage from the logo link in the header", () => {
-        cy.get(selectors.headerLogo).should("be.visible").and("have.attr", "href", Cypress.config("baseUrl"));
+        cy.get(selectors.headerLogo).should("be.visible").and("have.attr", "href", Cypress.config("baseUrl") + "/");
     });
 
     it(["header"], "Can visit the categories from the header", () => {
         cy.log("Testing single category menus...");
         cy.get(selectors.categoryFirst)
             .should("be.visible")
-            .and("have.attr", "href", Cypress.config("baseUrl") + "what-is-new.html")
+            .and("have.attr", "href", Cypress.config("baseUrl") + "/what-is-new.html")
             .click();
         cy.location("href").should("contain", "/what-is-new.html", "First level category location is correct");
         cy.get(selectors.categoryTitle)
@@ -105,12 +105,12 @@ describe('Home page tests', () => {
         cy.log("Testing secondary category menus...");
         cy.get(selectors.categorySecond)
             .should("be.visible")
-            .and("have.attr", "href", Cypress.config("baseUrl") + "women.html")
+            .and("have.attr", "href", Cypress.config("baseUrl") + "/women.html")
             .trigger("mouseenter");
         cy.log("Visit the secondary category level");
         cy.get(selectors.categorySecondChild)
             .should("be.visible")
-            .and("have.attr", "href", Cypress.config("baseUrl") + "women/tops-women.html")
+            .and("have.attr", "href", Cypress.config("baseUrl") + "/women/tops-women.html")
             .click();
         cy.location("href").should("contain", "/women/tops-women.html", "Second level category location is correct");
         cy.get(selectors.categoryTitle)
@@ -133,20 +133,20 @@ describe('Home page tests', () => {
     it(["header"], "Can see the customer menu from the header", () => {
         cy.get(selectors.headerCustomerMenu)
             .should("be.visible")
-            .and("have.attr", "href", Cypress.config("baseUrl") + "customer/account/")
+            .and("have.attr", "href", Cypress.config("baseUrl") + "/customer/account/")
             .click();
         cy.get(selectors.headerCustomerLogIn)
             .should("be.visible")
-            .and("have.attr", "href", Cypress.config("baseUrl") + "customer/account/index/");
+            .and("have.attr", "href", Cypress.config("baseUrl") + "/customer/account/index/");
         cy.get(selectors.headerCustomerCreateAccount)
             .should("be.visible")
-            .and("have.attr", "href", Cypress.config("baseUrl") + "customer/account/create/");
+            .and("have.attr", "href", Cypress.config("baseUrl") + "/customer/account/create/");
     });
 
     it(["header"], "Can see the minicart from the header", () => {
         cy.get(selectors.headerMiniCart)
             .should("be.visible")
-            .and("have.attr", "href", Cypress.config("baseUrl") + "checkout/cart/index/");
+            .and("have.attr", "href", Cypress.config("baseUrl") + "/checkout/cart/index/");
         cy.log("See the minicart test suite for further functionality testing");
     });
 
