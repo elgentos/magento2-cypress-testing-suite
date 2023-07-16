@@ -20,6 +20,30 @@ export class Magento2RestApi {
         });
     }
 
+    static replacePassword(username, oldPassword, newPassword) {
+        cy.request({
+            method: 'POST',
+            url: '/rest/all/V1/integration/customer/token',
+            body: {
+                "username": username,
+                "password": oldPassword
+            },
+        }).then((response) => {
+            let token = response.body
+            cy.request({
+                method: 'PUT',
+                url: '/rest/default/V1/customers/me/password',
+                headers: {
+                    Authorization: "Bearer " + token
+                },
+                body: {
+                    "currentPassword": oldPassword,
+                    "newPassword": newPassword
+                }
+            })
+        })
+    }
+
     static logCustomerIn(customer) {
         cy.request({
             method: 'POST',
