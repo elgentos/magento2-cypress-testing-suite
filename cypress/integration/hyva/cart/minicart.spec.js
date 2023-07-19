@@ -6,6 +6,7 @@ describe('Mini cart tests', () => {
         cy.visit(minicart.didiSportWatch)
         cy.get(selectors.addToCartButton).click()
         cy.get(selectors.miniCartButton).click()
+        cy.wait(250) // wait for slider to open
     })
 
     it('Can delete an item from the cart slider', () => {
@@ -58,6 +59,7 @@ describe('Test without added product',() => {
         cy.get(selectors.addToCartButton).click()
         cy.get(selectors.productPrice).then(($productPrice) => {
             cy.get(selectors.miniCartButton).click()
+            cy.wait(250) // wait for slider to open
             const productPrice = $productPrice[0].textContent.trim().slice(1)
             cy.get(selectors.miniCartProductPrice).first().then(($productPrice2MiniCart) => {
                 const productPrice2MiniCart = $productPrice2MiniCart[0].textContent.trim().slice(1)
