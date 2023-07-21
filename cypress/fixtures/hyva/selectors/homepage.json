@@ -7,7 +7,7 @@
     "contactFormSuccess": ".message",
     "contactFormTelephone": "#telephone",
     "headerNavCategory": "div.lg\\:block > nav > div:nth-child(2) > span > a[title=\"Women\"]",
-    "headerNavSubCategory": "div.lg\\:block > nav > div:nth-child(2) > div > a:nth-child(1)",
+    "headerNavSubCategory": "div.lg\\:block > nav > ul li:nth-child(2) > ul > li:nth-child(1) > a:nth-child(1)",
     "failedMessage": ".message.error span",
     "footerContact": ".footer .gap-8 div:first-child ul.mt-4 > :nth-child(5) > .text-base",
     "footerMyAccount": ".footer .gap-8 div:first-child ul.mt-4 > :nth-child(2) > .text-base",
