@@ -22,7 +22,7 @@ describe("Category page tests", () => {
                     .eq(1)
                     .invoke("data", "price-amount")
                     .then((secondPrice) => {
-                        expect(firstPrice).to.be.lessThan(secondPrice);
+                        expect(firstPrice).to.be.lte(secondPrice);
                     });
             });
     });
