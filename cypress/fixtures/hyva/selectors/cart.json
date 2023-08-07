@@ -5,7 +5,7 @@
     "couponCode": "H20",
     "couponDropdownSelector": ".cursor-pointer > .underline",
     "couponInputField": "#coupon_code",
-    "deleteProductButton": "[aria-label^=\"Remove \"]",
+    "deleteProductButton": ".cart [aria-label^=\"Remove \"]",
     "emptyCartTextField": ".cart-empty",
     "grandTotal": ".py-2 > .w-5\\/12",
     "cartTotalLabels": "#cart-totals [x-html=\"segment.title\"]",

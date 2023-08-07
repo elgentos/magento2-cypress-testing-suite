@@ -18,7 +18,7 @@ describe('Bundle products test suite', () => {
             cy.wait(0); // wait for alpine to process change event
         })
         cy.get(selectors.addToCartButton).click();
-        cy.get('#bundleSummary .final-price').first().then(finalPrice => {
+        cy.get('#bundleSummary .final-price .price').first().then(finalPrice => {
             cy.get(miniCartSelectors.miniCartButton).click();
             cy.get(miniCartSelectors.miniCartProductPrice).should('contain.text', finalPrice.text().trim());
         })
@@ -29,9 +29,9 @@ describe('Bundle products test suite', () => {
         const prices = [];
         cy.get('.product-info-main fieldset .control').then(associatedProductOptions => {
             associatedProductOptions.map((idx, product) => {
-                const firstOptionPrice = product.querySelector('.price-notice');
-                const m = firstOptionPrice.innerText.trim().match(/(?<sign>[+-]?)\s+\S(?<price>[\d.]+)/)
-                m && prices.push((m.groups.sign === '+' ? 1 : -1) * parseFloat(m.groups.price))
+                const firstOptionPrice = product.querySelector('.price-wrapper');
+                const m = firstOptionPrice.innerText.trim().match(/(?<price>[\d.]+)/)
+                m && prices.push(parseFloat(m.groups.price))
 
             })
         })
@@ -40,7 +40,7 @@ describe('Bundle products test suite', () => {
             cy.wrap(input).type('{selectall}1').blur();
             cy.wait(0); // wait for alpine to process change event
         })
-        cy.get('#bundleSummary .final-price').first().then(finalPrice => {
+        cy.get('#bundleSummary .final-price .price').first().then(finalPrice => {
             cy.wrap(finalPrice).should('contain.text', `$${(prices.reduce((sum, n) => sum + n, 0))}`)
         })
     })
