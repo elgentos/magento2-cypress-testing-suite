@@ -13,7 +13,7 @@
     "shopByColorFilter": ".filter-content .filter-options-title",
     "activeFilterLabel": ".sidebar-main .filter-current .item .filter-label",
     "activeFilterValue": ".sidebar-main .filter-current .item .filter-value",
-    "selectColorRed": "[aria-label=\"Red\"]",
+    "selectColorRed": "[aria-label=\"Filter Color Red\"]",
     "sortBySelect": "[aria-label=\"Sort By\"]",
     "listModeButton": "[data-role=mode-switcher][data-value=list]"
 }

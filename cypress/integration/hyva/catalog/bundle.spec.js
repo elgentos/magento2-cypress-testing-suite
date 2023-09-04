@@ -1,5 +1,6 @@
 import product from "../../../fixtures/hyva/product.json";
 import selectors from "../../../fixtures/hyva/selectors/product.json";
+import miniCartSelectors from "../../../fixtures/hyva/selectors/minicart.json";
 import homepageSelectors from "../../../fixtures/hyva/selectors/homepage.json";
 
 describe('Bundle products test suite', () => {
@@ -11,21 +12,26 @@ describe('Bundle products test suite', () => {
             .should('contain.text', product.bundledProductName)
             .should('be.visible');
     })
-    it('Can set the price to zero when every associated product qty is zero', () => {
+    it('Adds the bundle product to the cart with qty 1 for each option if all are set to qty 0', () => {
         cy.get('input[id$=-qty-input]').each(input => {
             cy.wrap(input).type('{selectall}0').blur();
             cy.wait(0); // wait for alpine to process change event
         })
-        cy.get('.bundle-info .final-price').first().should('contain.text', '$0.00')
+        cy.get(selectors.addToCartButton).click();
+        cy.get('#bundleSummary .final-price .price').first().then(finalPrice => {
+            cy.get(miniCartSelectors.miniCartButton).click();
+            cy.get(miniCartSelectors.miniCartProductPrice).should('contain.text', finalPrice.text().trim());
+        })
+
     })
     it('Can calculate the price based on selected options', () => {
         // sum up the price of all first options
         const prices = [];
         cy.get('.product-info-main fieldset .control').then(associatedProductOptions => {
             associatedProductOptions.map((idx, product) => {
-                const firstOptionPrice = product.querySelector('.price-notice');
-                const m = firstOptionPrice.innerText.trim().match(/(?<sign>[+-]?)\s+\S(?<price>[\d.]+)/)
-                m && prices.push((m.groups.sign === '+' ? 1 : -1) * parseFloat(m.groups.price))
+                const firstOptionPrice = product.querySelector('.price-wrapper');
+                const m = firstOptionPrice.innerText.trim().match(/(?<price>[\d.]+)/)
+                m && prices.push(parseFloat(m.groups.price))
 
             })
         })
@@ -34,7 +40,7 @@ describe('Bundle products test suite', () => {
             cy.wrap(input).type('{selectall}1').blur();
             cy.wait(0); // wait for alpine to process change event
         })
-        cy.get('#bundleSummary .final-price').first().then(finalPrice => {
+        cy.get('#bundleSummary .final-price .price').first().then(finalPrice => {
             cy.wrap(finalPrice).should('contain.text', `$${(prices.reduce((sum, n) => sum + n, 0))}`)
         })
     })
