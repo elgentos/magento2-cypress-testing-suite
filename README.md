@@ -173,7 +173,7 @@ git clone git@github.com:elgentos/magento2-cypress-testing-suite.git
 mv magento2-cypress-testing-suite/cypress .
 mv magento2-cypress-testing-suite/cypress.config.js .
 rm -rf magento2-cypress-testing-suite
-npm install cypress:^12.2.0 cypress-localstorage-commands:^2.2.2 cypress-tags:^1.1.2 typescript:^4.8.3
+npm install cypress@^12.2.0 cypress-localstorage-commands@^2.2.2 cypress-tags@^1.1.2 typescript@^4.8.3
 ```
 
 If you only need the Hyvä tests:
