@@ -24,6 +24,7 @@
         "accountAddresses": "/customer/address",
         "accountCreate": "/customer/account/create",
         "accountEdit": "/customer/account/edit",
+        "accountForgottenPassword": "/customer/account/forgotpassword",
         "accountIndex": "/customer/account/index",
         "accountOrderHistory": "/sales/order/history",
         "accountUrl": "/customer/account",

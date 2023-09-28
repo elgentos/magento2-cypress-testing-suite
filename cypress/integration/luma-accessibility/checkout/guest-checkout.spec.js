@@ -4,8 +4,8 @@ import checkout from '../../../fixtures/checkout'
 import selectors from '../../../fixtures/luma/selectors/checkout'
 import {checkAccessibility} from "../../../support/utils"
 
-describe('Checkout accessibility tests', () => {
-    it('Check Checkout steps', () => {
+describe('Guest checkout accessibility tests', () => {
+    it('Check Checkout steps as guest', () => {
         cy.visit(product.simpleProductUrl)
         cy.get(selectors.addToCartButton).click()
 

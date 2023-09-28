@@ -3,7 +3,7 @@ import {checkAccessibility} from "../../../support/utils"
 import selectorsLuma from "../../../fixtures/luma/selectors/search.json";
 
 describe('Product search suggestions accessibility test', () => {
-    it('Check suggestions', () => {
+    it('Check search suggestions', () => {
         cy.visit('/')
         cy.get(selectorsLuma.headerSearchIcon).click()
         cy.get(selectorsLuma.headerSearchField)
