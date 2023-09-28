@@ -52,6 +52,6 @@ export function printAccessibilityViolations(violations) {
     );
 
 }
-export function checkAccessibility(subject, options, violationsCallback, skipFailures = false) {
-    cy.checkA11y(subject, null, printAccessibilityViolations, skipFailures);
+export function checkAccessibility(subject, options, skipFailures = false) {
+    cy.checkA11y(subject, options, printAccessibilityViolations, skipFailures);
 }

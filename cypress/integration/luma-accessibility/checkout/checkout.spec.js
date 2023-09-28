@@ -15,7 +15,7 @@ describe('Checkout accessibility tests', () => {
 
         cy.injectAxe()
         // We need to set skip failures as true here otherwise the tests will not proceed to the next checkout step
-        checkAccessibility(null, null, null, true)
+        checkAccessibility(null, null, true)
 
         Checkout.enterShippingAddress(checkout.shippingAddress)
         cy.wait(3000)
