@@ -27,11 +27,6 @@ describe('Account activities', () => {
         Magento2RestApi.createCustomerAccount(account.customer)
         Account.login(account.customer.customer.email, account.customer.password)
         Account.createAddress(account.customerInfo)
-        // We need to logout or the beforeEach will fail
-        if(isMobile()) {
-            cy.wait(2000)
-        }
-        cy.wait(2500)
     })
 
     after(() => {
