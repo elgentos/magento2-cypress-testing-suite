@@ -188,13 +188,16 @@ If you only need the Luma tests;
 rm -rf cypress/{fixtures,page-objects,integration}/hyva
 ```
 
-Then edit the `cypress.config.js` file in the root of your project to update your baseUrl and possibly some other defaults we've set:
+Then edit the `cypress.config.js` file in the root of your project to update your `baseUrl`, the `projectId` and possibly some other defaults we've set:
 
 ```js
 const baseUrl =
   process.env.NODE_ENV === "develop"
     ? "http://cypress.magento2.localhost"
     : "https://example.com/";
+```
+```js
+    projectId: "8vuidn"
 ```
 
 Also add these lines to your `.gitignore` to avoid cluttering your Git repo;
