@@ -209,6 +209,15 @@ cypress/videos
 cypress.env.json
 ```
 
+### Accessibility test installation
+
+The accessibility test specs use cypress-axe and as such need extra items installed via npm.
+
+```bash
+npm install --save-dev cypress-axe
+npm install --save-dev axe-core
+```
+
 ## Setup
 
 Some tests are dependent on making changes in the database. This is done through the Magento 2 REST API. You will need to create an admin token for these tests. This is easily done using [magerun2](https://github.com/netz98/n98-magerun2).
@@ -297,6 +306,19 @@ CYPRESS_MAGENTO2_SPEC_SUITE=vue npx cypress run
 ```
 
 If you do not want all tests to be run, regardless of the folder names, set `MAGENTO2_SPEC_SUITE` to an empty string.
+
+### Running accessibility tests
+
+Accessibility spec files will not be found by the default spec pattern.
+This was desired as they should be seen as optional.
+
+To run the accessibility tests locally you can update your cypress.env.json to include the following
+
+```json
+{
+    "MAGENTO2_SPEC_PATTERN": "cypress/integration/luma-accessibility/**/*.spec.js"
+}
+```
 
 ## Videos
 

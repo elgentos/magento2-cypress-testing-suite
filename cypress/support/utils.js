@@ -38,3 +38,20 @@ export function shouldHaveErrorMessage(message) {
         .should('exist')
         .should('contain.text', message)
 }
+
+export function printAccessibilityViolations(violations) {
+    cy.task(
+        'axetable',
+        violations.map(({ id, impact, description, nodes }) => ({
+            impact,
+            description: `${description} (${id})`,
+            nodes: nodes.length,
+            html: nodes.map(u => u.html).join(' \n '),
+            id: id
+        })),
+    );
+
+}
+export function checkAccessibility(subject, options, skipFailures = false) {
+    cy.checkA11y(subject, options, printAccessibilityViolations, skipFailures);
+}
