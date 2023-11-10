@@ -180,6 +180,7 @@ If you only need the Hyvä tests:
 
 ```
 rm -rf cypress/{fixtures,page-objects,integration}/luma
+rm -rf cypress/{integration}/luma-accessibility
 ```
 
 If you only need the Luma tests;
