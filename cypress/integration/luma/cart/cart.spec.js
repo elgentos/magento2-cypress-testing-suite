@@ -15,6 +15,8 @@ describe('Isolated test for adding a product to the cart', () => {
 
 describe('Cart tests', () => {
     beforeEach(() => {
+        Cart.emptyCart();
+        cy.wait(3000);
         Cart.addProductToCart(cartLuma.url.product1Url);
         cy.visit(cartLuma.url.cartUrl);
         cy.wait(3000);
