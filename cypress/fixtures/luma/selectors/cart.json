@@ -7,11 +7,13 @@
   "product": {
     "addToCartButton": "#product-addtocart-button",
     "messageToast": "div.message-success",
+    "product1SuccessMessage": "You added Didi Sport Watch to your shopping cart.",
     "productPrice": ".price"
   },
   "cartSummaryTable": ".totals .title",
   "qtyInputField": ".input-text.qty",
   "deleteProductButton": ".cart.item .action.action-delete",
+  "emptyCartText": "You have no items in your shopping cart.",
   "emptyCartTextField": ".cart-empty",
   "couponCode": "H20",
   "couponDropdownSelector": "#block-discount > .title",
