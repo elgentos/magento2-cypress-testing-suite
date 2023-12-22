@@ -7,7 +7,7 @@ describe('Isolated test for adding a product to the cart', () => {
         cy.get(cartLuma.product.messageToast)
             .should(
                 'include.text',
-                'You added Didi Sport Watch to your shopping cart.'
+                cartLuma.product.product1SuccessMessage
             )
             .should('be.visible');
     });
@@ -15,6 +15,8 @@ describe('Isolated test for adding a product to the cart', () => {
 
 describe('Cart tests', () => {
     beforeEach(() => {
+        Cart.emptyCart();
+        cy.wait(3000);
         Cart.addProductToCart(cartLuma.url.product1Url);
         cy.visit(cartLuma.url.cartUrl);
         cy.wait(3000);
@@ -29,7 +31,7 @@ describe('Cart tests', () => {
     it('Can remove a product from the cart', () => {
         cy.get(cartLuma.deleteProductButton).click();
         cy.get(cartLuma.emptyCartTextField)
-            .should('include.text', 'You have no items in your shopping cart.')
+            .should('include.text', cartLuma.emptyCartText)
             .should('be.visible');
     });
 

@@ -21,7 +21,7 @@ export class Cart {
         cy.visit(cart.url.cartUrl)
         cy.wait(3000)
 
-        cy.log('Check of the cart is already empty.')
+        cy.log('Check if the cart is already empty.')
 
         cy.get('body').then((body) => {
             if (body.find(cart.emptyCartTextField).length === 0) {
