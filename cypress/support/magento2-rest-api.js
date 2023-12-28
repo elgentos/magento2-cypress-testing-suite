@@ -21,16 +21,25 @@ export class Magento2RestApi {
     }
 
     static logCustomerIn(customer) {
-        cy.request({
-            method: 'POST',
-            url: '/rest/all/V1/integration/customer/token',
-            body: customer,
-        }).then((response) => {
-            // TODO: do something with the token...
-            cy.log(response.body)
-            console.log(response.body)
-        })
-        // @TODO log customer in through API, set cookie and then continue tests as in account.spec.js
+        cy.getCookie('form_key')
+            .then(async form_key => {
+                const body = {
+                    username: customer.username,
+                    password: customer.password,
+                    form_key,
+                };
+
+                cy.request({
+                    method: 'POST',
+                    url: '/customer/ajax/login',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
+                    },
+                    body,
+                    timeout: 50000
+                });
+            });
     }
 
     static updateProductQty(sku, qty) {
