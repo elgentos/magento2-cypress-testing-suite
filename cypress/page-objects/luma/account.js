@@ -12,7 +12,7 @@ export class Account {
     static isLoggedIn() {
         cy.contains(selectors.myAccountHeaderSelector, 'My Account')
     }
-    
+
     static logout() {
         cy.visit(account.routes.accountIndex);
         cy.get('.base').then(($text) => {
@@ -82,6 +82,32 @@ export class Account {
             cy.get('#zip').type(customerInfo.zip)
             cy.get('#country').select(customerInfo.country)
             cy.contains('Save Address').click()
+        })
+    }
+
+    static deleteAddress() {
+        cy.visit(account.routes.accountAddresses)
+        cy.wait(2000)
+
+        cy.get('.block-addresses-list').then($block => {
+            cy.log($block.find('.empty').length)
+            if ($block.find('.empty').length === 1) {
+                cy.log('No more addresses to remove');
+            } else {
+                // TODO: Replace this with REST API call at some point?
+                cy.get('.additional-addresses a.delete').then(($links) => {
+                    if ($links.length > 0) {
+                        cy.wrap($links.first()).click({force: true});
+                        cy.wait(2000)
+                        cy.get('.modal-content').then(($modal) => {
+                            if ($modal.text().indexOf('Are you sure you want to delete this address?') >= 0) {
+                                cy.get('.action-primary').click()
+                            }
+                            this.deleteAddress(); // calling as long as we have addresses to remove!
+                        })
+                    }
+                })
+            }
         })
     }
 

@@ -10,40 +10,47 @@ import {isMobile} from "../../../support/utils";
 describe('Account test creation', () => {
     it('Can create an account', () => {
         cy.visit(account.routes.accountCreate)
-        Account.createNewCustomer(account.customer.customer.firstname, account.customer.customer.lastname, Date.now() + account.customer.customer.email, account.customer.password)
+        Account.createNewCustomer(
+            account.customer.customer.firstname,
+            account.customer.customer.lastname,
+            Date.now() + account.customer.customer.email, account.customer.password
+        )
         cy.contains('Thank you for registering with Main Website Store.').should('exist')
         cy.wait(2000)
         Account.logout()
     })
 })
 
+describe('Account login/logout', () => {
+    before(() => {
+        Magento2RestApi.createCustomerAccount(account.customer)
+        Account.login(account.customer.customer.email, account.customer.password)
+    })
+
+    // TODO: Create login test without using Account.login ( clicking the "Sign In" in the Header and then doing login.)
+
+    it('Can log out', () => {
+        cy.get('.base').should('contain.text', 'My Account')
+        cy.get(selectorsLuma.accountIcon).click({force: true})
+        cy.get(selectorsLuma.accountMenuItems).contains('Sign Out').click({force: true})
+        cy.get(selectorsLuma.signedOutHeader).should('contain.text', 'You are signed out')
+        cy.wait(2000)
+    })
+})
+
 describe('Account activities', () => {
     beforeEach(() => {
+        Account.login(account.customer.customer.email, account.customer.password)
         cy.wait(2500)
     })
 
     before(() => {
         cy.wait(2500)
         Magento2RestApi.createCustomerAccount(account.customer)
-        Account.login(account.customer.customer.email, account.customer.password)
-        Account.createAddress(account.customerInfo)
-        // We need to logout or the beforeEach will fail
+
         if(isMobile()) {
             cy.wait(2000)
         }
-        cy.wait(2500)
-    })
-
-    after(() => {
-        // Remove the added address
-        cy.wait(4000)
-        Account.login(account.customer.customer.email, account.customer.password)
-        cy.visit('/customer/address')
-        cy.wait(4000)
-        cy.get('.additional-addresses a.delete').eq(0).click({force: true})
-        cy.wait(1000)
-        cy.get('.modal-content').contains('Are you sure you want to delete this address?')
-        cy.get('.action-primary').click()
         cy.wait(2500)
     })
 
@@ -62,9 +69,11 @@ describe('Account activities', () => {
         Account.login(account.customer.customer.email, account.tempCustomerInfo.password)
         cy.visit(account.routes.accountEdit)
         // Change password back to normal
-        cy.get('#change-password').check({force: true})
-        Account.changePassword(account.tempCustomerInfo.password, account.customer.password)
-        cy.contains('You saved the account information.').should('exist')
+        Magento2RestApi.replacePassword(
+            account.customer.customer.email,
+            account.tempCustomerInfo.password,
+            account.customer.password
+        )
     })
 
     it('Can change the profile values', () => {
@@ -103,10 +112,48 @@ describe('Account activities', () => {
         })
     })
 
-    it('Can add an address', () => {
-        cy.visit(account.routes.accountAddAddress)
-        Account.createAddress(account.customerInfo)
+    it('Can change the newsletter subscription', () => {
+        Account.login(account.customer.customer.email, account.customer.password)
+        cy.visit(account.routes.manageNewsletter)
+        cy.contains('General Subscription')
+        cy.get('#subscription').should('be.checked')
+    })
+
+    it('Can add a product the a wishlist', () => {
+        cy.visit(product.simpleProductUrl)
         cy.wait(2000)
+        cy.get(selectorsLuma.addToWishlistButton).eq(0).click({force: true})
+        cy.get(selectorsLuma.wishlistTitle).should('contain.text', 'My Wish List').should('exist')
+        cy.visit(account.routes.wishlist).then(() => {
+            cy.get('.toolbar-number').should('exist')
+            cy.contains(product.simpleProductName).should('exist')
+        })
+    })
+
+
+})
+
+describe('Account Address Activities', () => {
+    beforeEach(() => {
+        Account.login(account.customer.customer.email, account.customer.password)
+        cy.wait(1500)
+    })
+
+    before(() => {
+        Magento2RestApi.createCustomerAccount(account.customer)
+        if(isMobile()) {
+            cy.wait(2000)
+        }
+        cy.wait(2500)
+    })
+
+    after(() => {
+        cy.wait(4000)
+        Account.login(account.customer.customer.email, account.customer.password)
+        Account.deleteAddress()
+    })
+
+    it('Can add an address', () => {
         cy.contains(selectorsLuma.addNewAddressButton, 'Add New Address').click()
         cy.get(selectorsLuma.newAddressStreetInput).type(account.customerInfo.streetAddress)
         cy.get(selectorsLuma.newAddressCityInput).type(account.customerInfo.city)
@@ -114,12 +161,18 @@ describe('Account activities', () => {
         cy.get(selectorsLuma.newAddressZipcodeInput).type(account.customerInfo.zip)
         cy.get(selectorsLuma.newAddressCountryInput).select(account.customerInfo.country)
         cy.contains('Save Address').click()
+
+        cy.get('.messages')
+            .should('contain.text', 'You saved the address')
     })
 
     it('Can change an address', () => {
-        const timeStamp = Date.now().toString()
+        // TODO: Don't go directly to Addresses page, go to /customer/account/index and click on "Manage Addresses"
+
         cy.visit(account.routes.accountAddresses)
         cy.get(selectorsLuma.editAddress).first().click()
+
+        const timeStamp = Date.now().toString()
         cy.get(selectorsLuma.addressEditStreetInput).eq(0).type(timeStamp)
         cy.get(selectorsLuma.saveAddressButton).contains('Save Address').click()
         cy.contains('You saved the address.').should('exist')
@@ -149,31 +202,6 @@ describe('Account activities', () => {
         cy.contains('.modal-content', 'Are you sure you want to delete this address?')
         cy.get('.action-primary').click()
         cy.contains('You deleted the address.').should('exist')
-    })
-
-    it('Can change the newsletter subscription', () => {
-        Account.login(account.customer.customer.email, account.customer.password)
-        cy.visit(account.routes.manageNewsletter)
-        cy.contains('General Subscription')
-        cy.get('#subscription').should('be.checked')
-    })
-
-    it('Can add a product the a wishlist', () => {
-        cy.visit(product.simpleProductUrl)
-        cy.wait(2000)
-        cy.get(selectorsLuma.addToWishlistButton).eq(0).click({force: true})
-        cy.get(selectorsLuma.wishlistTitle).should('contain.text', 'My Wish List').should('exist')
-        cy.visit(account.routes.wishlist).then(() => {
-            cy.get('.toolbar-number').should('exist')
-            cy.contains(product.simpleProductName).should('exist')
-        })
-    })
-
-    it('Can log out', () => {
-        cy.get(selectorsLuma.accountIcon).click({force: true})
-        cy.get(selectorsLuma.accountMenuItems).contains('Sign Out').click({force: true})
-        cy.get(selectorsLuma.signedOutHeader).should('contain.text', 'You are signed out')
-        cy.wait(2000)
     })
 })
 
