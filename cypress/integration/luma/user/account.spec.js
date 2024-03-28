@@ -19,7 +19,7 @@ describe('Account test creation', () => {
 
 describe('Account activities', () => {
     beforeEach(() => {
-        Account.login(account.customer.customer.email, account.customer.password)
+        cy.wait(2500)
     })
 
     before(() => {
@@ -27,7 +27,11 @@ describe('Account activities', () => {
         Magento2RestApi.createCustomerAccount(account.customer)
         Account.login(account.customer.customer.email, account.customer.password)
         Account.createAddress(account.customerInfo)
-        Account.logout()
+        // We need to logout or the beforeEach will fail
+        if(isMobile()) {
+            cy.wait(2000)
+        }
+        cy.wait(2500)
     })
 
     after(() => {
@@ -136,6 +140,7 @@ describe('Account activities', () => {
     })
 
     it('Can remove an address', () => {
+        Account.login(account.customer.customer.email, account.customer.password)
         Account.createAddress(account.customerInfo)
         cy.visit(account.routes.accountAddresses)
         cy.wait(4000)
@@ -147,6 +152,7 @@ describe('Account activities', () => {
     })
 
     it('Can change the newsletter subscription', () => {
+        Account.login(account.customer.customer.email, account.customer.password)
         cy.visit(account.routes.manageNewsletter)
         cy.contains('General Subscription')
         cy.get('#subscription').should('be.checked')
