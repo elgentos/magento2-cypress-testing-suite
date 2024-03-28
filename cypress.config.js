@@ -3,7 +3,7 @@ const {tagify} = require('cypress-tags');
 const fs = require('fs');
 const envConfig = fs.existsSync('./cypress.env.json') ? require('./cypress.env.json') : {};
 
-// Run "NODE_ENV=develop; npx cypress run" to run tests locally
+// Run "NODE_ENV=develop npx cypress run" to run tests locally
 const defaultBaseUrl = process.env.NODE_ENV === 'develop' ? 'http://cypress.magento2.localhost' : 'https://example.com/';
 
 // Sometimes our local envs are slow due to dev mode. Raising the timeout decreases flakiness
