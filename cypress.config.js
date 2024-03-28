@@ -56,6 +56,15 @@ module.exports = defineConfig({
 
             on('file:preprocessor', tagify(config))
 
+            on('task', {
+                axetable(message) {
+                    console.table(message, ['impact', 'description', 'nodes'] );
+                    console.log("Details")
+                    console.log(message.map(m => `"${m.id}:" \n ${m.html}`).join('\n\n'));
+                    return null;
+                },
+            });
+
             const applySpecSuiteToSpecPattern = (config) => {
                 // If the specSuite is an empty string, add a trailing / to $SPEC_SUITE to avoid // in the pattern
                 const regex = config.specSuite === '' ? /\$SPEC_SUITE\//g : /\$SPEC_SUITE/g;

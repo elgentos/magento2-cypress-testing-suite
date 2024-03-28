@@ -180,6 +180,7 @@ If you only need the Hyvä tests:
 
 ```
 rm -rf cypress/{fixtures,page-objects,integration}/luma
+rm -rf cypress/{integration}/luma-accessibility
 ```
 
 If you only need the Luma tests;
@@ -188,13 +189,16 @@ If you only need the Luma tests;
 rm -rf cypress/{fixtures,page-objects,integration}/hyva
 ```
 
-Then edit the `cypress.config.js` file in the root of your project to update your baseUrl and possibly some other defaults we've set:
+Then edit the `cypress.config.js` file in the root of your project to update your `baseUrl`, the `projectId` and possibly some other defaults we've set:
 
 ```js
 const baseUrl =
   process.env.NODE_ENV === "develop"
     ? "http://cypress.magento2.localhost"
     : "https://example.com/";
+```
+```js
+    projectId: "8vuidn"
 ```
 
 Also add these lines to your `.gitignore` to avoid cluttering your Git repo;
@@ -204,6 +208,15 @@ node_modules
 cypress/screenshots
 cypress/videos
 cypress.env.json
+```
+
+### Accessibility test installation
+
+The accessibility test specs use cypress-axe and as such need extra items installed via npm.
+
+```bash
+npm install --save-dev cypress-axe
+npm install --save-dev axe-core
 ```
 
 ## Setup
@@ -294,6 +307,19 @@ CYPRESS_MAGENTO2_SPEC_SUITE=vue npx cypress run
 ```
 
 If you do not want all tests to be run, regardless of the folder names, set `MAGENTO2_SPEC_SUITE` to an empty string.
+
+### Running accessibility tests
+
+Accessibility spec files will not be found by the default spec pattern.
+This was desired as they should be seen as optional.
+
+To run the accessibility tests locally you can update your cypress.env.json to include the following
+
+```json
+{
+    "MAGENTO2_SPEC_PATTERN": "cypress/integration/luma-accessibility/**/*.spec.js"
+}
+```
 
 ## Videos
 
