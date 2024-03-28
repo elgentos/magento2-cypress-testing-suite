@@ -1,9 +1,9 @@
 {
   "devDependencies": {
     "axe-core": "^4.8.2",
-    "cypress": "^12.2.0",
+    "cypress": "^13.7.0",
     "cypress-axe": "^1.5.0",
-    "cypress-localstorage-commands": "^2.2.2",
+    "cypress-localstorage-commands": "^2.2.5",
     "cypress-tags": "^1.1.2",
     "typescript": "^4.8.3"
   }
